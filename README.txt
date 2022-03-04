@@ -1,14 +1,23 @@
-SA-MP Streamer Plugin
-=====================
+Grand Theft Auto San Andreas Multiplayer Сървър - INTENSE
+(copyright) Daniel - sTrIx
 
-This plugin streams objects, pickups, checkpoints, race checkpoints, map icons, 3D text labels, and actors at user-defined server ticks. Basic area detection is also included. Because it is written entirely in C++, much of the overhead from PAWN is avoided. This streamer, as a result, is quite a bit faster than any other implementation currently available in PAWN.
+За Windows:
+1. За да пуснете сървъра, натиснете samp-server.cfg
+2. Всеки plugin трябва да завършва без .so
 
-Documentation
--------------
+За Linux:
+1. Изтеглете си папката за линукс от www.samp.com и преместете файловете от изтеглената линукс папка
+към моята, която съм предоставил с гейммод
+2. В server.cfg сложете в края на всеки plugin да има .so
 
-Documentation can  be found on the wiki (https://github.com/samp-incognito/samp-streamer-plugin/wiki).
+Обща информация:
+1. За да промените нещо по конфигурацията на сървъра, използвайте server.cfg
+2. За да правите промени по гейммода, отворете pawn.exe от папка pawn и цъкнете над избран от вас гейммод.
+Сървърите се компилират, което означава, че ще ви е лесно да намирате грешките
+3. Език на писане - Pawn (подобен на C синтаксис, език без твърде сложни елементи, като вектори и т.н.)
 
-Download
---------
+За гейммода:
+Модовете са GangWars-RP насочени, което означава, че играта се развива в битка между бандите по реалистичен геймплей.
 
-The latest binaries for Windows and Linux can be found on the releases page (https://github.com/samp-incognito/samp-streamer-plugin/releases).
+За връзка с мен:
+Skype: didko.bg@abv.bg
