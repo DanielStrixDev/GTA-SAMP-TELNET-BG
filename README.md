@@ -6,8 +6,6 @@
     Join the ultimate SA:MP experience and immerse yourself in a world of endless possibilities!
     <br/>
     <br/>
-    <a href="https://github.com/STRIXBG/ GTA-SAMP-TELNET-BG"><strong>Explore the docs »</strong></a>
-    <br/>
     <br/>
   </p>
 </p>
