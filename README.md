@@ -1,9 +1,5 @@
 <br/>
 <p align="center">
-  <a href="https://github.com/STRIXBG/ GTA-SAMP-TELNET-BG">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
-  </a>
-
   <h3 align="center">GTA SAMP Bulgarian Gamemode</h3>
 
   <p align="center">
