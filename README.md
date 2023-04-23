@@ -9,10 +9,6 @@
     <a href="https://github.com/STRIXBG/ GTA-SAMP-TELNET-BG"><strong>Explore the docs »</strong></a>
     <br/>
     <br/>
-    <a href="https://github.com/STRIXBG/ GTA-SAMP-TELNET-BG">View Demo</a>
-    .
-    <a href="https://github.com/STRIXBG/ GTA-SAMP-TELNET-BG/issues">Report Bug</a>
-    .
   </p>
 </p>
 
