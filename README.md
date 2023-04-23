@@ -16,8 +16,6 @@
   </p>
 </p>
 
-![Downloads](https://img.shields.io/github/downloads/STRIXBG/ GTA-SAMP-TELNET-BG/total) ![Contributors](https://img.shields.io/github/contributors/STRIXBG/ GTA-SAMP-TELNET-BG?color=dark-green) ![Stargazers](https://img.shields.io/github/stars/STRIXBG/ GTA-SAMP-TELNET-BG?style=social) ![Issues](https://img.shields.io/github/issues/STRIXBG/ GTA-SAMP-TELNET-BG) ![License](https://img.shields.io/github/license/STRIXBG/ GTA-SAMP-TELNET-BG) 
-
 ## Table Of Contents
 
 * [About the Project](#about-the-project)
