@@ -37,6 +37,12 @@ EN: Add .so to every plugin in server.cfg
 
 BG: Добавете .so към всеки плъгин в server.cfg
 
+### Source Code
+
+EN: Source code is located in the gamemodes folder (telnet0.9.pwn, telnet1.4.pwn, telnet1.5.pwn)
+
+BG: Сорс кодът се намира в папката gamemodes (telnet0.9.pwn, telnet1.4.pwn, telnet1.5.pwn)
+
 ## Authors
 - [@STRIXBG](https://www.github.com/STRIXBG)
 
