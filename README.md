@@ -16,10 +16,6 @@ __________________________________
 - Police System
 - Private vehicles
 
-
-## Authors
-- [@STRIXBG](https://www.github.com/STRIXBG)
-
 ## Installation
 
 ### For windows (xp-11)
@@ -40,3 +36,7 @@ BG:
 EN: Add .so to every plugin in server.cfg
 
 BG: Добавете .so към всеки плъгин в server.cfg
+
+## Authors
+- [@STRIXBG](https://www.github.com/STRIXBG)
+
