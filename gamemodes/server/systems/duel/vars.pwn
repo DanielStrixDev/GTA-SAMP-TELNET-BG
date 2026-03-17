@@ -1,0 +1,12 @@
+new Float: prediduelarmour[MAX_PLAYERS] = 0.0;
+new Float:prediduelX[MAX_PLAYERS];
+new Float:prediduelY[MAX_PLAYERS];
+new Float:prediduelZ[MAX_PLAYERS];
+new playerInDuel[MAX_PLAYERS] = 0;
+new duelprotivnik[MAX_PLAYERS] = -1;
+new duelzalog[MAX_PLAYERS] = 0;
+new prediduelinterior[MAX_PLAYERS];
+new prediduelvw[MAX_PLAYERS];
+new Float: prediduelhealth[MAX_PLAYERS] = 0.0;
+new duelsender[MAX_PLAYERS] = -1;
+new duelsend[MAX_PLAYERS] = -1;

@@ -1,0 +1,12 @@
+forward RemoveHousePick(playerid);
+forward RemoveBizPick(playerid);
+forward GeneralTimer500ms();
+forward GeneralTimer1s();
+forward ReSpawnTimer(playerid);
+forward CorDetector(Float:radi, playerid, targetid);
+forward ProxDetector(Float:radi, playerid, string[], col1, col2, col3, col4, col5);
+forward Float:GetXYInFrontOfPlayer(playerid, & Float:q, & Float:w, Float:distance);
+forward Float:GetXYBehindPlayer(playerid, & Float:q, & Float:w, Float:distance);
+forward BanExPublic(playerid, reason[]);
+forward IsPlayerInTurf(playerid, Float:min_x, Float:min_y, Float:max_x, Float:max_y);
+forward IsPlayerInAttackedTurf(playerid);
