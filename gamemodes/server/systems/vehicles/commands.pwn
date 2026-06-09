@@ -401,7 +401,7 @@ CMD:eoff(playerid, params[])
     }
     format(string, 256, "* Ти изключи двигателят на превозното средство *");
     SendClientMessage(playerid, 0x9ACD32FF, string);
-    ToggleEngine(vehicleid, VEHICLE_PARAMS_OFF);
+    VehicleToggleEngine(vehicleid, VEHICLE_PARAMS_OFF);
     return 1;
 }
 CMD:eon(playerid, params[])
@@ -533,7 +533,7 @@ CMD:eon(playerid, params[])
     }
     format(string, 256, "* Ти включи двигателят на превозното средство *");
     SendClientMessage(playerid, 0x9ACD32FF, string);
-    ToggleEngine(vehicleid, VEHICLE_PARAMS_ON);
+    VehicleToggleEngine(vehicleid, VEHICLE_PARAMS_ON);
     return 1;
 }
 CMD:alarmoff(playerid, params[])

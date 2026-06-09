@@ -199,7 +199,7 @@ stock CheckPlayerForBlock(playerid)
 * Gets player IP from DB
 */
 
-stock GetIP(nickname[])
+stock GetPlayerIP(nickname[])
 {
     new ip[115];
     new Cache: resultCache;

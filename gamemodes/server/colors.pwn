@@ -6,6 +6,7 @@
 #define COLOR_BL1             0x0066FFFF
 #define COLOR_RED             0xE60000FF
 #define COLOR_DBLUE           0x2641FEFF
+#define COLOR_WHITE           0xFFFFFFFF
 
 /*
 * SYSTEMS

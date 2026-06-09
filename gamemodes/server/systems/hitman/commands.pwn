@@ -65,7 +65,7 @@ CMD:hitman(playerid, params[])
     GivePlayerCash(playerid, -amount);
 
     // Send notifications
-    new string256[256];
+    //new string256[256];
     format(string256, sizeof(string256), "Hitman: %s заложи $%d за главата на %s", GetPlayerNickname(playerid), amount, GetPlayerNickname(targetid));
     SendClientMessageToAll(0xA4A400FF, string256);
     

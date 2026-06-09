@@ -39,7 +39,7 @@ CMD:nfwarn(playerid, params[])
 
         PlayerInfo[foundPlayer][pFWarns]++;
 
-        new string256[256];
+        //new string256[256];
         format(string256, sizeof(string256), "[FACTION CHAT] %s was FACTION warned by %s [%d/5]",
                GetPlayerNickname(foundPlayer), GetPlayerNickname(playerid), PlayerInfo[foundPlayer][pFWarns]);
 
@@ -66,7 +66,7 @@ CMD:nfwarn(playerid, params[])
 
         offlinePlayerWarns++;
 
-        new string256[256];
+        //new string256[256];
         format(string256, sizeof(string256), "[FACTION CHAT] %s was FACTION warned by %s [%d/5]",
                nickname, GetPlayerNickname(playerid), offlinePlayerWarns);
 
@@ -137,7 +137,7 @@ CMD:nuninvite(playerid, params[])
         if (PlayerInfo[foundPlayer][pTeam] != PlayerInfo[playerid][pTeam])
             return SendClientMessage(playerid, 0xB4B5B7FF, "Този играч не е от твоята банда/мафия!");
 
-        new string256[256];
+        //new string256[256];
         format(string256, sizeof(string256), "[FACTION CHAT] %s изгони %s от %s!",
                GetPlayerNickname(playerid), GetPlayerNickname(foundPlayer), TeamInfo[PlayerInfo[playerid][pTeam]][tName]);
 
@@ -157,7 +157,7 @@ CMD:nuninvite(playerid, params[])
         if (offlinePlayerGang != PlayerInfo[playerid][pTeam])
             return SendClientMessage(playerid, 0xB4B5B7FF, "Този играч не е от твоята банда/мафия!");
 
-        new string256[256];
+        //new string256[256];
         format(string256, sizeof(string256), "[FACTION CHAT] %s изгони %s от %s!",
                GetPlayerNickname(playerid), nickname, TeamInfo[PlayerInfo[playerid][pTeam]][tName]);
 
@@ -216,7 +216,7 @@ CMD:uninvite(playerid, params[])
 
     if (PlayerInfo[targetid][pTeam] == PlayerInfo[playerid][pTeam])
     {
-        new string256[256];
+        //new string256[256];
         format(string256, sizeof(string256), "[FACTION CHAT] %s изгони %s от %s!", GetPlayerNickname(playerid), GetPlayerNickname(targetid), TeamInfo[PlayerInfo[playerid][pTeam]][tName]);
 
         for (new i = 0; i < MAX_PLAYERS; i++)
@@ -849,7 +849,7 @@ CMD:setrankname(playerid, params[])
     }
 
     new faction = PlayerInfo[playerid][pTeam];
-    new string256[256];
+    //new string256[256];
 
     switch (rankid)
     {
@@ -1001,7 +1001,7 @@ CMD:setrank(playerid, params[])
     PlayerInfo[targetid][pRank] = level2;
 
     // Send messages
-    new string256[256];
+    //new string256[256];
     format(string256, sizeof(string256), "%s промени твоят ранк на %s(%d)", GetPlayerNickname(playerid), ranktext, level2);
     SendClientMessage(targetid, 0x33CCFFFF, string256);
 
@@ -1536,7 +1536,7 @@ CMD:funmute(playerid, params[])
 
     PlayerInfo[targetid][pFMuted] = 0;
 
-    new string256[256];
+    //new string256[256];
     format(string256, sizeof(string256), "[FACTION CHAT] %s was FACTION unmuted by %s", GetPlayerNickname(targetid), GetPlayerNickname(playerid));
 
     for (new i = 0; i < MAX_PLAYERS; i++)
@@ -1587,7 +1587,7 @@ CMD:ftmute(playerid, params[])
 
     PlayerInfo[targetid][pFMuted] = timeMinutes;
 
-    new string256[256];
+    //new string256[256];
     format(string256, sizeof(string256), "[FACTION CHAT] %s was FACTION muted by %s for %d minutes. [Reason: %s]", GetPlayerNickname(targetid), GetPlayerNickname(playerid), timeMinutes, reason);
 
     new playerTeam = PlayerInfo[playerid][pTeam];
@@ -1635,7 +1635,7 @@ CMD:fmute(playerid, params[])
     PlayerInfo[targetid][pFMuted] = 1000000;
 
     // Send notification to all faction members
-    new string256[256];
+    //new string256[256];
     format(string256, sizeof(string256), "[FACTION CHAT] %s was FACTION muted by %s [Reason: %s]", GetPlayerNickname(targetid), GetPlayerNickname(playerid), reason);
 
     for (new i = 0; i < MAX_PLAYERS; i++)
@@ -1894,7 +1894,7 @@ CMD:leaders(playerid, params[])
 {
     new onlineleaders2 = 0;
     new leadersText[1500]; // Holds the formatted text for the dialog
-    new string256[256];
+    //new string256[256];
 
     // Count online leaders
     for (new i = 0; i < MAX_PLAYERS; i++)
@@ -2009,13 +2009,13 @@ CMD:nunfwarn(playerid, params[])
         }
     }
 
-    format(string, sizeof(string), "[FACTION CHAT] %s was FACTION unwarned by %s", targetName, GetPlayerNickname(playerid));
+    format(string256, sizeof(string256), "[FACTION CHAT] %s was FACTION unwarned by %s", targetName, GetPlayerNickname(playerid));
 
     for (new i = 0; i < MAX_PLAYERS; i++)
     {
         if (IsPlayerConnected(i) && PlayerInfo[i][pTeam] == PlayerInfo[playerid][pTeam])
         {
-            SendClientMessage(i, 0x33CCFFFF, string);
+            SendClientMessage(i, 0x33CCFFFF, string256);
         }
     }
 
@@ -2083,14 +2083,14 @@ CMD:nftmute(playerid, params[])
         UpdatePlayerDatabaseINT("f_mute", muteTime * 60, targetName);
     }
 
-    format(string, sizeof(string), "[FACTION CHAT] %s was FACTION muted by %s for %d minutes.",
+    format(string256, sizeof(string256), "[FACTION CHAT] %s was FACTION muted by %s for %d minutes.",
            targetName, GetPlayerNickname(playerid), muteTime);
 
     for (new i = 0; i < MAX_PLAYERS; i++)
     {
         if (IsPlayerConnected(i) && PlayerInfo[i][pTeam] == PlayerInfo[playerid][pTeam])
         {
-            SendClientMessage(i, 0x33CCFFFF, string);
+            SendClientMessage(i, 0x33CCFFFF, string256);
         }
     }
 
@@ -2152,14 +2152,14 @@ CMD:nfmute(playerid, params[])
         UpdatePlayerDatabaseINT("f_muted", 1000000, targetName);
     }
 
-    format(string, sizeof(string), "[FACTION CHAT] %s was FACTION muted by %s",
+    format(string256, sizeof(string256), "[FACTION CHAT] %s was FACTION muted by %s",
            targetName, GetPlayerNickname(playerid));
 
     for (new i = 0; i < MAX_PLAYERS; i++)
     {
         if (IsPlayerConnected(i) && PlayerInfo[i][pTeam] == PlayerInfo[playerid][pTeam])
         {
-            SendClientMessage(i, 0x33CCFFFF, string);
+            SendClientMessage(i, 0x33CCFFFF, string256);
         }
     }
 
@@ -2495,7 +2495,7 @@ CMD:deltaforce(playerid, params[])
     PlayerInfo[targetid][pSpecialForce] = 0;
     PlayerInfo[targetid][pDeltaForce] = 1;
     
-    new string256[256];
+    //new string256[256];
     format(string256, sizeof(string256), "[FACTION CHAT] %s добави %s към Delta Force членовете на Intense Police Department!", GetPlayerNickname(playerid), GetPlayerNickname(targetid));
     
     for (new i = 0; i < MAX_PLAYERS; i++)
@@ -2536,7 +2536,7 @@ CMD:specialforce(playerid, params[])
     PlayerInfo[targetid][pDeltaForce] = 0;
     PlayerInfo[targetid][pSpecialForce] = 1;
     
-    new string256[256];
+    //new string256[256];
     format(string256, sizeof(string256), "[FACTION CHAT] %s добави %s към SWAT членовете на Intense Police Department!", GetPlayerNickname(playerid), GetPlayerNickname(targetid));
     
     for (new i = 0; i < MAX_PLAYERS; i++)
@@ -2574,7 +2574,7 @@ CMD:unspecialforce(playerid, params[])
     PlayerInfo[targetid][pSpecialForce] = 0;
     PlayerInfo[targetid][pIPDDuty] = 0;
     
-    new string256[256];
+    //new string256[256];
     format(string256, sizeof(string256), "%s премахна %s от SWAT членовете на Intense Police Department!", GetPlayerNickname(playerid), GetPlayerNickname(targetid));
     
     for (new i = 0; i < MAX_PLAYERS; i++)
@@ -2612,7 +2612,7 @@ CMD:undeltaforce(playerid, params[])
     PlayerInfo[targetid][pDeltaForce] = 0;
     PlayerInfo[targetid][pIPDDuty] = 0;
     
-    new string256[256];
+    //new string256[256];
     format(string256, sizeof(string256), "%s премахна %s от Delta Force членовете на Intense Police Department!", GetPlayerNickname(playerid), GetPlayerNickname(targetid));
     
     for (new i = 0; i < MAX_PLAYERS; i++)

@@ -36,7 +36,7 @@ CMD:cb(playerid, params[])
 
     cbchat[playerid] = channel;
 
-    new string256[256];
+    //new string256[256];
     format(string256, sizeof(string256), "CB Channel: Ти си смени твоя CB Channel на %d.", channel);
     SendClientMessage(playerid, 0xFF9933FF, string256);
 

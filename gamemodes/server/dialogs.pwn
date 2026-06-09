@@ -742,12 +742,12 @@ new Cache:
             if (strval(inputtext) <= 0) return SendClientMessage(playerid, 0xB4B5B7FF, "Сумата трябва да е по-голяма от $0!");
             if (strval(inputtext) > 1000000) return SendClientMessage(playerid, 0xB4B5B7FF, "Сумата трябва да е по-малка от $1000000!");
             if (PlayerInfo[playerid][pCash] < strval(inputtext)) return SendClientMessage(playerid, 0xB4B5B7FF, "Ти нямаш толкова пари в себе си!");
-            new string[256];
+            new stringBank[256];
             GivePlayerCash(playerid, -strval(inputtext));
             PlayerInfo[playerid][pAccount] += strval(inputtext);
             //ApplyAnimation(playerid, "PED", "ATM", 3.0,1,1,0,0,0);
-            format(string, sizeof(string), "Вие успешно внесохте {40BF00}$%d {FFFFFF}във вашата обща сума", strval(inputtext));
-            SendClientMessage(playerid, 0xFFFFFFFF, string);
+            format(stringBank, sizeof(stringBank), "Вие успешно внесохте {40BF00}$%d {FFFFFF}във вашата обща сума", strval(inputtext));
+            SendClientMessage(playerid, 0xFFFFFFFF, stringBank);
         }
         else ShowPlayerDialog(playerid, 19, DIALOG_STYLE_LIST, "Банка", "Обща сума\nИзтегли пари\nВнеси пари", "Избери", "Затвори");
     }

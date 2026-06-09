@@ -29,7 +29,7 @@ CMD:changepass(playerid, params[])
 
     SavePlayerPassword(playerid, params);
 
-    new string256[256];
+    //new string256[256];
     format(string256, sizeof(string256), "SERVER: Ти промени твоята парола на {FFFF00}%s", params);
     SendClientMessage(playerid, 0xFFFFFFFF, string256);
     return CMD_SUCCESS;
@@ -145,7 +145,7 @@ CMD:leavefaction(playerid, params[])
 
     if (PlayerInfo[playerid][pRank] == 6)
     {
-        new string256[256];
+        //new string256[256];
         format(string256, sizeof(string256), "%s махна неговото лидерство!", GetPlayerNickname(playerid));
 
         // Send to all faction members
@@ -160,7 +160,7 @@ CMD:leavefaction(playerid, params[])
 
     PlayerInfo[playerid][pIPDDuty] = 0;
 
-    new string256[256];
+    //new string256[256];
     format(string256, sizeof(string256), "[FACTION CHAT] %s напусна бандата/мафията по негово желание!", GetPlayerNickname(playerid));
 
     // Send to all faction members
@@ -226,7 +226,7 @@ CMD:transfer(playerid, params[])
     PlayerInfo[targetid][pAccount] += amount;
 
     // Send confirmation messages
-    new string256[256];
+    //new string256[256];
     format(string256, sizeof(string256), "%s изпрати пари в твоята обща сума на стойност $%d.", GetPlayerNickname(playerid), amount);
     SendClientMessage(targetid, 0xFFFF00FF, string256);
 
@@ -318,7 +318,7 @@ CMD:buyws(playerid, params[])
         return CMD_SUCCESS;
     }
 
-    new string256[256];
+    //new string256[256];
     new currentWS = PlayerInfo[playerid][pWeaponS];
     new requiredEP = 0;
 
@@ -389,7 +389,7 @@ CMD:buyes(playerid, params[])
         return CMD_SUCCESS;
     }
 
-    new string256[256];
+    //new string256[256];
 
     // Check if player has reached maximum EP Skill
     if (PlayerInfo[playerid][pEPS] >= 200)
@@ -453,7 +453,7 @@ CMD:buyms(playerid, params[])
         return CMD_SUCCESS;
     }
 
-    new string256[256];
+    //new string256[256];
 
     // Check if player has reached maximum Money Skill
     if (PlayerInfo[playerid][pMS] >= 200)
@@ -1112,7 +1112,7 @@ CMD:epay(playerid, params[])
         GivePlayerCash(playerid, -150);
         SendClientMessage(playerid, 0x808000FF, "Сега ще можеш да ползваш Tow Truck-a докато не излезеш от него. Използвай /tow за да закачаш или откачаш коли!");
         SendClientMessage(playerid, 0x9ACD32FF, "* Ти включи двигателят на превозното средство *");
-        ToggleEngine(vehicleid, VEHICLE_PARAMS_ON);
+        VehicleToggleEngine(vehicleid, VEHICLE_PARAMS_ON);
         return 1;
     }
     return 1;

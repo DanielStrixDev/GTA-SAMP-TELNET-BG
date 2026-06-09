@@ -276,7 +276,7 @@ CMD:isjailed(playerid, params[])
             jailreason = "Неизвестна причина";
     }
 
-    new string256[256];
+    //new string256[256];
     format(string256, sizeof(string256), "Този играч е в затвора и причината е - %s!", jailreason);
     SendClientMessage(playerid, 0xE60000FF, string256);
 
@@ -1168,7 +1168,7 @@ CMD:mute(playerid, params[])
         return CMD_SUCCESS;
     }
 
-    new string256[256];
+    //new string256[256];
     switch (option)
     {
         case 1: // Спам
@@ -1232,7 +1232,7 @@ CMD:mute2(playerid, params[])
     PlayerInfo[targetid][pADMINMute] = 1;
     format(PlayerInfo[targetid][pReasonMute], 256, "%s", reason);
 
-    new string256[256];
+    //new string256[256];
     format(string256, sizeof(string256), "ADMIN: %s was ADMIN muted by %s [Reason: %s]", GetPlayerNickname(targetid), GetPlayerNickname(playerid), reason);
     SendClientMessageToAll(0xE60000FF, string256);
 
@@ -1262,7 +1262,7 @@ CMD:unwarn(playerid, params[])
 
     PlayerInfo[targetid][pWarns] -= 1;
 
-    new string256[256];
+    //new string256[256];
     format(string256, sizeof(string256), "ADMIN: %s премахна едно от предупрежденията на %s [%d/5] [Reason: %s]", GetPlayerNickname(playerid), GetPlayerNickname(targetid), PlayerInfo[targetid][pWarns], reason);
     SendClientMessageToAll(0x00E600FF, string256);
 
@@ -1304,7 +1304,7 @@ CMD:unawarn(playerid, params[])
 
     PlayerInfo[targetid][pAWarns] -= 1;
 
-    new string256[256];
+    //new string256[256];
     format(string256, sizeof(string256), "ADMIN: %s премахна едно от админ предупрежденията на %s [%d/5] [Reason: %s]",
            GetPlayerNickname(playerid), GetPlayerNickname(targetid), PlayerInfo[targetid][pAWarns], reason);
     SendClientMessageToAll(0x00E600FF, string256);
@@ -1341,7 +1341,7 @@ CMD:awarn(playerid, params[])
 
     PlayerInfo[targetid][pAWarns] += 1;
 
-    new string256[256];
+    //new string256[256];
     format(string256, sizeof(string256), "ADMIN: %s сложи админ предупреждение на %s [%d/5] [Reason: %s]",
            GetPlayerNickname(playerid), GetPlayerNickname(targetid), PlayerInfo[targetid][pAWarns], reason);
     SendClientMessageToAll(0xE60000FF, string256);
@@ -1415,7 +1415,7 @@ CMD:nunwarn(playerid, params[])
 
             PlayerInfo[i][pWarns] -= 1;
 
-            new string256[256];
+            //new string256[256];
             format(string256, sizeof(string256), "ADMIN: %s премахна едно от предупрежденията на %s [%d/5] [Reason: %s]",
                    GetPlayerNickname(playerid), nickname, PlayerInfo[i][pWarns], reason);
             SendClientMessageToAll(0x00E600FF, string256);
@@ -1434,7 +1434,7 @@ CMD:nunwarn(playerid, params[])
     warns -= 1;
     UpdatePlayerDatabaseINT("warns", warns, nickname);
 
-    new string256[256];
+    //new string256[256];
     format(string256, sizeof(string256), "ADMIN: %s премахна едно от предупрежденията на %s [%d/5] [Reason: %s]",
            GetPlayerNickname(playerid), nickname, warns, reason);
     SendClientMessageToAll(0x00E600FF, string256);
@@ -1466,7 +1466,7 @@ CMD:warn(playerid, params[])
 
     PlayerInfo[targetid][pWarns] += 1;
 
-    new string256[256];
+    //new string256[256];
     format(string256, sizeof(string256), "ADMIN: %s сложи предупреждение на %s [%d/5] [Reason: %s]", GetPlayerNickname(playerid), GetPlayerNickname(targetid), PlayerInfo[targetid][pWarns], reason);
     SendClientMessageToAll(0xE60000FF, string256);
 
@@ -1503,7 +1503,7 @@ CMD:acuff(playerid, params[])
     SetPlayerAttachedObject(targetid, 1, 19418, 6, -0.011000, 0.028000, -0.022000, -15.600012, -33.699977, -81.700035, 0.891999, 1.000000, 1.168000);
     SetPlayerSpecialAction(targetid, SPECIAL_ACTION_CUFFED);
 
-    new string256[256];
+    //new string256[256];
     format(string256, sizeof(string256), "ADMIN: %s ти сложи белезници на ръцете.", GetPlayerNickname(playerid));
     SendClientMessage(targetid, 0xFFFFFFFF, string256);
 
@@ -1535,7 +1535,7 @@ CMD:auncuff(playerid, params[])
     acuffed[targetid] = 0;
     SetPlayerSpecialAction(targetid, SPECIAL_ACTION_NONE);
 
-    new string256[256];
+    //new string256[256];
     format(string256, sizeof(string256), "ADMIN: %s премахна твоите белезници от ръцете.", GetPlayerNickname(playerid));
     SendClientMessage(targetid, 0xFFFFFFFF, string256);
 
@@ -1588,7 +1588,7 @@ CMD:tgoto(playerid, params[])
     if (!IsPlayerConnected(targetid))
         return SendClientMessage(playerid, 0xB4B5B7FF, "Посоченото ID не е в сървъра!");
 
-    new string256[256];
+    //new string256[256];
     if (PlayerInfo[targetid][pTGoto] == 0)
     {
         PlayerInfo[targetid][pTGoto] = 1;
@@ -1623,7 +1623,7 @@ CMD:tspec(playerid, params[])
     if (!IsPlayerConnected(targetid))
         return SendClientMessage(playerid, 0xB4B5B7FF, "Посоченото ID не е в сървъра!");
 
-    new string256[256];
+    //new string256[256];
     if (PlayerInfo[targetid][pTSpec] == 0)
     {
         PlayerInfo[targetid][pTSpec] = 1;
@@ -1658,7 +1658,7 @@ CMD:timejail(playerid, params[])
     if (!IsPlayerConnected(targetid))
         return SendClientMessage(playerid, 0xB4B5B7FF, "Посоченото ID не е в сървъра!");
 
-    new string256[256];
+    //new string256[256];
     if (PlayerInfo[targetid][pTimeJail] == 0)
     {
         PlayerInfo[targetid][pTimeJail] = 1;
@@ -1693,7 +1693,7 @@ CMD:timemute(playerid, params[])
     if (!IsPlayerConnected(targetid))
         return SendClientMessage(playerid, 0xB4B5B7FF, "Посоченото ID не е в сървъра!");
 
-    new string256[256];
+    //new string256[256];
     if (PlayerInfo[targetid][pTimeMute] == 0)
     {
         PlayerInfo[targetid][pTimeMute] = 1;
@@ -1769,7 +1769,7 @@ CMD:unban(playerid, params[])
     {
         new string256[256], string115[115];
 
-        format(string256, sizeof(string256), "unbanip %s", GetIP(nickname));
+        format(string256, sizeof(string256), "unbanip %s", GetPlayerIP(nickname));
         SendRconCommand(string256);
         SendRconCommand("reloadbans");
 
@@ -1812,7 +1812,7 @@ CMD:fwarn(playerid, params[])
         return CMD_SUCCESS;
     }
 
-    new string256[256];
+    //new string256[256];
 
     if (PlayerInfo[targetid][pFWarns] < 4)
     {
@@ -1888,7 +1888,7 @@ CMD:unfwarn(playerid, params[])
 
     PlayerInfo[targetid][pFWarns] -= 1;
 
-    new string256[256];
+    //new string256[256];
     format(string256, sizeof(string256), "[FACTION CHAT] %s was FACTION unwarned by %s", GetPlayerNickname(targetid), GetPlayerNickname(playerid));
 
     for (new i = 0; i < MAX_PLAYERS; i++)
@@ -1946,8 +1946,8 @@ CMD:veh(playerid, params[])
     VehicleInfo[carid][vAdminVehSpawnedBy] = playerid;
     spawnedcars += 1;
 
-    format(string, sizeof(string), "Vehicle ID %d spawned!", GetPlayerVehicleID(playerid));
-    SendClientMessage(playerid, 0xFFFFFFFF, string);
+    format(string256, sizeof(string256), "Vehicle ID %d spawned!", GetPlayerVehicleID(playerid));
+    SendClientMessage(playerid, 0xFFFFFFFF, string256);
 
     return 1;
 }
@@ -2005,9 +2005,9 @@ CMD:nwarn(playerid, params[])
         }
     }
 
-    format(string, sizeof(string), "ADMIN: %s сложи предупреждение на %s [%d/5] [Reason: %s]",
+    format(string256, sizeof(string256), "ADMIN: %s сложи предупреждение на %s [%d/5] [Reason: %s]",
            GetPlayerNickname(playerid), targetName, warns, reason);
-    SendClientMessageToAll(0xE60000FF, string);
+    SendClientMessageToAll(0xE60000FF, string256);
 
     if (warns >= 5)
     {
@@ -2033,7 +2033,7 @@ CMD:gotocor(playerid, params[])
 
     SetPlayerPos(playerid, x, y, z);
 
-    new string256[256];
+    //new string256[256];
     format(string256, sizeof(string256), "* Вие се телепортирахте успешно до координати %.1f, %.1f, %.1f! *", x, y, z);
     SendClientMessage(playerid, 0xFFFF00FF, string256);
 
@@ -2407,7 +2407,7 @@ CMD:aunmute(playerid, params[])
     {
         PlayerInfo[targetid][pAMuted] = 0;
 
-        new string256[256];
+        //new string256[256];
         format(string256, sizeof(string256), "ADMIN: %s was unmuted in ADMIN CHAT by %s", GetPlayerNickname(targetid), GetPlayerNickname(playerid));
         SendClientMessageToAll(0x00E600FF, string256);
     }
@@ -2454,7 +2454,7 @@ CMD:amute(playerid, params[])
 
     PlayerInfo[targetid][pAMuted] = minutesz * 60;
 
-    new string256[256];
+    //new string256[256];
     format(string256, sizeof(string256), "ADMIN: %s was muted in ADMIN CHAT by %s for %d minutes. [Reason: %s]", GetPlayerNickname(targetid), GetPlayerNickname(playerid), minutesz, reason);
     SendClientMessageToAll(COLOR_RED, string256);
 
@@ -2765,7 +2765,7 @@ CMD:ismuted(playerid, params[])
         return CMD_SUCCESS;
     }
 
-    new string256[256];
+    //new string256[256];
 
     if (PlayerInfo[targetid][pADMINMute] == 1)
     {
@@ -3239,7 +3239,7 @@ CMD:int(playerid, params[])
     }
 
     // Notify all players
-    new string256[256];
+    //new string256[256];
     format(string256, sizeof(string256), "* %s смени ID Interior на всички в сървъра на %d *", GetPlayerNickname(playerid), interiorid);
     SendClientMessageToAll(0xFFFF00FF, string256);
 
@@ -3276,11 +3276,11 @@ CMD:setint(playerid, params[])
     SetPlayerInterior(targetid, interiorid);
 
     // Notify both players
-    format(string, sizeof(string), "* Ти смени ID Interior на %s *", GetPlayerNickname(targetid));
-    SendClientMessage(playerid, 0xFFFFFFFF, string);
+    format(string256, sizeof(string256), "* Ти смени ID Interior на %s *", GetPlayerNickname(targetid));
+    SendClientMessage(playerid, 0xFFFFFFFF, string256);
 
-    format(string, sizeof(string), "* %s смени твоя ID Interior на %d *", GetPlayerNickname(playerid), interiorid);
-    SendClientMessage(targetid, COLOR_YELLOW, string);
+    format(string256, sizeof(string256), "* %s смени твоя ID Interior на %d *", GetPlayerNickname(playerid), interiorid);
+    SendClientMessage(targetid, COLOR_YELLOW, string256);
 
     return CMD_SUCCESS;
 }
@@ -3832,14 +3832,14 @@ CMD:eenter(playerid, params[])
         if (eenter == 0)
         {
             eenter = 1;
-            format(string, sizeof(string), "{FF0000}%s{80FF00} позволи натискането на F/ENTER в евента!", GetPlayerNickname(playerid));
-            SendClientMessageToAll(0x80FF00FF, string);
+            format(string256, sizeof(string256), "{FF0000}%s{80FF00} позволи натискането на F/ENTER в евента!", GetPlayerNickname(playerid));
+            SendClientMessageToAll(0x80FF00FF, string256);
         }
         else
         {
             eenter = 0;
-            format(string, sizeof(string), "{FF0000}%s{80FF00} забрани натискането на F/ENTER в евента!", GetPlayerNickname(playerid));
-            SendClientMessageToAll(0x80FF00FF, string);
+            format(string256, sizeof(string256), "{FF0000}%s{80FF00} забрани натискането на F/ENTER в евента!", GetPlayerNickname(playerid));
+            SendClientMessageToAll(0x80FF00FF, string256);
         }
     }
     else
@@ -3866,8 +3866,8 @@ CMD:dname(playerid, params[])
                 }
             }
         }
-        format(string, sizeof(string), "{FF0000}%s{80FF00} забрани ползването на /nameon и /nameoff в евента!", GetPlayerNickname(playerid));
-        SendClientMessageToAll(0x80FF00FF, string);
+        format(string256, sizeof(string256), "{FF0000}%s{80FF00} забрани ползването на /nameon и /nameoff в евента!", GetPlayerNickname(playerid));
+        SendClientMessageToAll(0x80FF00FF, string256);
     }
     else
     {
@@ -3882,8 +3882,8 @@ CMD:etune(playerid, params[])
         if (startedevent == 0) return SendClientMessage(playerid, 0xB4B5B7FF, "В момента няма евент!");
         if (etune == 1) return SendClientMessage(playerid, 0xB4B5B7FF, "Командата /tune вече е позволена!");
         etune = 1;
-        format(string, sizeof(string), "{FF0000}%s{80FF00} позволи ползването на /tune в евента!", GetPlayerNickname(playerid));
-        SendClientMessageToAll(0x80FF00FF, string);
+        format(string256, sizeof(string256), "{FF0000}%s{80FF00} позволи ползването на /tune в евента!", GetPlayerNickname(playerid));
+        SendClientMessageToAll(0x80FF00FF, string256);
     }
     else
     {
@@ -3899,8 +3899,8 @@ CMD:ejetpack(playerid, params[])
         if (startedevent == 0) return SendClientMessage(playerid, 0xB4B5B7FF, "В момента няма евент!");
         if (ejetpack == 1) return SendClientMessage(playerid, 0xB4B5B7FF, "Командата /jetpack вече е позволена!");
         ejetpack = 1;
-        format(string, sizeof(string), "{FF0000}%s{80FF00} позволи ползването на /jetpack в евента!", GetPlayerNickname(playerid));
-        SendClientMessageToAll(0x80FF00FF, string);
+        format(string256, sizeof(string256), "{FF0000}%s{80FF00} позволи ползването на /jetpack в евента!", GetPlayerNickname(playerid));
+        SendClientMessageToAll(0x80FF00FF, string256);
     }
     else
     {
@@ -3915,8 +3915,8 @@ CMD:eev(playerid, params[])
         if (startedevent == 0) return SendClientMessage(playerid, 0xB4B5B7FF, "В момента няма евент!");
         if (eev == 1) return SendClientMessage(playerid, 0xB4B5B7FF, "Влизането в превозни средства вече е позволено!");
         eev = 1;
-        format(string, sizeof(string), "{FF0000}%s{80FF00} позволи влизането в превозни средства в евента!", GetPlayerNickname(playerid));
-        SendClientMessageToAll(0x80FF00FF, string);
+        format(string256, sizeof(string256), "{FF0000}%s{80FF00} позволи влизането в превозни средства в евента!", GetPlayerNickname(playerid));
+        SendClientMessageToAll(0x80FF00FF, string256);
     }
     else
     {
@@ -3931,8 +3931,8 @@ CMD:eflip(playerid, params[])
         if (startedevent == 0) return SendClientMessage(playerid, 0xB4B5B7FF, "В момента няма евент!");
         if (eflip == 1) return SendClientMessage(playerid, 0xB4B5B7FF, "Ползването на /flip вече е позволено!");
         eflip = 1;
-        format(string, sizeof(string), "{FF0000}%s{80FF00} позволи ползването на /flip в евента!", GetPlayerNickname(playerid));
-        SendClientMessageToAll(0x80FF00FF, string);
+        format(string256, sizeof(string256), "{FF0000}%s{80FF00} позволи ползването на /flip в евента!", GetPlayerNickname(playerid));
+        SendClientMessageToAll(0x80FF00FF, string256);
     }
     else
     {
@@ -3975,8 +3975,8 @@ CMD:dflip(playerid, params[])
         if (startedevent == 0) return SendClientMessage(playerid, 0xB4B5B7FF, "В момента няма евент!");
         if (eflip == 0) return SendClientMessage(playerid, 0xB4B5B7FF, "Ползването на /flip вече е забранено!");
         eflip = 0;
-        format(string, sizeof(string), "{FF0000}%s{80FF00} забрани ползването на /flip в евента!", GetPlayerNickname(playerid));
-        SendClientMessageToAll(0x80FF00FF, string);
+        format(string256, sizeof(string256), "{FF0000}%s{80FF00} забрани ползването на /flip в евента!", GetPlayerNickname(playerid));
+        SendClientMessageToAll(0x80FF00FF, string256);
     }
     else
     {
@@ -3991,8 +3991,8 @@ CMD:einvisible(playerid, params[])
         if (startedevent == 0) return SendClientMessage(playerid, 0xB4B5B7FF, "В момента няма евент!");
         if (einvisible == 1) return SendClientMessage(playerid, 0xB4B5B7FF, "Ползването на /invisible вече е позволено!");
         einvisible = 1;
-        format(string, sizeof(string), "{FF0000}%s{80FF00} позволи ползването на /invisible в евента!", GetPlayerNickname(playerid));
-        SendClientMessageToAll(0x80FF00FF, string);
+        format(string256, sizeof(string256), "{FF0000}%s{80FF00} позволи ползването на /invisible в евента!", GetPlayerNickname(playerid));
+        SendClientMessageToAll(0x80FF00FF, string256);
     }
     else
     {
@@ -4007,8 +4007,8 @@ CMD:dramp(playerid, params[])
         if (startedevent == 0) return SendClientMessage(playerid, 0xB4B5B7FF, "В момента няма евент!");
         if (eramp == 0) return SendClientMessage(playerid, 0xB4B5B7FF, "Ползването на рампи вече е забранено!");
         eramp = 0;
-        format(string, sizeof(string), "{FF0000}%s{80FF00} забрани пускането на рампи в евента!", GetPlayerNickname(playerid));
-        SendClientMessageToAll(0x80FF00FF, string);
+        format(string256, sizeof(string256), "{FF0000}%s{80FF00} забрани пускането на рампи в евента!", GetPlayerNickname(playerid));
+        SendClientMessageToAll(0x80FF00FF, string256);
     }
     else
     {
@@ -4023,8 +4023,8 @@ CMD:eramp(playerid, params[])
         if (startedevent == 0) return SendClientMessage(playerid, 0xB4B5B7FF, "В момента няма евент!");
         if (eramp == 1) return SendClientMessage(playerid, 0xB4B5B7FF, "Ползването на рампи вече е позволено!");
         eramp = 1;
-        format(string, sizeof(string), "{FF0000}%s{80FF00} позволи пускането на рампи в евента!", GetPlayerNickname(playerid));
-        SendClientMessageToAll(0x80FF00FF, string);
+        format(string256, sizeof(string256), "{FF0000}%s{80FF00} позволи пускането на рампи в евента!", GetPlayerNickname(playerid));
+        SendClientMessageToAll(0x80FF00FF, string256);
     }
     else
     {
@@ -4039,8 +4039,8 @@ CMD:ehyd(playerid, params[])
         if (startedevent == 0) return SendClientMessage(playerid, 0xB4B5B7FF, "В момента няма евент!");
         if (ehyd == 1) return SendClientMessage(playerid, 0xB4B5B7FF, "Ползването на /hyd вече е позволено!");
         ehyd = 1;
-        format(string, sizeof(string), "{FF0000}%s{80FF00} позволи ползването на /hyd в евента!", GetPlayerNickname(playerid));
-        SendClientMessageToAll(0x80FF00FF, string);
+        format(string256, sizeof(string256), "{FF0000}%s{80FF00} позволи ползването на /hyd в евента!", GetPlayerNickname(playerid));
+        SendClientMessageToAll(0x80FF00FF, string256);
     }
     else
     {
@@ -4055,8 +4055,8 @@ CMD:dhyd(playerid, params[])
         if (startedevent == 0) return SendClientMessage(playerid, 0xB4B5B7FF, "В момента няма евент!");
         if (ehyd == 0) return SendClientMessage(playerid, 0xB4B5B7FF, "Ползването на /hyd вече е забранено!");
         ehyd = 0;
-        format(string, sizeof(string), "{FF0000}%s{80FF00} забрани ползването на /hyd в евента!", GetPlayerNickname(playerid));
-        SendClientMessageToAll(0x80FF00FF, string);
+        format(string256, sizeof(string256), "{FF0000}%s{80FF00} забрани ползването на /hyd в евента!", GetPlayerNickname(playerid));
+        SendClientMessageToAll(0x80FF00FF, string256);
     }
     else
     {
@@ -4071,8 +4071,8 @@ CMD:enos(playerid, params[])
         if (startedevent == 0) return SendClientMessage(playerid, 0xB4B5B7FF, "В момента няма евент!");
         if (enos == 1) return SendClientMessage(playerid, 0xB4B5B7FF, "Ползването на /nos вече е позволено!");
         enos = 1;
-        format(string, sizeof(string), "{FF0000}%s{80FF00} позволи ползването на /nos в евента!", GetPlayerNickname(playerid));
-        SendClientMessageToAll(0x80FF00FF, string);
+        format(string256, sizeof(string256), "{FF0000}%s{80FF00} позволи ползването на /nos в евента!", GetPlayerNickname(playerid));
+        SendClientMessageToAll(0x80FF00FF, string256);
     }
     else
     {
@@ -4087,8 +4087,8 @@ CMD:dnos(playerid, params[])
         if (startedevent == 0) return SendClientMessage(playerid, 0xB4B5B7FF, "В момента няма евент!");
         if (enos == 0) return SendClientMessage(playerid, 0xB4B5B7FF, "Ползването на /nos вече е забранено!");
         enos = 0;
-        format(string, sizeof(string), "{FF0000}%s{80FF00} забрани ползването на /nos в евента!", GetPlayerNickname(playerid));
-        SendClientMessageToAll(0x80FF00FF, string);
+        format(string256, sizeof(string256), "{FF0000}%s{80FF00} забрани ползването на /nos в евента!", GetPlayerNickname(playerid));
+        SendClientMessageToAll(0x80FF00FF, string256);
     }
     else
     {
@@ -4103,8 +4103,8 @@ CMD:efix(playerid, params[])
         if (startedevent == 0) return SendClientMessage(playerid, 0xB4B5B7FF, "В момента няма евент!");
         if (efix == 1) return SendClientMessage(playerid, 0xB4B5B7FF, "Ползването на /fix вече е позволено!");
         efix = 1;
-        format(string, sizeof(string), "{FF0000}%s{80FF00} позволи ползването на /fix в евента!", GetPlayerNickname(playerid));
-        SendClientMessageToAll(0x80FF00FF, string);
+        format(string256, sizeof(string256), "{FF0000}%s{80FF00} позволи ползването на /fix в евента!", GetPlayerNickname(playerid));
+        SendClientMessageToAll(0x80FF00FF, string256);
     }
     else
     {
@@ -4119,8 +4119,8 @@ CMD:dfix(playerid, params[])
         if (startedevent == 0) return SendClientMessage(playerid, 0xB4B5B7FF, "В момента няма евент!");
         if (efix == 0) return SendClientMessage(playerid, 0xB4B5B7FF, "Ползването на /fix вече е забранено!");
         efix = 0;
-        format(string, sizeof(string), "{FF0000}%s{80FF00} забрани ползването на /fix в евента!", GetPlayerNickname(playerid));
-        SendClientMessageToAll(0x80FF00FF, string);
+        format(string256, sizeof(string256), "{FF0000}%s{80FF00} забрани ползването на /fix в евента!", GetPlayerNickname(playerid));
+        SendClientMessageToAll(0x80FF00FF, string256);
     }
     else
     {
@@ -4135,8 +4135,8 @@ CMD:ehealme(playerid, params[])
         if (startedevent == 0) return SendClientMessage(playerid, 0xB4B5B7FF, "В момента няма евент!");
         if (dhealme == 1) return SendClientMessage(playerid, 0xB4B5B7FF, "Ползването на /healme вече е позволено!");
         dhealme = 1;
-        format(string, sizeof(string), "{FF0000}%s{80FF00} позволи ползването на /healme в евента!", GetPlayerNickname(playerid));
-        SendClientMessageToAll(0x80FF00FF, string);
+        format(string256, sizeof(string256), "{FF0000}%s{80FF00} позволи ползването на /healme в евента!", GetPlayerNickname(playerid));
+        SendClientMessageToAll(0x80FF00FF, string256);
     }
     else
     {
@@ -4151,8 +4151,8 @@ CMD:dhealme(playerid, params[])
         if (startedevent == 0) return SendClientMessage(playerid, 0xB4B5B7FF, "В момента няма евент!");
         if (dhealme == 0) return SendClientMessage(playerid, 0xB4B5B7FF, "Ползването на /healme вече е забранено!");
         dhealme = 0;
-        format(string, sizeof(string), "{FF0000}%s{80FF00} забрани ползването на /healme в евента!", GetPlayerNickname(playerid));
-        SendClientMessageToAll(0x80FF00FF, string);
+        format(string256, sizeof(string256), "{FF0000}%s{80FF00} забрани ползването на /healme в евента!", GetPlayerNickname(playerid));
+        SendClientMessageToAll(0x80FF00FF, string256);
     }
     else
     {
@@ -4167,8 +4167,8 @@ CMD:edv(playerid, params[])
         if (startedevent == 0) return SendClientMessage(playerid, 0xB4B5B7FF, "В момента няма евент!");
         if (eev == 0) return SendClientMessage(playerid, 0xB4B5B7FF, "Влизането в превозни средства вече е забранено!");
         eev = 0;
-        format(string, sizeof(string), "{FF0000}%s{80FF00} забрани влизането в превозни средства в евента!", GetPlayerNickname(playerid));
-        SendClientMessageToAll(0x80FF00FF, string);
+        format(string256, sizeof(string256), "{FF0000}%s{80FF00} забрани влизането в превозни средства в евента!", GetPlayerNickname(playerid));
+        SendClientMessageToAll(0x80FF00FF, string256);
     }
     else
     {
@@ -4183,8 +4183,8 @@ CMD:djetpack(playerid, params[])
         if (startedevent == 0) return SendClientMessage(playerid, 0xB4B5B7FF, "В момента няма евент!");
         if (ejetpack == 0) return SendClientMessage(playerid, 0xB4B5B7FF, "Командата /jetpack вече е забранена!");
         ejetpack = 0;
-        format(string, sizeof(string), "{FF0000}%s{80FF00} забрани ползването на /jetpack в евента!", GetPlayerNickname(playerid));
-        SendClientMessageToAll(0x80FF00FF, string);
+        format(string256, sizeof(string256), "{FF0000}%s{80FF00} забрани ползването на /jetpack в евента!", GetPlayerNickname(playerid));
+        SendClientMessageToAll(0x80FF00FF, string256);
     }
     else
     {
@@ -4199,8 +4199,8 @@ CMD:ename(playerid, params[])
         if (startedevent == 0) return SendClientMessage(playerid, 0xB4B5B7FF, "В момента няма евент!");
         if (ename == 1) return SendClientMessage(playerid, 0xB4B5B7FF, "Командите /nameon и /nameoff вече са позволени!");
         ename = 1;
-        format(string, sizeof(string), "{FF0000}%s{80FF00} позволи ползването на /nameon и /nameoff в евента!", GetPlayerNickname(playerid));
-        SendClientMessageToAll(0x80FF00FF, string);
+        format(string256, sizeof(string256), "{FF0000}%s{80FF00} позволи ползването на /nameon и /nameoff в евента!", GetPlayerNickname(playerid));
+        SendClientMessageToAll(0x80FF00FF, string256);
     }
     else
     {
@@ -4216,14 +4216,14 @@ CMD:efight(playerid, params[])
         if (efight == 0)
         {
             efight = 1;
-            format(string, sizeof(string), "{FF0000}%s{80FF00} позволи боя в евента!", GetPlayerNickname(playerid));
-            SendClientMessageToAll(0x80FF00FF, string);
+            format(string256, sizeof(string256), "{FF0000}%s{80FF00} позволи боя в евента!", GetPlayerNickname(playerid));
+            SendClientMessageToAll(0x80FF00FF, string256);
         }
         else
         {
             efight = 0;
-            format(string, sizeof(string), "{FF0000}%s{80FF00} забрани боя в евента!", GetPlayerNickname(playerid));
-            SendClientMessageToAll(0x80FF00FF, string);
+            format(string256, sizeof(string256), "{FF0000}%s{80FF00} забрани боя в евента!", GetPlayerNickname(playerid));
+            SendClientMessageToAll(0x80FF00FF, string256);
         }
     }
     else
@@ -4299,8 +4299,8 @@ CMD:givecashall(playerid, params[])
         }
     }
 
-    format(string, sizeof(string), "ADMIN: %s даде $%d на всички играчи в сървъра!", GetPlayerNickname(playerid), amount);
-    SendClientMessageToAll(0xE60000FF, string);
+    format(string256, sizeof(string256), "ADMIN: %s даде $%d на всички играчи в сървъра!", GetPlayerNickname(playerid), amount);
+    SendClientMessageToAll(0xE60000FF, string256);
 
     return 1;
 }
@@ -4326,11 +4326,11 @@ CMD:gmx(playerid, params[])
     }
 
     if (minutes == 1)
-        format(string, sizeof(string), "ADMIN: [ВАЖНО] Сървърът ще се рестартира след 1 минута [Причина: %s]", reason);
+        format(string256, sizeof(string256), "ADMIN: [ВАЖНО] Сървърът ще се рестартира след 1 минута [Причина: %s]", reason);
     else
-        format(string, sizeof(string), "ADMIN: [ВАЖНО] Сървърът ще се рестартира след %d минути [Причина: %s]", minutes, reason);
+        format(string256, sizeof(string256), "ADMIN: [ВАЖНО] Сървърът ще се рестартира след %d минути [Причина: %s]", minutes, reason);
 
-    SendClientMessageToAll(COLOR_RED, string);
+    SendClientMessageToAll(COLOR_RED, string256);
     serverrestarttimer = minutes * 60;
 
     for (new i; i < MAX_PLAYERS; i++)
@@ -4361,8 +4361,8 @@ CMD:giveepall(playerid, params[])
         GivePlayerEP(i, exp);
     }
 
-    format(string, sizeof(string), "ADMIN: %s даде %d EP на всички играчи в сървъра!", GetPlayerNickname(playerid), exp);
-    SendClientMessageToAll(0xE60000FF, string);
+    format(string256, sizeof(string256), "ADMIN: %s даде %d EP на всички играчи в сървъра!", GetPlayerNickname(playerid), exp);
+    SendClientMessageToAll(0xE60000FF, string256);
 
     return 1;
 }
@@ -4387,8 +4387,8 @@ CMD:giveesall(playerid, params[])
         GivePlayerEPS(i, exp);
     }
 
-    format(string, sizeof(string), "ADMIN: %s даде %d EP Skill на всички играчи в сървъра!", GetPlayerNickname(playerid), exp);
-    SendClientMessageToAll(0xE60000FF, string);
+    format(string256, sizeof(string256), "ADMIN: %s даде %d EP Skill на всички играчи в сървъра!", GetPlayerNickname(playerid), exp);
+    SendClientMessageToAll(0xE60000FF, string256);
 
     return 1;
 }
@@ -4413,8 +4413,8 @@ CMD:givemsall(playerid, params[])
         GivePlayerMS(i, exp);
     }
 
-    format(string, sizeof(string), "ADMIN: %s даде %d Money Skill на всички играчи в сървъра!", GetPlayerNickname(playerid), exp);
-    SendClientMessageToAll(0xE60000FF, string);
+    format(string256, sizeof(string256), "ADMIN: %s даде %d Money Skill на всички играчи в сървъра!", GetPlayerNickname(playerid), exp);
+    SendClientMessageToAll(0xE60000FF, string256);
 
     return 1;
 }
@@ -4494,7 +4494,7 @@ CMD:settimeall(playerid, params[])
 
     SetWorldTime(hour);
 
-    new string256[256];
+    //new string256[256];
     format(string256, sizeof(string256), "ADMIN: Часът в сървъра беше сменен от %s на %d", GetPlayerNickname(playerid), hour);
     SendClientMessageToAll(0xE60000FF, string256);
 
@@ -4857,8 +4857,8 @@ CMD:weather(playerid, params[])
 
     SetWeather(weatherID);
 
-    format(string, sizeof(string), "ADMIN: Времето в сървъра беше сменено от %s на id: %d", GetPlayerNickname(playerid), weatherID);
-    SendClientMessageToAll(0xE60000FF, string);
+    format(string256, sizeof(string256), "ADMIN: Времето в сървъра беше сменено от %s на id: %d", GetPlayerNickname(playerid), weatherID);
+    SendClientMessageToAll(0xE60000FF, string256);
 
     return 1;
 }
@@ -4898,8 +4898,8 @@ CMD:rnmute(playerid, params[])
         }
     }
 
-    format(string, sizeof(string), "ADMIN: %s was R&N muted by %s for %d minutes [Reason: %s]", targetName, GetPlayerNickname(playerid), time, reason);
-    SendClientMessageToAll(COLOR_RED, string);
+    format(string256, sizeof(string256), "ADMIN: %s was R&N muted by %s for %d minutes [Reason: %s]", targetName, GetPlayerNickname(playerid), time, reason);
+    SendClientMessageToAll(COLOR_RED, string256);
 
     return 1;
 }
@@ -4925,7 +4925,7 @@ CMD:unjail(playerid, params[])
             PlayerInfo[targetid][pJail] = 0;
             SetPlayerHealth(targetid, 0);
 
-            new string256[256];
+            //new string256[256];
             format(string256, sizeof(string256), "ADMIN: %s was unjailed by %s", GetPlayerNickname(targetid), GetPlayerNickname(playerid));
             SendClientMessageToAll(0x00E600FF, string256);
         }
@@ -4964,7 +4964,7 @@ CMD:unmute(playerid, params[])
             PlayerInfo[targetid][pADMINMute] = 0;
             PlayerInfo[targetid][pLMuted] = 0;
 
-            new string256[256];
+            //new string256[256];
             format(string256, sizeof(string256), "ADMIN: %s was unmuted by %s", GetPlayerNickname(targetid), GetPlayerNickname(playerid));
             SendClientMessageToAll(0x00E600FF, string256);
         }
@@ -4986,7 +4986,7 @@ CMD:muted(playerid, params[])
     {
         SendClientMessage(playerid, 0x40BF00FF, "Онлайн заглушени играчи:");
         new muted = 0;
-        new string256[256];
+        //new string256[256];
 
         for (new i = 0; i < MAX_PLAYERS; i++)
         {
@@ -5016,7 +5016,7 @@ CMD:jailed(playerid, params[])
     {
         SendClientMessage(playerid, 0x40BF00FF, "Онлайн играчи в затвора:");
         new jailed = 0;
-        new string256[256];
+        //new string256[256];
 
         for (new i = 0; i < MAX_PLAYERS; i++)
         {
@@ -5193,7 +5193,7 @@ CMD:jail(playerid, params[])
     SetPlayerAttachedObject(targetid, 1, 19418, 6, -0.011000, 0.028000, -0.022000, -15.600012, -33.699977, -81.700035, 0.891999, 1.000000, 1.168000);
     SetPlayerSpecialAction(targetid, SPECIAL_ACTION_CUFFED);
 
-    new string256[256];
+    //new string256[256];
     switch (option)
     {
         case 1:
@@ -5343,7 +5343,7 @@ CMD:ajail(playerid, params[])
         return CMD_SUCCESS;
     }
 
-    new string256[256];
+    //new string256[256];
     new jailTime = 0, jailReason = 0;
 
     switch (option)
@@ -5555,7 +5555,7 @@ CMD:nban(playerid, params[])
     if (strlen(reason) < 1 || strlen(reason) > 30)
         return SendClientMessage(playerid, 0xB4B5B7FF, "Причината трябва да бъде с до 30 символа!");
 
-    new string256[256];
+    //new string256[256];
     format(string256, sizeof(string256), "ADMIN: %s was blocked by %s [Reason: %s]", GetPlayerNickname(targetid), GetPlayerNickname(playerid), reason);
     SendClientMessageToAll(0xE60000FF, string256);
 
@@ -5586,7 +5586,7 @@ CMD:rban(playerid, params[])
     if (!IsNicknameInDB(nickname))
         return SendClientMessage(playerid, COLOR_GRAD1, "Този nickname не съществува!");
 
-    new string256[256];
+    //new string256[256];
     format(string256, sizeof(string256), "ADMIN: [%d:%d:%d] %s was banned by %s [Reason: %s]", hours, minutes, seconds, nickname, GetPlayerNickname(playerid), reason);
     SendClientMessageToAll(0xE60000FF, string256);
 
@@ -5617,7 +5617,7 @@ CMD:ban(playerid, params[])
 
     if (PlayerInfo[targetid][pAdmin] > PlayerInfo[playerid][pAdmin])
     {
-        new string256[256];
+        //new string256[256];
         format(string256, sizeof(string256), "SERVER: %s was kicked by THE SERVER [Reason: Ban a larger admin level]", GetPlayerNickname(playerid));
         SendClientMessageToAll(0xE60000FF, string256);
         PlayerInfo[playerid][pKick] = 1;
@@ -5627,7 +5627,7 @@ CMD:ban(playerid, params[])
     if (strlen(reason) < 1 || strlen(reason) > 30)
         return SendClientMessage(playerid, 0xB4B5B7FF, "Причината трябва да бъде с до 30 символа!");
 
-    new string256[256];
+    //new string256[256];
     format(string256, sizeof(string256), "ADMIN: [%d:%d:%d] %s was banned by %s [Reason: %s]", hours, minutes, seconds, GetPlayerNickname(targetid), GetPlayerNickname(playerid), reason);
     SendClientMessageToAll(0xE60000FF, string256);
 
@@ -5658,7 +5658,7 @@ CMD:kick(playerid, params[])
     if (strlen(reason) < 1)
         return SendClientMessage(playerid, 0xFFFFFFFF, "Използвай: /kick [playerid] [reason]");
 
-    new string256[256];
+    //new string256[256];
     format(string256, sizeof(string256), "ADMIN: %s was kicked by %s [Reason: %s]", GetPlayerNickname(targetid), GetPlayerNickname(playerid), reason);
     SendClientMessageToAll(0xE60000FF, string256);
 
@@ -5720,8 +5720,8 @@ CMD:block(playerid, params[])
         }
     }
 
-    format(string, sizeof(string), "ADMIN: %s was blocked by %s [Reason: %s]", targetName, GetPlayerNickname(playerid), reason);
-    SendClientMessageToAll(0xE60000FF, string);
+    format(string256, sizeof(string256), "ADMIN: %s was blocked by %s [Reason: %s]", targetName, GetPlayerNickname(playerid), reason);
+    SendClientMessageToAll(0xE60000FF, string256);
 
     return 1;
 }
@@ -5996,7 +5996,7 @@ CMD:giveveh(playerid, params[])
     if (vehicleid >= MAX_PRIVATEVEHS)
         return SendClientMessage(playerid, 0xB4B5B7FF, "Това превозно средство все още не е създадено!");
 
-    new string256[256];
+    //new string256[256];
     format(string256, sizeof(string256), "* %s ти даде превозно средство, честито *", GetPlayerNickname(playerid));
     SendClientMessage(targetid, 0xBFFF80FF, string256);
 
@@ -6037,7 +6037,7 @@ CMD:getveh(playerid, params[])
     if (PrivateVeh[vehicleid][pvOwner] == 0)
         return SendClientMessage(playerid, 0xB4B5B7FF, "Това превозно средство няма притежател!");
 
-    new string256[256];
+    //new string256[256];
     format(string256, sizeof(string256), "* Ти премахна собствеността на лично превозно средство ID: %d *", vehicleid);
     SendClientMessage(playerid, 0xBFFF80FF, string256);
 
@@ -6072,7 +6072,7 @@ CMD:makevip(playerid, params[])
 
     PlayerInfo[targetid][pVip] = level;
 
-    new string256[256];
+    //new string256[256];
     format(string256, sizeof(string256), "* %s те направи %d VIP левел, поздравления *", GetPlayerNickname(playerid), level);
     SendClientMessage(targetid, 0xE65B00FF, string256);
 
@@ -6152,7 +6152,7 @@ CMD:makegleader(playerid, params[])
     new teamName[60];
     format(teamName, sizeof(teamName), "%s", TeamInfo[PlayerInfo[targetid][pTeam]][tName]);
 
-    new string256[256];
+    //new string256[256];
     format(string256, sizeof(string256), "*** Ти назначи %s за главен лидер на %s ***", GetPlayerNickname(targetid), teamName);
     SendClientMessage(playerid, 0xF97804FF, string256);
 
@@ -6217,7 +6217,7 @@ CMD:makeleader(playerid, params[])
     PlayerInfo[targetid][pGLeader] = 0;
 
     // Send messages
-    new string256[256];
+    //new string256[256];
     format(string256, sizeof(string256), "*** %s беше назначен за лидер на банда/мафия %s ***", GetPlayerNickname(targetid), TeamInfo[teamid][tName]);
     SendClientMessageToAll(0xF97804FF, string256);
 

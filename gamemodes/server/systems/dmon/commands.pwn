@@ -47,8 +47,8 @@ CMD:dmon(playerid, params[])
     if (PlayerInfo[playerid][pIFCDuty] == 1) return SendClientMessage(playerid, 0xB4B5B7FF, "Не можеш да използваш тази команда, докато си IFC ON-DUTY!");
     if (IsPlayerInAnyVehicle(playerid)) return SendClientMessage(playerid, 0xB4B5B7FF, "Трябва да си пешеходец за да си във DM зоната!");
     ResetPlayerWeapons(playerid);
-    format(string, 256, "DM Area: %s влезе в DM арената!", GetPlayerNickname(playerid));
-    SendClientMessageToAll(0xFFFF81FF, string);
+    format(string256, 256, "DM Area: %s влезе в DM арената!", GetPlayerNickname(playerid));
+    SendClientMessageToAll(0xFFFF81FF, string256);
     SendClientMessage(playerid, 0xFFFF81FF, "DM Area: Моля, използвайте /dmoff за да излезете от DM арената!");
     playerInDMON[playerid] = 1;
     new stringtext[115];

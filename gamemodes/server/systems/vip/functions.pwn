@@ -1,3 +1,5 @@
+#include <YSI_Coding\y_hooks>
+
 stock CheckFreeVIP()
 {
     if (freevip == 1)
@@ -14,4 +16,18 @@ stock CheckFreeVIP()
         return 1;
     }
     return 0;
+}
+
+hook OnPlayerDeath(playerid, killerid, reason)
+{
+    if (PlayerInfo[playerid][pVip] == 0)
+    {
+        GivePlayerCash(playerid, -100);
+    }
+    if (PlayerInfo[playerid][pVip] > 0 || CheckFreeVIP() == 1)
+    {
+        GivePlayerCash(playerid, -50);
+    }
+
+    return Y_HOOKS_CONTINUE_RETURN_1;
 }

@@ -1,3 +1,5 @@
+#include <YSI_Coding\y_hooks>
+
 /*
 * Pickup
 */
@@ -80,4 +82,46 @@ stock IsValidHouse(houseid)
     }
 
     return false;
+}
+
+/*
+* Private vehicle
+*/
+hook OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
+{
+    if(VehicleInfo[vehicleid][vIsHouseVeh])
+    {
+        if (PlayerInfo[playerid][pHouseO] != VehicleInfo[vehicleid][vHouseID])
+        {
+            if (!ispassenger)
+            {
+                new Float:cx, Float:cy, Float:cz;
+                GetPlayerPos(playerid, cx, cy, cz);
+                SetPlayerPos(playerid, cx, cy, cz);
+                SendClientMessage(playerid, 0x636363FF, "Ти не притежаваш това превозно средство!");
+            }
+        }
+    }
+    return Y_HOOKS_CONTINUE_RETURN_1;
+}
+
+/*
+* Hook
+*/
+hook OnPlayerEnterCheckpoint(playerid)
+{
+    if (PlayerInfo[playerid][pHouseO] > -1)
+    {
+        gpsOn[playerid] = false;
+        new playersHouse = PlayerInfo[playerid][pHouseO];
+        new Float: playerHouseX = HouseInfo[playersHouse][hX];
+        new Float: playerHouseY = HouseInfo[playersHouse][hY];
+        new Float: playerHouseZ = HouseInfo[playersHouse][hZ];
+        if (IsPlayerInRangeOfPoint(playerid, 4.0, playerHouseX, playerHouseY, playerHouseZ))
+        {
+            SendClientMessage(playerid, 0xffff00FF, "Ти пристигна до твоята къща!");
+            DisablePlayerCheckpoint(playerid);
+        }
+    }
+    return Y_HOOKS_CONTINUE_RETURN_1;
 }

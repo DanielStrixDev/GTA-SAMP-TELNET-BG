@@ -1,3 +1,5 @@
+#include <YSI_Coding\y_hooks>
+
 stock IsInMinigame(playerid)
 {
     if (isDerbyPlayer[playerid])
@@ -171,45 +173,79 @@ stock ResetDerbyPosition(playerid)
 
 stock PlayerLeaveDerby(playerid)
 {
-    new stringDerby[256];
-    derbyPlayersCount -= 1;
-    if (derbyStarted)
+    if (IsInMinigame(playerid))
     {
-        if (derbyPlayersCount >= 3)
+        if (isDerbyPlayer[playerid])
         {
-            SendClientMessage(playerid, 0xE5503BFF, "Derby: Ти отпадна от играта!");
-        }
-        else if (derbyPlayersCount == 2)
-        {
-            GivePlayerEP(playerid, 3);
-            format(stringDerby, 256, "Derby: %s завърши на трето място в играта и печели 3 EP!", GetPlayerNickname(playerid));
-            SendClientMessageToAll(0xE5503BFF, stringDerby);
-        }
-        else if (derbyPlayersCount == 1)
-        {
-            GivePlayerEP(playerid, 4);
-            format(stringDerby, 256, "Derby: %s завърши на второ място в играта и печели 4 EP!", GetPlayerNickname(playerid));
-            SendClientMessageToAll(0xE5503BFF, stringDerby);
-            KillDerbyPlayers();
-        }
-        else if (derbyPlayersCount == 0)
-        {
-            GivePlayerEP(playerid, 5);
-            format(stringDerby, 256, "Derby: Победителят в играта е %s и той/тя печели 5 EP!", GetPlayerNickname(playerid));
-            SendClientMessageToAll(0xE5503BFF, stringDerby);
-            SendClientMessageToAll(0xE5503BFF, "Derby: Играта свърши, след 15 минути ще бъде стартирана нова!");
-            EndDerbyGame(false);
+            new stringDerby[256];
+            derbyPlayersCount -= 1;
+            if (derbyStarted)
+            {
+                if (derbyPlayersCount >= 3)
+                {
+                    SendClientMessage(playerid, 0xE5503BFF, "Derby: Ти отпадна от играта!");
+                }
+                else if (derbyPlayersCount == 2)
+                {
+                    GivePlayerEP(playerid, 3);
+                    format(stringDerby, 256, "Derby: %s завърши на трето място в играта и печели 3 EP!", GetPlayerNickname(playerid));
+                    SendClientMessageToAll(0xE5503BFF, stringDerby);
+                }
+                else if (derbyPlayersCount == 1)
+                {
+                    GivePlayerEP(playerid, 4);
+                    format(stringDerby, 256, "Derby: %s завърши на второ място в играта и печели 4 EP!", GetPlayerNickname(playerid));
+                    SendClientMessageToAll(0xE5503BFF, stringDerby);
+                    KillDerbyPlayers();
+                }
+                else if (derbyPlayersCount == 0)
+                {
+                    GivePlayerEP(playerid, 5);
+                    format(stringDerby, 256, "Derby: Победителят в играта е %s и той/тя печели 5 EP!", GetPlayerNickname(playerid));
+                    SendClientMessageToAll(0xE5503BFF, stringDerby);
+                    SendClientMessageToAll(0xE5503BFF, "Derby: Играта свърши, след 15 минути ще бъде стартирана нова!");
+                    EndDerbyGame(false);
+                }
+            }
+            else
+            {
+                if (derbyPlayersCount == 1)
+                {
+                    SendClientMessageToAll(0xE5503BFF, "Derby: Дербито остана с 1 играч и няма да стартира!");
+                    derbyStartTimer = 0;
+                }
+            }
+            ResetDerbyPosition(playerid);
+            isDerbyPlayer[playerid] = false;
+            SetPlayerHealth(playerid, 0);
         }
     }
-    else
+}
+
+hook OnPlayerExitVehicle(playerid, vehicleid)
+{
+    if (isDerbyPlayer[playerid])
     {
-        if (derbyPlayersCount == 1)
+        SendClientMessage(playerid, 0xE5503BFF, "Derby: Не можеш да излезеш от превозното средство, докато си в дербито!");
+        new Float:cx, Float:cy, Float:cz;
+        GetPlayerPos(playerid, cx, cy, cz);
+        SetPlayerPos(playerid, cx, cy, cz);
+        PutPlayerInVehicle(playerid, vehicleid, 0);
+    }
+
+    return Y_HOOKS_CONTINUE_RETURN_1;
+}
+
+/*
+* On player death
+*/
+hook OnPlayerDeath(playerid, killerid, reason)
+{
+    if (IsInMinigame(playerid))
+    {
+        if (isDerbyPlayer[playerid])
         {
-            SendClientMessageToAll(0xE5503BFF, "Derby: Дербито остана с 1 играч и няма да стартира!");
-            derbyStartTimer = 0;
+            PlayerLeaveDerby(playerid);
         }
     }
-    ResetDerbyPosition(playerid);
-    isDerbyPlayer[playerid] = false;
-    SetPlayerHealth(playerid, 0);
 }

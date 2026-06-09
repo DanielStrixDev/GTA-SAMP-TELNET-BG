@@ -6,8 +6,8 @@ CMD:nameoff(playerid, params[])
     {
         ShowPlayerNameTagForPlayer(i, playerid, 0);
     }
-    format(string, sizeof(string), "Вече играчите няма да виждат твоето име!", GetPlayerNickname(playerid));
-    SendClientMessage(playerid, 0x80FF00FF, string);
+    format(string256, sizeof(string256), "Вече играчите няма да виждат твоето име!", GetPlayerNickname(playerid));
+    SendClientMessage(playerid, 0x80FF00FF, string256);
     return 1;
 }
 CMD:nameon(playerid, params[])
@@ -18,8 +18,8 @@ CMD:nameon(playerid, params[])
     {
         ShowPlayerNameTagForPlayer(i, playerid, 1);
     }
-    format(string, sizeof(string), "Вече играчите ще виждат твоето име!", GetPlayerNickname(playerid));
-    SendClientMessage(playerid, 0x80FF00FF, string);
+    format(string256, sizeof(string256), "Вече играчите ще виждат твоето име!", GetPlayerNickname(playerid));
+    SendClientMessage(playerid, 0x80FF00FF, string256);
     return 1;
 }
 
@@ -142,8 +142,8 @@ CMD:unfreezeall(playerid, params[])
     if (PlayerInfo[playerid][pEvent] > 0)
     {
         if (startedevent == 0) return SendClientMessage(playerid, 0xB4B5B7FF, "В момента няма евент!");
-        format(string, sizeof(string), "{FF0000}%s{80FF00} отмрази всички в евента!", GetPlayerNickname(playerid));
-        SendClientMessageToAll(0x80FF00FF, string);
+        format(string256, sizeof(string256), "{FF0000}%s{80FF00} отмрази всички в евента!", GetPlayerNickname(playerid));
+        SendClientMessageToAll(0x80FF00FF, string256);
         for (new i; i < MAX_PLAYERS; i++)
         {
             if (inevent[i])
@@ -163,8 +163,8 @@ CMD:freezeall(playerid, params[])
     if (PlayerInfo[playerid][pEvent] > 0)
     {
         if (startedevent == 0) return SendClientMessage(playerid, 0xB4B5B7FF, "В момента няма евент!");
-        format(string, sizeof(string), "{FF0000}%s{80FF00} замрази всички в евента!", GetPlayerNickname(playerid));
-        SendClientMessageToAll(0x80FF00FF, string);
+        format(string256, sizeof(string256), "{FF0000}%s{80FF00} замрази всички в евента!", GetPlayerNickname(playerid));
+        SendClientMessageToAll(0x80FF00FF, string256);
         for (new i; i < MAX_PLAYERS; i++)
         {
             if (inevent[i])
@@ -186,8 +186,8 @@ CMD:removelimit(playerid, params[])
     {
         if (startedevent == 0) return SendClientMessage(playerid, 0xB4B5B7FF, "В момента няма евент!");
         eventlimit = 10000;
-        format(string, sizeof(string), "{FF0000}%s{80FF00} премахна лимита за влизането в евента!", GetPlayerNickname(playerid));
-        SendClientMessageToAll(0x80FF00FF, string);
+        format(string256, sizeof(string256), "{FF0000}%s{80FF00} премахна лимита за влизането в евента!", GetPlayerNickname(playerid));
+        SendClientMessageToAll(0x80FF00FF, string256);
     }
     else
     {
@@ -221,7 +221,7 @@ CMD:blueteam(playerid, params[])
 
     SetPlayerColor(targetid, 0x00A2F3FF);
 
-    new string256[256];
+    //new string256[256];
     format(string256, sizeof(string256), "Ти премести %s в синия отбор.", GetPlayerNickname(targetid));
     SendClientMessage(playerid, 0xFFFFFFFF, string256);
 
@@ -254,7 +254,7 @@ CMD:redteam(playerid, params[])
 
     SetPlayerColor(targetid, 0xFF0000FF);
 
-    new string256[256];
+    //new string256[256];
     format(string256, sizeof(string256), "Ти премести %s в червения отбор.", GetPlayerNickname(targetid));
     SendClientMessage(playerid, 0xFFFFFFFF, string256);
 
@@ -312,7 +312,7 @@ CMD:ncolor(playerid, params[])
         }
     }
 
-    new string256[256];
+    //new string256[256];
     format(string256, sizeof(string256), "Ти промени цвета на %s на номер %d", GetPlayerNickname(targetid), colorid);
     SendClientMessage(playerid, 0xFFFFFFFF, string256);
 
@@ -500,13 +500,13 @@ CMD:stopevent(playerid, params[])
 {
     if (PlayerInfo[playerid][pEvent] > 0)
     {
-        format(string, sizeof(string), "Присъединяването в евента приключи");
-        SendClientMessageToAll(0x5065D9FF, string);
-        format(string, sizeof(string), "~w~EVENT ~g~JOIN ~r~OVER");
+        format(string256, sizeof(string256), "Присъединяването в евента приключи");
+        SendClientMessageToAll(0x5065D9FF, string256);
+        format(string256, sizeof(string256), "~w~EVENT ~g~JOIN ~r~OVER");
         eventclosed = 1;
         for (new i = 0; i < MAX_PLAYERS; i++)
         {
-            GameTextForPlayer(i, string, 5000, 3);
+            GameTextForPlayer(i, string256, 5000, 3);
         }
     }
     else
@@ -695,8 +695,8 @@ CMD:invisibleall(playerid, params[])
         if (startedevent == 0) return SendClientMessage(playerid, 0xB4B5B7FF, "В момента няма евент!");
         if (einvisible2 == 1)
         {
-            format(string, sizeof(string), "{FF0000}%s{80FF00} направи виски играчи в евента видими!", GetPlayerNickname(playerid));
-            SendClientMessageToAll(0x80FF00FF, string);
+            format(string256, sizeof(string256), "{FF0000}%s{80FF00} направи виски играчи в евента видими!", GetPlayerNickname(playerid));
+            SendClientMessageToAll(0x80FF00FF, string256);
             einvisible2 = 0;
             for (new i = 0; i < MAX_PLAYERS; i++)
             {
@@ -708,8 +708,8 @@ CMD:invisibleall(playerid, params[])
         }
         if (einvisible2 == 0)
         {
-            format(string, sizeof(string), "{FF0000}%s{80FF00} направи виски играчи в евента невидими!", GetPlayerNickname(playerid));
-            SendClientMessageToAll(0x80FF00FF, string);
+            format(string256, sizeof(string256), "{FF0000}%s{80FF00} направи виски играчи в евента невидими!", GetPlayerNickname(playerid));
+            SendClientMessageToAll(0x80FF00FF, string256);
             einvisible2 = 1;
             for (new i = 0; i < MAX_PLAYERS; i++)
             {
@@ -790,8 +790,8 @@ CMD:joinevent(playerid, params[])
     {
         SendClientMessage(playerid, COLOR_RED, "ВНИМАНИЕ: Не удряй или стреляй и не натискай F, ENTER или TAB преди админа да е позволил !");
     }
-    format(string, sizeof(string), "%s {80FF00}се пресъедини към евента. За да се пресъединиш и ти напиши {FF0000}/joinevent .", GetPlayerNickname(playerid));
-    SendClientMessageToAll(0xFF0000FF, string);
+    format(string256, sizeof(string256), "%s {80FF00}се пресъедини към евента. За да се пресъединиш и ти напиши {FF0000}/joinevent .", GetPlayerNickname(playerid));
+    SendClientMessageToAll(0xFF0000FF, string256);
     return 1;
 }
 CMD:leftevent(playerid, params[])
@@ -830,8 +830,8 @@ CMD:setvhpall(playerid, params[])
         return 1;
     }
 
-    format(string, sizeof(string), "{FF0000}%s{80FF00} сложи %d Health на всички превозни средства в евента!", GetPlayerNickname(playerid), health);
-    SendClientMessageToAll(0x80FF00FF, string);
+    format(string256, sizeof(string256), "{FF0000}%s{80FF00} сложи %d Health на всички превозни средства в евента!", GetPlayerNickname(playerid), health);
+    SendClientMessageToAll(0x80FF00FF, string256);
 
     for (new vehicleid = 0; vehicleid < MAX_VEHICLES; vehicleid++)
     {
@@ -885,7 +885,7 @@ CMD:settime(playerid, params[])
 
     SetPlayerTime(targetid, hour, 0);
 
-    new string256[256];
+    //new string256[256];
     format(string256, sizeof(string256), "* %s смени твоя час на %dч. *", GetPlayerNickname(playerid), hour);
     SendClientMessage(targetid, 0xFF0000FF, string256);
 

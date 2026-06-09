@@ -649,7 +649,7 @@ new respawnVehsNo = 0;
 * General Vars
 */
 new bool: vehStatus2On[MAX_PLAYERS] = false;
-new count = 0;
+new returnUsersCount = 0;
 new spawnedcars = 0;
 new attachobjecta;
 new hideIPD = 0;

@@ -1,6 +1,74 @@
+#include <YSI_Coding\y_hooks>
+
 /*
 * Turfing
 */
+stock PlayerLeaveTurfAttackZone(playerid)
+{
+    if (isTurfMember[playerid] == true && isGangAttackingTurf[PlayerInfo[playerid][pTeam]] == true)
+    {
+        startturf = 0;
+        new attackerFaction = PlayerInfo[playerid][pTeam];
+        new turfAttacked = TeamInfo[attackerFaction][tTurfAttacked];
+        new turfOwner = TurfInfo[turfAttacked][TurfOwner];
+        format(string256, 256, "[FACTION CHAT] {FF0000}%s{C800FF} Играчът напусна очертанията и отпадна от атака!", GetPlayerNickname(playerid));
+        SendFactionMessage(attackerFaction, 0xC800FFFF, string256);
+        inTurfAttackMembers[attackerFaction]--;
+        isTurfMember[playerid] = false;
+        if (inTurfAttackMembers[attackerFaction] == 0)
+        {
+            format(string256, 256, "Turf War: {FF0000}%s{C800FF} не успя да превземе %s територията на %s!", TeamInfo[attackerFaction][tName], TurfInfo[turfAttacked][TurfName],
+                TeamInfo[turfOwner][tName]);
+            SendClientMessageToAll(0xC800FFFF, string256);
+            FailTurfAttack(attackerFaction);
+        }
+    }
+}
+
+stock DeathInTurfAttack(playerid)
+{
+    new attackerFaction = PlayerInfo[playerid][pTeam];
+    if (isTurfMember[playerid] == true && isGangAttackingTurf[attackerFaction] == true)
+    {
+        new turfAttacked = TeamInfo[attackerFaction][tTurfAttacked];
+        new turfOwner = TurfInfo[turfAttacked][TurfOwner];
+        format(string256, 256, "[FACTION CHAT] {FF0000}%s{C800FF} умря и отпадна от атаката на %s!", GetPlayerNickname(playerid), TeamInfo[turfOwner][tName]);
+        SendFactionMessage(attackerFaction, 0xC800FFFF, string256);
+        inTurfAttackMembers[attackerFaction]--;
+        isTurfMember[playerid] = false;
+        if (inTurfAttackMembers[attackerFaction] == 0)
+        {
+            startturf = 0;
+            format(string256, 256, "Turf War: {FF0000}%s{C800FF} не успя да превземе %s територията на %s!", TeamInfo[attackerFaction][tName], TurfInfo[turfAttacked][TurfName],
+                   TeamInfo[turfOwner][tName]);
+            SendClientMessageToAll(0xC800FFFF, string256);
+            FailTurfAttack(attackerFaction);
+        }
+    }
+}
+
+
+stock ExitInTurfAttack(playerid)
+{
+    new attackerFaction = PlayerInfo[playerid][pTeam];
+    if (isTurfMember[playerid] == true && isGangAttackingTurf[attackerFaction] == true)
+    {
+        new turfAttacked = TeamInfo[attackerFaction][tTurfAttacked];
+        new turfOwner = TurfInfo[turfAttacked][TurfOwner];
+        format(string256, 256, "[FACTION CHAT] {FF0000}%s{C800FF} излезе от сървъра и отпадна от атаката на %s!", GetPlayerNickname(playerid), TeamInfo[turfOwner][tName]);
+        SendFactionMessage(attackerFaction, 0xC800FFFF, string256);
+        inTurfAttackMembers[attackerFaction]--;
+        if (inTurfAttackMembers[attackerFaction] == 0)
+        {
+            startturf = 0;
+            format(string256, 256, "Turf War: {FF0000}%s{C800FF} не успя да превземе %s територията на %s!", TeamInfo[attackerFaction][tName], TurfInfo[turfAttacked][TurfName],
+                   TeamInfo[turfOwner][tName]);
+            SendClientMessageToAll(0xC800FFFF, string256);
+            FailTurfAttack(attackerFaction);
+        }
+    }
+}
+
 stock FailTurfAttack(attackerFaction)
 {
     new turfAttacked = TeamInfo[attackerFaction][tTurfAttacked];
@@ -58,4 +126,15 @@ stock ShowPlayerTurfs(playerid)
         }
     }
 
+}
+
+/*
+* On player death
+*/
+hook OnPlayerDeath(playerid, killerid, reason)
+{
+    DeathInTurfAttack(playerid);
+    PlayerLeaveTurfAttackZone(playerid);
+    
+    return Y_HOOKS_CONTINUE_RETURN_1;
 }

@@ -1,3 +1,5 @@
+#include <YSI_Coding\y_hooks>
+
 /*
 * Pickup
 */
@@ -59,7 +61,7 @@ stock CheckPlayerExitBiz(playerid)
             if (BizInfo[bizid][bLocked] == 1)
             {
                 GameTextForPlayer(playerid, "locked", 3000, 1);
-                return SendClientMessage(playerid, 0x499BD4FF, "Р‘РёР·РЅРµСЃСЉС‚ Рµ Р·Р°РєР»СЋС‡РµРЅ Рё РЅРµ РјРѕР¶РµС€ РґР° РёР·Р»РµР·РµС€ !");
+                return SendClientMessage(playerid, 0x499BD4FF, "Бизнесът е заключен и не можеш да излезеш !");
             }
             SetPlayerPos(playerid, BizInfo[bizid][bX], BizInfo[bizid][bY], BizInfo[bizid][bZ]);
             SetPlayerInterior(playerid, 0);
@@ -97,4 +99,26 @@ stock IsPlayerNearBiz(playerid)
         }
     }
     return -1;
+}
+
+/*
+* Hook
+*/
+hook OnPlayerEnterCheckpoint(playerid)
+{
+    if (PlayerInfo[playerid][pBizO] > -1)
+    {
+        gpsOn[playerid] = false;
+        new playersBiz = PlayerInfo[playerid][pBizO];
+        new Float: playerBizX = BizInfo[playersBiz][bX];
+        new Float: playerBizY = BizInfo[playersBiz][bY];
+        new Float: playerBizZ = BizInfo[playersBiz][bZ];
+        if (IsPlayerInRangeOfPoint(playerid, 4.0, playerBizX, playerBizY, playerBizZ))
+        {
+            SendClientMessage(playerid, 0xffff00FF, "Ти пристигна до твоя бизнес!");
+            DisablePlayerCheckpoint(playerid);
+        }
+    }
+
+    return Y_HOOKS_CONTINUE_RETURN_1;
 }

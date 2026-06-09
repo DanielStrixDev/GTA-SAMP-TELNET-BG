@@ -286,7 +286,7 @@ CMD:getifc(playerid, params[])
 
     PlayerInfo[targetid][pIFC] = 0;
 
-    new string256[256];
+    //new string256[256];
     format(string256, sizeof(string256), "* %s те махна от Intense Fuel Company *", GetPlayerNickname(playerid));
     SendClientMessage(targetid, 0xA4FFA4FF, string256);
 
@@ -333,7 +333,7 @@ CMD:makeifc(playerid, params[])
 
     PlayerInfo[targetid][pIFC] = 1;
 
-    new string256[256];
+    //new string256[256];
     format(string256, sizeof(string256), "* %s те направи член на Intense Fuel Company, поздравления *", GetPlayerNickname(playerid));
     SendClientMessage(targetid, 0xA4FFA4FF, string256);
 

@@ -746,7 +746,7 @@ CMD:listguns(playerid, params[])
     new weaponCount = 0;
 
     // Send header
-    new string256[256];
+    //new string256[256];
     format(string256, sizeof(string256), "*** Оръжията на %s ***", GetPlayerNickname(targetid));
     SendClientMessage(playerid, 0xFFFFFFFF, string256);
 
@@ -859,13 +859,13 @@ CMD:isafk(playerid, params[])
     }
     else if (PlayerInfo[targetid][pAFK] < 60)
     {
-        new string256[256];
+        //new string256[256];
         format(string256, sizeof(string256), "Този играч е в AFK режим от %d секунди!", PlayerInfo[targetid][pAFK]);
         SendClientMessage(playerid, 0xD6F34AFF, string256);
     }
     else
     {
-        new string256[256];
+        //new string256[256];
         format(string256, sizeof(string256), "Този играч е в AFK режим от %d минути!", PlayerInfo[targetid][pAFK] / 60);
         SendClientMessage(playerid, 0xD6F34AFF, string256);
     }

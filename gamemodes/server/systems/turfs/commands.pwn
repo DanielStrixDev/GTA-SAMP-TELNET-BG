@@ -183,8 +183,8 @@ CMD:checkturf(playerid, params[])
                 SendClientMessage(playerid, 0xC800FFFF, stringaaaa);
                 return isinturf = true;
             }
-            format(string, sizeof(string), "Тази територия се казва %s и принадлeжи на {FF0000}%s", TurfInfo[t][TurfName], TeamInfo[TurfInfo[t][TurfOwner]][tName]);
-            SendClientMessage(playerid, 0xC800FFFF, string);
+            format(string256, sizeof(string256), "Тази територия се казва %s и принадлeжи на {FF0000}%s", TurfInfo[t][TurfName], TeamInfo[TurfInfo[t][TurfOwner]][tName]);
+            SendClientMessage(playerid, 0xC800FFFF, string256);
             isinturf = true;
         }
     }

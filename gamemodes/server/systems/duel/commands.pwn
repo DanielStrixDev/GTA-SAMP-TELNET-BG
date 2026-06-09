@@ -43,11 +43,11 @@ CMD:duel(playerid, params[])
     if (playerInDMON[playerid] == 1)
         return SendClientMessage(playerid, 0xB4B5B7FF, "В момента си в DMON!");
 
-    format(string, sizeof(string), "Duel: Ти изпрати покана за дуел на %s. Ако искаш да отмениш поканата напиши /cduel", GetPlayerNickname(targetid));
-    SendClientMessage(playerid, 0xFFE400FF, string);
+    format(string256, sizeof(string256), "Duel: Ти изпрати покана за дуел на %s. Ако искаш да отмениш поканата напиши /cduel", GetPlayerNickname(targetid));
+    SendClientMessage(playerid, 0xFFE400FF, string256);
 
-    format(string, sizeof(string), "Duel: %s те покани на дуел със залог $%d. Напиши /yes за да приемеш или /no за да откажеш!", GetPlayerNickname(playerid), bet);
-    SendClientMessage(targetid, 0xFFE400FF, string);
+    format(string256, sizeof(string256), "Duel: %s те покани на дуел със залог $%d. Напиши /yes за да приемеш или /no за да откажеш!", GetPlayerNickname(playerid), bet);
+    SendClientMessage(targetid, 0xFFE400FF, string256);
 
     duelsender[targetid] = playerid;
     duelsend[playerid] = targetid;
@@ -130,10 +130,10 @@ CMD:yes(playerid, params[])
         {
             return SendClientMessage(playerid, 0xB4B5B7FF, "Не да играеш, играчът е ADMIN ON-DUTY!");
         }
-        format(string, 256, "Duel: Ти прие поканата за дуел на %s", GetPlayerNickname(duelsender[playerid]));
-        SendClientMessage(playerid, 0xFFE400FF, string);
-        format(string, 256, "Duel: %s прие поканата ти за дуел", GetPlayerNickname(playerid));
-        SendClientMessage(duelsender[playerid], 0xFFE400FF, string);
+        format(string256, 256, "Duel: Ти прие поканата за дуел на %s", GetPlayerNickname(duelsender[playerid]));
+        SendClientMessage(playerid, 0xFFE400FF, string256);
+        format(string256, 256, "Duel: %s прие поканата ти за дуел", GetPlayerNickname(playerid));
+        SendClientMessage(duelsender[playerid], 0xFFE400FF, string256);
         playerInDuel[playerid] = 1;
         playerInDuel[duelsender[playerid]] = 1;
         duelprotivnik[playerid] = duelsender[playerid];

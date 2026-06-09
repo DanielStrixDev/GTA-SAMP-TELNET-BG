@@ -35,7 +35,7 @@ CMD:bus(playerid, params[])
         SetPlayerColor(playerid, 0xD8844DFF);
         DisablePlayerRaceCheckpoint(playerid);
         DisablePlayerCheckpoint(playerid);
-        ToggleEngine(GetPlayerVehicleID(playerid), VEHICLE_PARAMS_ON);
+        VehicleToggleEngine(GetPlayerVehicleID(playerid), VEHICLE_PARAMS_ON);
         SetPlayerCheckpoint(playerid, BusCheckPoint1, 4.0);
         format(pizzastring, 256, "Bus: Ти започна работа като шофьор на автобус и сега трябва да следваш червените маркери.");
         SendClientMessage(playerid, 0xB35900FF, pizzastring);
@@ -85,7 +85,7 @@ CMD:coalmine(playerid, params[])
         DisablePlayerRaceCheckpoint(playerid);
         DisablePlayerCheckpoint(playerid);
         SetPlayerColor(playerid, 0xD8844DFF);
-        ToggleEngine(GetPlayerVehicleID(playerid), VEHICLE_PARAMS_ON);
+        VehicleToggleEngine(GetPlayerVehicleID(playerid), VEHICLE_PARAMS_ON);
         SetPlayerCheckpoint(playerid, CoalmineCheckPoint1, 4.0);
         format(pizzastring, 256, "Coalmine: Ти започна работа като шофьор на самосвал и сега трябва да следваш червените маркери.");
         SendClientMessage(playerid, 0xB35900FF, pizzastring);
@@ -134,7 +134,7 @@ CMD:sweep(playerid, params[])
         SetPlayerColor(playerid, 0xD8844DFF);
         DisablePlayerRaceCheckpoint(playerid);
         DisablePlayerCheckpoint(playerid);
-        ToggleEngine(GetPlayerVehicleID(playerid), VEHICLE_PARAMS_ON);
+        VehicleToggleEngine(GetPlayerVehicleID(playerid), VEHICLE_PARAMS_ON);
         SetPlayerCheckpoint(playerid, SweepCheckPoint1, 4.0);
         format(pizzastring, 256, "Sweeper: Ти започна работа като чистач на улици и сега трябва да следваш червените маркери.");
         SendClientMessage(playerid, 0xB35900FF, pizzastring);
@@ -162,7 +162,7 @@ CMD:leavejob(playerid, params[])
         }
         if (PlayerInfo[playerid][pIFCDuty] == 1) return SendClientMessage(playerid, 0xB4B5B7FF, "Не можеш да използваш тази команда, докато си IFC ON-DUTY!");
         new pizzastring[256];
-        ToggleEngine(GetPlayerVehicleID(playerid), VEHICLE_PARAMS_OFF);
+        VehicleToggleEngine(GetPlayerVehicleID(playerid), VEHICLE_PARAMS_OFF);
         format(pizzastring, 256, "Job: Ти напусна твоята работа, ела отново!");
         SendClientMessage(playerid, 0xB35900FF, pizzastring);
         onWork[playerid] = 0;
@@ -216,7 +216,7 @@ CMD:pizza(playerid, params[])
         DisablePlayerRaceCheckpoint(playerid);
         DisablePlayerCheckpoint(playerid);
         PlayerInfo[playerid][pJob] = 1;
-        ToggleEngine(GetPlayerVehicleID(playerid), VEHICLE_PARAMS_ON);
+        VehicleToggleEngine(GetPlayerVehicleID(playerid), VEHICLE_PARAMS_ON);
         SetPlayerCheckpoint(playerid, PizzaCheckPoint1, 4.0);
         format(pizzastring, 256, "Pizza Deliver: Ти започна работа като доставчик на пица и сега трябва да следваш червените маркери.");
         SendClientMessage(playerid, 0xB35900FF, pizzastring);
@@ -266,7 +266,7 @@ CMD:deliver(playerid, params[])
         SetPlayerColor(playerid, 0xD8844DFF);
         DisablePlayerRaceCheckpoint(playerid);
         DisablePlayerCheckpoint(playerid);
-        ToggleEngine(GetPlayerVehicleID(playerid), VEHICLE_PARAMS_ON);
+        VehicleToggleEngine(GetPlayerVehicleID(playerid), VEHICLE_PARAMS_ON);
         SetPlayerCheckpoint(playerid, DeliverCheckPoint1, 4.0);
         format(pizzastring, 500, "Deliver: Ти започна работа като доставчик и сега трябва да следваш червените маркери.");
         SendClientMessage(playerid, 0xB35900FF, pizzastring);
@@ -316,7 +316,7 @@ CMD:pilot(playerid, params[])
         SetPlayerColor(playerid, 0xD8844DFF);
         DisablePlayerRaceCheckpoint(playerid);
         DisablePlayerCheckpoint(playerid);
-        ToggleEngine(GetPlayerVehicleID(playerid), VEHICLE_PARAMS_ON);
+        VehicleToggleEngine(GetPlayerVehicleID(playerid), VEHICLE_PARAMS_ON);
         SetPlayerCheckpoint(playerid, PilotCheckPoint1, 5.0);
         format(pizzastring, 500, "Pilot: Ти започна работа като пилот и сега трябва да следваш червените маркери.");
         SendClientMessage(playerid, 0xB35900FF, pizzastring);

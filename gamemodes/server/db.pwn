@@ -1,42 +1,42 @@
-
 stock CheckExistsCell(table[], id)
 {
-	new query[128];
-	new Cache: resultCache;
-	new result = -1;
-	format(query, sizeof(query), "SELECT EXISTS( SELECT 1 from `%s` WHERE id = '%d' LIMIT 1) ", table, id);
-	resultCache = mysql_query(MySQL: Database, query);
-	cache_get_value_index_int(0, 0, result);	
-	if(result == 0)
-	{
-		cache_delete(resultCache);
-		return false;
-	}
-	cache_delete(resultCache);
-	return true;
+    new query[128];
+new Cache:
+    resultCache;
+    new result = -1;
+    format(query, sizeof(query), "SELECT EXISTS( SELECT 1 from `%s` WHERE id = '%d' LIMIT 1) ", table, id);
+    resultCache = mysql_query(MySQL: Database, query);
+    cache_get_value_index_int(0, 0, result);
+    if (result == 0)
+    {
+        cache_delete(resultCache);
+        return false;
+    }
+    cache_delete(resultCache);
+    return true;
 }
 
 stock SQLConnect_FillEmptyTables()
 {
     if (CONNECT_SQL_OPERATIONS)
-	{
+    {
         for (new i = 0; i < MAX_RACES; i++)
         {
-            if(!CheckExistsCell("races", i+1))
+            if (!CheckExistsCell("races", i + 1))
             {
                 InsertRacesIntoDB(i);
             }
         }
         for (new i = 0; i < MAX_RECORDS; i++)
         {
-            if(!CheckExistsCell("records", i+1))
+            if (!CheckExistsCell("records", i + 1))
             {
                 InsertRecordsIntoDB(i);
             }
         }
-        for (new i=0; i < MAX_TURFS; i++)
+        for (new i = 0; i < MAX_TURFS; i++)
         {
-            if(!CheckExistsCell("turfs", i+1))
+            if (!CheckExistsCell("turfs", i + 1))
             {
                 InsertTurfIntoDB(i);
             }
@@ -44,7 +44,7 @@ stock SQLConnect_FillEmptyTables()
 
         for (new i = 0; i < MAX_TEAMS; i++)
         {
-            if(!CheckExistsCell("factions", i+1))
+            if (!CheckExistsCell("factions", i + 1))
             {
                 InsertFactionIntoDB(i);
             }
@@ -52,7 +52,7 @@ stock SQLConnect_FillEmptyTables()
 
         for (new i = 0; i < MAX_PRIVATEVEHS; i++)
         {
-            if(!CheckExistsCell("private_vehicles", i+1))
+            if (!CheckExistsCell("private_vehicles", i + 1))
             {
                 InsertPrivateVehIntoDB(i);
             }
@@ -60,7 +60,7 @@ stock SQLConnect_FillEmptyTables()
 
         for (new i = 0; i < MAX_OFFICES; i++)
         {
-            if(!CheckExistsCell("offices", i+1))
+            if (!CheckExistsCell("offices", i + 1))
             {
                 InsertOfficeIntoDB(i);
             }
@@ -70,10 +70,10 @@ stock SQLConnect_FillEmptyTables()
 
 stock SQLConnect_Operations()
 {
-	if (CONNECT_SQL_OPERATIONS)
-	{
-		// Creat all tables
-		CreateEmptyTable("users");
+    if (CONNECT_SQL_OPERATIONS)
+    {
+        // Creat all tables
+        CreateEmptyTable("users");
         CreateEmptyTable("aka");
         CreateEmptyTable("houses");
         CreateEmptyTable("businesses");
@@ -100,7 +100,7 @@ stock SQLConnect_Operations()
         AlterTableStr("aka", "player_ip");
         AlterTableStr("aka", "player_nicknames");
 
-		//Users
+        //Users
         AlterTableStr("users", "player_username");         // username
 
         // --- STRING/VARCHAR Columns ---
@@ -260,14 +260,14 @@ stock SQLConnect_Operations()
         AlterTableInt("users", "vguns");                  // pVGuns
 
         // Factions
-        AlterTableStr("factions", "rank_name1");          
-        AlterTableStr("factions", "rank_name2");          
-        AlterTableStr("factions", "rank_name3");          
-        AlterTableStr("factions", "rank_name4");         
-        AlterTableStr("factions", "rank_name5");         
-        AlterTableStr("factions", "rank_name6");        
-        AlterTableInt("factions", "turf_owner");  
-        AlterTableInt("factions", "turf_attack_time");        
+        AlterTableStr("factions", "rank_name1");
+        AlterTableStr("factions", "rank_name2");
+        AlterTableStr("factions", "rank_name3");
+        AlterTableStr("factions", "rank_name4");
+        AlterTableStr("factions", "rank_name5");
+        AlterTableStr("factions", "rank_name6");
+        AlterTableInt("factions", "turf_owner");
+        AlterTableInt("factions", "turf_attack_time");
 
         // Houses
         AlterTableFloat("houses", "x");          // hX
@@ -326,5 +326,21 @@ stock SQLConnect_Operations()
 
         // Data
         SQLConnect_FillEmptyTables();
-	}
+    }
+}
+
+/*
+* Load Database
+*/
+stock LoadDatabaseInformation()
+{
+    LoadRecords();
+    LoadTurfs();
+    LoadPrivateVehicles();
+    LoadOfficeCenter();
+    LoadStreetRaces();
+    LoadFactions();
+    LoadHouses();
+    LoadBizz();
+    LoadFreeVIP();
 }

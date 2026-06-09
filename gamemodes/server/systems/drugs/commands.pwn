@@ -36,7 +36,7 @@ CMD:bcase(playerid, params[])
         if (amount < 1 || amount > 1000)
             return SendClientMessage(playerid, 0xB4B5B7FF, "Можеш да съхраняваш дрога с количество от 1 до 1000!");
 
-        new string256[256];
+        //new string256[256];
         if (strcmp(drug, "moonshine", true) == 0)
         {
             if (amount > PlayerInfo[playerid][pMoonshine1])
@@ -113,7 +113,7 @@ CMD:bcase(playerid, params[])
         if (!IsPlayerAttachedObjectSlotUsed(playerid, 4))
             return SendClientMessage(playerid, 0xB4B5B7FF, "Ти в момента не държиш куфара в ръце!");
 
-        new string256[256];
+        //new string256[256];
         format(string256, sizeof(string256), "Спиртно питие: %d литра, Трева: %d грам(а), Кокаин %d грам(а), Хероин %d грам(а)", 
             PlayerInfo[playerid][pMoonshine1], PlayerInfo[playerid][pWeed1], PlayerInfo[playerid][pCocaine1], PlayerInfo[playerid][pHeroin1]);
         SendClientMessage(playerid, 0xFF2D2DFF, string256);
@@ -135,7 +135,7 @@ CMD:bcase(playerid, params[])
         if (amount < 1 || amount > 1000)
             return SendClientMessage(playerid, 0xB4B5B7FF, "Можеш да съхраняваш дрога с количество от 1 до 1000!");
 
-        new string256[256];
+        //new string256[256];
         if (strcmp(drug, "moonshine", true) == 0)
         {
             if (amount > PlayerInfo[playerid][pMoonshine])
@@ -293,7 +293,7 @@ CMD:buydrug(playerid, params[])
         return SendClientMessage(playerid, 0xB4B5B7FF, "Трябва да въведеш стойност на грама/литъра, по-голяма от 0!");
     }
 
-    new string256[256];
+    //new string256[256];
     if (strcmp(drug, "moonshine", true) == 0)
     {
         new cost = amount * 5000;

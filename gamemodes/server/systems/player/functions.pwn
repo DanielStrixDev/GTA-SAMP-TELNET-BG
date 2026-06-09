@@ -1,3 +1,5 @@
+#include <YSI_Coding\y_hooks>
+
 /*
 * Stats
 */
@@ -493,7 +495,7 @@ stock GivePlayerAfkTimerSecond(playerid)
 /*
 * Positions
 */
-stock bool:GetPosInFrontOfPoint( & Float:OutputX, & Float:OutputY, Float:Angle, Float:Distance)
+stock bool:GetPosInFrontOfPoint(& Float:OutputX, & Float:OutputY, Float:Angle, Float:Distance)
 {
     if (!Distance) return false;
     OutputX += floatmul(Distance, floatsin(-Angle, degrees));
@@ -903,12 +905,12 @@ ShowPlayerStats(playerReceive, playerStats)
 
     switch (PlayerInfo[playerStats][pRank])
     {
-        case 1 : format(ranktext, 256, "%s", TeamInfo[PlayerInfo[playerStats][pTeam]][tRank1]);
-        case 2 : format(ranktext, 256, "%s", TeamInfo[PlayerInfo[playerStats][pTeam]][tRank2]);
-        case 3 : format(ranktext, 256, "%s", TeamInfo[PlayerInfo[playerStats][pTeam]][tRank3]);
-        case 4 : format(ranktext, 256, "%s", TeamInfo[PlayerInfo[playerStats][pTeam]][tRank4]);
-        case 5 : format(ranktext, 256, "%s", TeamInfo[PlayerInfo[playerStats][pTeam]][tRank5]);
-        case 6 : format(ranktext, 256, "%s", TeamInfo[PlayerInfo[playerStats][pTeam]][tRank6]);
+        case 1: format(ranktext, 256, "%s", TeamInfo[PlayerInfo[playerStats][pTeam]][tRank1]);
+        case 2: format(ranktext, 256, "%s", TeamInfo[PlayerInfo[playerStats][pTeam]][tRank2]);
+        case 3: format(ranktext, 256, "%s", TeamInfo[PlayerInfo[playerStats][pTeam]][tRank3]);
+        case 4: format(ranktext, 256, "%s", TeamInfo[PlayerInfo[playerStats][pTeam]][tRank4]);
+        case 5: format(ranktext, 256, "%s", TeamInfo[PlayerInfo[playerStats][pTeam]][tRank5]);
+        case 6: format(ranktext, 256, "%s", TeamInfo[PlayerInfo[playerStats][pTeam]][tRank6]);
     }
 
     if (PlayerInfo[playerStats][pOffice] == 0) format(isofficeowner, 5, "No");
@@ -944,38 +946,38 @@ ShowPlayerStats(playerReceive, playerStats)
     if (freevip == 1)
     {
         format(statsText, 1024, "Level: %d | Admin Level: %d | VIP Level: %d | EP Skill: %d | Money Skill: %d | Weapon Skill: %d\n",
-            PlayerInfo[playerStats][pLevel], PlayerInfo[playerStats][pAdmin], PlayerInfo[playerStats][pVip],
-            PlayerInfo[playerStats][pEPS], PlayerInfo[playerStats][pMS], PlayerInfo[playerStats][pWeaponS]);
+               PlayerInfo[playerStats][pLevel], PlayerInfo[playerStats][pAdmin], PlayerInfo[playerStats][pVip],
+               PlayerInfo[playerStats][pEPS], PlayerInfo[playerStats][pMS], PlayerInfo[playerStats][pWeaponS]);
     }
     else
     {
         format(statsText, 1024, "Level: %d | Admin Level: %d | VIP Level: FREE | EP Skill: %d | Money Skill: %d | Weapon Skill: %d\n",
-            PlayerInfo[playerStats][pLevel], PlayerInfo[playerStats][pAdmin], PlayerInfo[playerStats][pEPS],
-            PlayerInfo[playerStats][pMS], PlayerInfo[playerStats][pWeaponS]);
+               PlayerInfo[playerStats][pLevel], PlayerInfo[playerStats][pAdmin], PlayerInfo[playerStats][pEPS],
+               PlayerInfo[playerStats][pMS], PlayerInfo[playerStats][pWeaponS]);
     }
 
     format(string256, 1024, "%sCash: $%d | Kills: %d | Deaths: %d | House: %s(%d) | Bizz: %s(%d) | Office: %s(%d) | Job: %s | EP: %d/%d\n",
-        statsText,
-        PlayerInfo[playerStats][pCash], PlayerInfo[playerStats][pKills], PlayerInfo[playerStats][pDeaths],
-        ishouseowner, housenumber, isbizzowner, bizznumber, isofficeowner, PlayerInfo[playerStats][pOffice],
-        isinjob, PlayerInfo[playerStats][pEP], PlayerInfo[playerStats][pLevel] + 6);
+           statsText,
+           PlayerInfo[playerStats][pCash], PlayerInfo[playerStats][pKills], PlayerInfo[playerStats][pDeaths],
+           ishouseowner, housenumber, isbizzowner, bizznumber, isofficeowner, PlayerInfo[playerStats][pOffice],
+           isinjob, PlayerInfo[playerStats][pEP], PlayerInfo[playerStats][pLevel] + 6);
 
     format(statsText, 1024, "%sMoneybox: %d/4 | Streetrace: %d/4 | Deathmatch: %d/4 | CMN1 Kills: %d/4\n",
-        string256, PlayerInfo[playerStats][pMoneyboxSuccess], PlayerInfo[playerStats][pStreetRaceSuccess],
-        PlayerInfo[playerStats][pDeathmatchSuccess], PlayerInfo[playerStats][pCMN1]);
+           string256, PlayerInfo[playerStats][pMoneyboxSuccess], PlayerInfo[playerStats][pStreetRaceSuccess],
+           PlayerInfo[playerStats][pDeathmatchSuccess], PlayerInfo[playerStats][pCMN1]);
 
     format(string256, 1024, "%sWanted Level: %d | Police Jail Time: %d минути",
-        statsText, PlayerInfo[playerStats][pWanted], PlayerInfo[playerStats][pPJail]);
+           statsText, PlayerInfo[playerStats][pWanted], PlayerInfo[playerStats][pPJail]);
 
     format(statsText, 1024, "%sFaction: %s | Faction Rank: %s(%d) | Faction Mute Time: %d минути | Faction Warns: %d/3\n",
-        string256, gangname, ranktext, PlayerInfo[playerStats][pRank], PlayerInfo[playerStats][pFMuted], PlayerInfo[playerStats][pFWarns]);
+           string256, gangname, ranktext, PlayerInfo[playerStats][pRank], PlayerInfo[playerStats][pFMuted], PlayerInfo[playerStats][pFWarns]);
 
     format(string256, 1024, "%sMute Time: %d минути | Jail Time: %d минути | R&N Mute Time: %d минути | Warns: %d/5 | Admin Warns: %d/4\n",
-        statsText, (PlayerInfo[playerStats][pMuted] / 60), PlayerInfo[playerStats][pJail] / 60, PlayerInfo[playerStats][pRNMute],
-        PlayerInfo[playerStats][pWarns], PlayerInfo[playerStats][pAWarns]);
+           statsText, (PlayerInfo[playerStats][pMuted] / 60), PlayerInfo[playerStats][pJail] / 60, PlayerInfo[playerStats][pRNMute],
+           PlayerInfo[playerStats][pWarns], PlayerInfo[playerStats][pAWarns]);
 
     format(statsText, 1024, "%s\n{FFFFFF}Играно време след получаването на последния Payday: %d минути",
-        string256, PlayerInfo[playerStats][pLastPayday]);
+           string256, PlayerInfo[playerStats][pLastPayday]);
 
     ShowPlayerDialog(playerReceive, 3000, DIALOG_STYLE_MSGBOX, "Статистика", statsText, "Close", "");
 }
@@ -1053,4 +1055,1144 @@ Float:GetXYBehindPlayer(playerid, & Float:q, & Float:w, Float:distance)
     q += (distance * -floatsin(-a, degrees));
     w += (distance * -floatcos(-a, degrees));
     return a;
+}
+
+/*
+* Hooks
+*/
+
+hook OnPlayerUpdate(playerid)
+{
+    AFKDetect[playerid] = gettime();
+
+    /*
+    * Checks if player is ESC At Turf
+    */
+    if (IsPlayerPaused(playerid) && isTurfMember[playerid])
+    {
+        if (PlayerInfo[playerid][pKick] == 0)
+        {
+            SendClientMessage(playerid, COLOR_RED, "SERVER: Ти беше KICKED, понеже беше ESC AFK на Turf!");
+            PlayerInfo[playerid][pKick] = 1;
+        }
+    }
+
+    return Y_HOOKS_CONTINUE_RETURN_1;
+}
+
+hook OnPlayerSpawn(playerid)
+{
+    spawned[playerid] = 1;
+
+    if (PlayerInfo[playerid][pVip] >= 4 || CheckFreeVIP() == 1)
+    {
+        SetPlayerArmour(playerid, 100);
+    }
+    if (requestspawn[playerid] == 1)
+    {
+        GameTextForPlayer(playerid, "     ", 1000, 3);
+    }
+    if (firstspawn[playerid] == 1)
+    {
+        requestspawn2[playerid] = 1;
+        nospawnselect[playerid] = 1;
+        StopAudioStreamForPlayer(playerid);
+        firstspawn[playerid] = 0;
+        GameTextForPlayer(playerid, "     ", 1000, 3);
+        if (month == 12)
+        {
+            santaHat[playerid] = true;
+            santaHatObject[playerid] = SetPlayerAttachedObject(playerid, 9, 19065, 2, 0.120000, 0.040000, -0.003500, 0, 100, 100, 1.4, 1.4, 1.4);
+            SendClientMessage(playerid, 0xFFFFFFFF, "CHRISTMAS: Ако искаш да премахнеш коледната шапка от главата ти, напиши /removehat");
+            SendClientMessage(playerid, 0xFFFFFFFF, "CHRISTMAS: Ако искаш пак да си я сложиш, напиши /santahat");
+        }
+    }
+    if (PlayerInfo[playerid][pJail] > 0)
+    {
+        ResetPlayerWeapons(playerid);
+        SetPlayerVirtualWorld(playerid, 1);
+        SetPlayerInterior(playerid, 4);
+        SetPlayerPos(playerid, 299.7077, 303.4193, 999.1484);
+        SetPlayerAttachedObject(playerid, 1, 19418, 6, -0.011000, 0.028000, -0.022000, -15.600012, -33.699977, -81.700035, 0.891999, 1.000000, 1.168000);
+        SetPlayerSpecialAction(playerid, SPECIAL_ACTION_CUFFED);
+    }
+    if (PlayerInfo[playerid][pAFK] > 0)
+    {
+        ResetPlayerWeapons(playerid);
+        SetPlayerInterior(playerid, 15);
+        SetPlayerColor(playerid, 0xD6F34AFF);
+        SetPlayerPos(playerid, 2215.454833, -1147.475585, 1025.796875);
+        SetPlayerVirtualWorld(playerid, playerid + 500);
+    }
+
+    if (PlayerInfo[playerid][pSpawnO] == 1)
+    {
+        SetPlayerVirtualWorld(playerid, 0);
+        SetPlayerInterior(playerid, 0);
+        new spawn = random(10);
+        if (spawn == 0)
+        {
+            SetPlayerPos(playerid, 2178.9063, 1285.6537, 10.8203);
+            SetPlayerFacingAngle(playerid, 270.3970);
+        }
+        if (spawn == 1)
+        {
+            SetPlayerPos(playerid, 1027.0188, -1344.9539, 13.7266);
+            SetPlayerFacingAngle(playerid, 1.2900);
+        }
+        if (spawn == 2)
+        {
+            SetPlayerPos(playerid, 2216.9980, -1170.4368, 25.7266);
+            SetPlayerFacingAngle(playerid, 359.7421);
+        }
+        if (spawn == 3)
+        {
+            SetPlayerPos(playerid, 2097.3970, 2490.7754, 14.8390);
+            SetPlayerFacingAngle(playerid, 179.1149);
+        }
+        if (spawn == 4)
+        {
+            SetPlayerPos(playerid, 386.7134, -2028.5282, 7.8359);
+            SetPlayerFacingAngle(playerid, 89.3663);
+        }
+        if (spawn == 5)
+        {
+            SetPlayerPos(playerid, 1676.4705, -1634.6233, 14.2266);
+            SetPlayerFacingAngle(playerid, 269.8728);
+        }
+        if (spawn == 6)
+        {
+            SetPlayerPos(playerid, 2225.3550, 1838.6611, 10.8203);
+            SetPlayerFacingAngle(playerid, 90.2421);
+        }
+        if (spawn == 7)
+        {
+            SetPlayerPos(playerid, 2551.8250, 2244.6887, 10.8203);
+            SetPlayerFacingAngle(playerid, 167.6396);
+        }
+        if (spawn == 8)
+        {
+            SetPlayerPos(playerid, 1742.8735, -1863.2289, 13.5753);
+            SetPlayerFacingAngle(playerid, 359.7475);
+        }
+        if (spawn == 9)
+        {
+            SetPlayerPos(playerid, 1688.3342, 1447.8641, 10.7678);
+            SetPlayerFacingAngle(playerid, 269.8827);
+        }
+        if (spawn == 10)
+        {
+            SetPlayerPos(playerid, 2216.9980, -1170.4368, 25.7266);
+            SetPlayerFacingAngle(playerid, 359.7421);
+        }
+        SetCameraBehindPlayer(playerid);
+    }
+    if (PlayerInfo[playerid][pSpawnO] == 3)
+    {
+        SetPlayerInterior(playerid, 0);
+        SetPlayerVirtualWorld(playerid, 0);
+        SetPlayerPos(playerid, 280.9982, 1410.2089, 10.4179);
+    }
+    if (PlayerInfo[playerid][pSpawnO] == 2)
+    {
+        if (PlayerInfo[playerid][pTeam] == FACTION_VIP)
+        {
+            SetPlayerVirtualWorld(playerid, 0);
+            SetPlayerInterior(playerid, 0);
+            new spawn = random(5);
+            if (spawn == 0)
+            {
+                SetPlayerPos(playerid, 1204.3077, -2066.5664, 84.7134);
+                SetPlayerFacingAngle(playerid, 2.7804);
+            }
+            if (spawn == 1)
+            {
+                SetPlayerPos(playerid, 1183.0295, -2008.9454, 85.1735);
+                SetPlayerFacingAngle(playerid, 182.6776);
+            }
+            if (spawn == 2)
+            {
+                SetPlayerPos(playerid, 1242.3442, -2003.8608, 76.0035);
+                SetPlayerFacingAngle(playerid, 179.7874);
+            }
+            if (spawn == 3)
+            {
+                SetPlayerPos(playerid, 1281.2172, -2002.7297, 74.8102);
+                SetPlayerFacingAngle(playerid, 174.3698);
+            }
+            if (spawn == 4)
+            {
+                SetPlayerPos(playerid, 1281.2172, -2002.7297, 74.8102);
+                SetPlayerFacingAngle(playerid, 174.3698);
+            }
+            if (spawn == 5)
+            {
+                SetPlayerPos(playerid, 1281.2172, -2002.7297, 74.8102);
+                SetPlayerFacingAngle(playerid, 179.7682);
+            }
+            SetCameraBehindPlayer(playerid);
+        }
+        if (PlayerInfo[playerid][pTeam] == FACTION_BALLAS)
+        {
+            new spawn = random(2);
+            if (spawn == 0)
+            {
+                SetPlayerPos(playerid, 2146.5444, -1432.6128, 25.5391);
+                SetPlayerFacingAngle(playerid, 90.9074);
+            }
+            if (spawn == 1)
+            {
+                SetPlayerPos(playerid, 2147.8428, -1489.3254, 26.6198);
+                SetPlayerFacingAngle(playerid, 88.7140);
+            }
+            if (spawn == 2)
+            {
+                SetPlayerPos(playerid, 2146.5444, -1432.6128, 25.5391);
+                SetPlayerFacingAngle(playerid, 90.9074);
+            }
+            SetPlayerVirtualWorld(playerid, 0);
+            SetPlayerInterior(playerid, 0);
+            SetCameraBehindPlayer(playerid);
+        }
+        if (PlayerInfo[playerid][pTeam] == FACTION_TRIADS)
+        {
+            new spawn = random(2);
+            if (spawn == 0)
+            {
+                SetPlayerPos(playerid, 1958.0376, 951.1666, 10.8203);
+                SetPlayerFacingAngle(playerid, 180.1847);
+            }
+            if (spawn == 1)
+            {
+                SetPlayerPos(playerid, 1969.9386, 942.0911, 10.8126);
+                SetPlayerFacingAngle(playerid, 176.1113);
+            }
+            if (spawn == 2)
+            {
+                SetPlayerPos(playerid, 1928.6168, 945.8361, 10.8127);
+                SetPlayerFacingAngle(playerid, 85.2205);
+            }
+            SetPlayerVirtualWorld(playerid, 0);
+            SetPlayerInterior(playerid, 0);
+            SetCameraBehindPlayer(playerid);
+        }
+        if (PlayerInfo[playerid][pTeam] == FACTION_AZTECAS)
+        {
+            new spawn = random(2);
+            if (spawn == 0)
+            {
+                SetPlayerPos(playerid, 743.6805, -498.7406, 18.0129);
+                SetPlayerFacingAngle(playerid, 276.3322);
+            }
+            if (spawn == 1)
+            {
+                SetPlayerPos(playerid, 745.5961, -511.2993, 18.0129);
+                SetPlayerFacingAngle(playerid, 176.9813);
+            }
+            if (spawn == 2)
+            {
+                SetPlayerPos(playerid, 739.9612, -554.7196, 18.0129);
+                SetPlayerFacingAngle(playerid, 5.9559);
+            }
+            SetPlayerVirtualWorld(playerid, 0);
+            SetPlayerInterior(playerid, 0);
+            SetCameraBehindPlayer(playerid);
+        }
+        if (PlayerInfo[playerid][pTeam] == FACTION_CRIPZ)
+        {
+            new spawn = random(2);
+            if (spawn == 0)
+            {
+                SetPlayerPos(playerid, 297.6942, -1155.6418, 80.9099);
+                SetPlayerFacingAngle(playerid, 125.8933);
+            }
+            if (spawn == 1)
+            {
+                SetPlayerPos(playerid, 320.8712, -1170.3861, 80.9141);
+                SetPlayerFacingAngle(playerid, 88.6063);
+            }
+            if (spawn == 2)
+            {
+                SetPlayerPos(playerid, 274.3722, -1167.7781, 80.8616);
+                SetPlayerFacingAngle(playerid, 276.8981);
+            }
+            SetPlayerVirtualWorld(playerid, 0);
+            SetPlayerInterior(playerid, 0);
+            SetCameraBehindPlayer(playerid);
+        }
+        if (PlayerInfo[playerid][pTeam] == FACTION_BGMAFIA)
+        {
+            SetPlayerArmour(playerid, 100);
+            SetPlayerPos(playerid, 1267.1464, -777.3041, 1091.9063);
+            SetPlayerVirtualWorld(playerid, 1);
+            SetPlayerInterior(playerid, 5);
+            SetCameraBehindPlayer(playerid);
+        }
+        if (PlayerInfo[playerid][pTeam] == FACTION_RIFA)
+        {
+            SetPlayerPos(playerid, 2449.8516, -1688.9565, 1013.5078);
+            SetPlayerFacingAngle(playerid, 182.1234);
+            SetPlayerVirtualWorld(playerid, 1);
+            SetPlayerInterior(playerid, 2);
+            SetCameraBehindPlayer(playerid);
+        }
+        if (PlayerInfo[playerid][pTeam] == FACTION_SOLDIER)
+        {
+            SetPlayerArmour(playerid, 100);
+            SetPlayerPos(playerid, 2331.0933, -1137.6527, 1054.3047);
+            SetPlayerVirtualWorld(playerid, 1);
+            SetPlayerInterior(playerid, 12);
+            SetCameraBehindPlayer(playerid);
+        }
+        if (PlayerInfo[playerid][pTeam] == FACTION_SOA)
+        {
+            new spawn = random(2);
+            if (spawn == 0)
+            {
+                SetPlayerPos(playerid, 2615.6545, 2313.8264, 10.8203);
+                SetPlayerFacingAngle(playerid, 253.6507);
+            }
+            if (spawn == 1)
+            {
+                SetPlayerPos(playerid, 2622.7986, 2335.3406, 10.8203);
+                SetPlayerFacingAngle(playerid, 185.9700);
+            }
+            if (spawn == 2)
+            {
+                SetPlayerPos(playerid, 2655.8208, 2347.8174, 10.8203);
+                SetPlayerFacingAngle(playerid, 149.9362);
+            }
+            SetPlayerVirtualWorld(playerid, 0);
+            SetPlayerInterior(playerid, 0);
+            SetCameraBehindPlayer(playerid);
+        }
+        if (PlayerInfo[playerid][pTeam] == FACTION_NANG)
+        {
+            new spawn = random(2);
+            if (spawn == 0)
+            {
+                SetPlayerPos(playerid, 2621.7190, 1825.1489, 11.0234);
+                SetPlayerFacingAngle(playerid, 91.7867);
+            }
+            if (spawn == 1)
+            {
+                SetPlayerPos(playerid, 2635.7065, 1797.4092, 11.0234);
+                SetPlayerFacingAngle(playerid, 87.7133);
+            }
+            if (spawn == 2)
+            {
+                SetPlayerPos(playerid, 2599.0176, 1812.4899, 10.9766);
+                SetPlayerFacingAngle(playerid, 279.7651);
+            }
+            SetPlayerVirtualWorld(playerid, 0);
+            SetPlayerInterior(playerid, 0);
+            SetCameraBehindPlayer(playerid);
+        }
+        if (PlayerInfo[playerid][pTeam] == FACTION_BOUNTY)
+        {
+            SetPlayerArmour(playerid, 100);
+            new spawn = random(2);
+            if (spawn == 0)
+            {
+                SetPlayerPos(playerid, 681.9958, -1276.5922, 13.5755);
+                SetPlayerFacingAngle(playerid, 88.3163);
+            }
+            if (spawn == 1)
+            {
+                SetPlayerPos(playerid, 673.2634, -1292.6874, 13.6328);
+                SetPlayerFacingAngle(playerid, 82.0496);
+            }
+            if (spawn == 2)
+            {
+                SetPlayerPos(playerid, 658.6101, -1251.8407, 13.7522);
+                SetPlayerFacingAngle(playerid, 190.7540);
+            }
+            SetPlayerVirtualWorld(playerid, 0);
+            SetPlayerInterior(playerid, 0);
+            SetCameraBehindPlayer(playerid);
+        }
+        if (PlayerInfo[playerid][pTeam] == FACTION_THUGLIFE)
+        {
+            new spawn = random(2);
+            if (spawn == 0)
+            {
+                SetPlayerPos(playerid, 491.4981, -1514.3501, 20.4358);
+                SetPlayerFacingAngle(playerid, 1.1300);
+            }
+            if (spawn == 1)
+            {
+                SetPlayerPos(playerid, 480.5826, -1495.5084, 20.3957);
+                SetPlayerFacingAngle(playerid, 89.8041);
+            }
+            if (spawn == 2)
+            {
+                SetPlayerPos(playerid, 480.3297, -1482.4331, 19.8992);
+                SetPlayerFacingAngle(playerid, 92.3108);
+            }
+            SetPlayerVirtualWorld(playerid, 0);
+            SetPlayerInterior(playerid, 0);
+            SetCameraBehindPlayer(playerid);
+        }
+        if (PlayerInfo[playerid][pTeam] == FACTION_INTENSE_POLICE)
+        {
+            new spawn = random(2);
+            if (spawn == 0)
+            {
+                SetPlayerPos(playerid, 248.4185, 75.8314, 1003.6406);
+            }
+            if (spawn == 1)
+            {
+                SetPlayerPos(playerid, 253.4204, 65.2763, 1003.6406);
+            }
+            if (spawn == 2)
+            {
+                SetPlayerPos(playerid, 237.9575, 74.1665, 1005.0391);
+            }
+            SetPlayerArmour(playerid, 100);
+            SetPlayerVirtualWorld(playerid, 1);
+            SetPlayerInterior(playerid, 6);
+            SetCameraBehindPlayer(playerid);
+        }
+        if (PlayerInfo[playerid][pTeam] == FACTION_CREW)
+        {
+            new spawn = random(2);
+            if (spawn == 0)
+            {
+                SetPlayerPos(playerid, 309.5213, -1333.9890, 53.4476);
+                SetPlayerFacingAngle(playerid, 91.9914);
+            }
+            if (spawn == 1)
+            {
+                SetPlayerPos(playerid, 317.7553, -1330.7593, 53.1995);
+                SetPlayerFacingAngle(playerid, 91.9914);
+            }
+            if (spawn == 2)
+            {
+                SetPlayerPos(playerid, 298.8723, -1334.7021, 53.4421);
+                SetPlayerFacingAngle(playerid, 88.8813);
+            }
+            SetPlayerVirtualWorld(playerid, 0);
+            SetPlayerInterior(playerid, 0);
+            SetCameraBehindPlayer(playerid);
+        }
+        if (PlayerInfo[playerid][pTeam] == FACTION_ITALIAN)
+        {
+            new spawn = random(2);
+            if (spawn == 0)
+            {
+                SetPlayerPos(playerid, -688.8886, 938.8144, 13.6328);
+            }
+            if (spawn == 1)
+            {
+                SetPlayerPos(playerid, -688.0349, 926.8151, 13.6293);
+            }
+            if (spawn == 2)
+            {
+                SetPlayerPos(playerid, -708.7231, 950.2300, 12.4724);
+            }
+            SetPlayerVirtualWorld(playerid, 0);
+            SetPlayerInterior(playerid, 0);
+            SetCameraBehindPlayer(playerid);
+        }
+        if (PlayerInfo[playerid][pTeam] == FACTION_VAGOS)
+        {
+            SetPlayerArmour(playerid, 100);
+            new spawn = random(2);
+            if (spawn == 0)
+            {
+                SetPlayerPos(playerid, 1881.9993, 2339.8398, 10.9799);
+                SetPlayerFacingAngle(playerid, 264.6255);
+            }
+            if (spawn == 1)
+            {
+                SetPlayerPos(playerid, 1910.1119, 2349.9846, 10.9799);
+                SetPlayerFacingAngle(playerid, 176.9813);
+            }
+            if (spawn == 2)
+            {
+                SetPlayerPos(playerid, 1883.3551, 2295.4844, 10.9799);
+                SetPlayerFacingAngle(playerid, 267.4223);
+            }
+            SetPlayerVirtualWorld(playerid, 0);
+            SetPlayerInterior(playerid, 0);
+            SetCameraBehindPlayer(playerid);
+        }
+        if (PlayerInfo[playerid][pTeam] == FACTION_MS13)
+        {
+            new spawn = random(2);
+            if (spawn == 0)
+            {
+                SetPlayerPos(playerid, -37.7534, 1079.9067, 20.0710);
+            }
+            if (spawn == 1)
+            {
+                SetPlayerPos(playerid, -22.8780, 1063.8611, 19.7422);
+            }
+            if (spawn == 2)
+            {
+                SetPlayerPos(playerid, -7.8116, 1075.0288, 19.7422);
+            }
+            SetPlayerVirtualWorld(playerid, 0);
+            SetPlayerInterior(playerid, 0);
+            SetCameraBehindPlayer(playerid);
+        }
+        if (PlayerInfo[playerid][pTeam] == FACTION_SYNDICATE)
+        {
+            SetPlayerArmour(playerid, 100);
+            new spawn = random(2);
+            if (spawn == 0)
+            {
+                SetPlayerPos(playerid, 1757.1570, 2766.8816, 10.8359);
+            }
+            if (spawn == 1)
+            {
+                SetPlayerPos(playerid, 1749.6184, 2797.0723, 10.8359);
+            }
+            if (spawn == 2)
+            {
+                SetPlayerPos(playerid, 1783.9874, 2787.4541, 10.8359);
+            }
+            SetPlayerVirtualWorld(playerid, 0);
+            SetPlayerInterior(playerid, 0);
+            SetCameraBehindPlayer(playerid);
+        }
+        if (PlayerInfo[playerid][pTeam] == FACTION_BLOODMAFIA)
+        {
+            new spawn = random(2);
+            if (spawn == 0)
+            {
+                SetPlayerPos(playerid, 1100.7185, -1220.8761, 17.8047);
+            }
+            if (spawn == 1)
+            {
+                SetPlayerPos(playerid, 1117.1194, -1237.0652, 15.9510);
+            }
+            if (spawn == 2)
+            {
+                SetPlayerPos(playerid, 1122.6483, -1247.2380, 25.3020);
+            }
+            SetPlayerVirtualWorld(playerid, 0);
+            SetPlayerInterior(playerid, 0);
+            SetCameraBehindPlayer(playerid);
+        }
+        if (PlayerInfo[playerid][pTeam] == FACTION_343)
+        {
+            new spawn = random(2);
+            if (spawn == 0)
+            {
+                SetPlayerPos(playerid, -799.6035, 1569.4238, 27.1172);
+            }
+            if (spawn == 1)
+            {
+                SetPlayerPos(playerid, -814.1357, 1542.5577, 27.1172);
+            }
+            if (spawn == 2)
+            {
+                SetPlayerPos(playerid, -800.3713, 1531.4137, 27.1172);
+            }
+            SetPlayerVirtualWorld(playerid, 0);
+            SetPlayerInterior(playerid, 0);
+            SetCameraBehindPlayer(playerid);
+        }
+        if (PlayerInfo[playerid][pTeam] == FACTION_YAKUZA)
+        {
+            new spawn = random(2);
+            if (spawn == 0)
+            {
+                SetPlayerPos(playerid, 2584.7444, 2787.1177, 10.8203);
+            }
+            if (spawn == 1)
+            {
+                SetPlayerPos(playerid, 2581.6055, 2747.6665, 10.8203);
+            }
+            if (spawn == 2)
+            {
+                SetPlayerPos(playerid, 2531.0698, 2794.3374, 10.8203);
+            }
+            SetPlayerVirtualWorld(playerid, 0);
+            SetPlayerInterior(playerid, 0);
+            SetCameraBehindPlayer(playerid);
+        }
+        if (PlayerInfo[playerid][pTeam] == FACTION_GROVE)
+        {
+            new spawn = random(5);
+            if (spawn == 0)
+            {
+                SetPlayerPos(playerid, 2496.0024, -1709.4805, 1014.7422);
+                SetPlayerFacingAngle(playerid, 2.1533);
+            }
+            if (spawn == 1)
+            {
+                SetPlayerPos(playerid, 2496.0024, -1709.4805, 1014.7422);
+                SetPlayerFacingAngle(playerid, 2.1533);
+            }
+            if (spawn == 2)
+            {
+                SetPlayerPos(playerid, 2496.0024, -1709.4805, 1014.7422);
+                SetPlayerFacingAngle(playerid, 2.1533);
+            }
+            if (spawn == 3)
+            {
+                SetPlayerPos(playerid, 2492.2722, -1703.3955, 1018.3438);
+                SetPlayerFacingAngle(playerid, 179.7682);
+            }
+            if (spawn == 4)
+            {
+                SetPlayerPos(playerid, 2492.2722, -1703.3955, 1018.3438);
+                SetPlayerFacingAngle(playerid, 179.7682);
+            }
+            if (spawn == 5)
+            {
+                SetPlayerPos(playerid, 2496.0024, -1709.4805, 1014.7422);
+                SetPlayerFacingAngle(playerid, 2.1533);
+            }
+            SetPlayerVirtualWorld(playerid, 1);
+            SetPlayerInterior(playerid, 3);
+            SetCameraBehindPlayer(playerid);
+        }
+    }
+    RestartPlayerColor(playerid);
+    RestartVIPLaser(playerid);
+    RestartPlayerSkin(playerid);
+    if (adutyskinchanged[playerid] == 0)
+    {
+        spawnselectedskin2[playerid] = GetPlayerSkin(playerid);
+        spawnselectedskin[playerid] = GetPlayerSkin(playerid);
+    }
+    else
+    {
+        spawnselectedskin2[playerid] = GetPlayerSkin(playerid);
+        spawnselectedskin[playerid] = PlayerInfo[playerid][pASkin];
+    }
+    if (PlayerInfo[playerid][pSpawnO] == 4)
+    {
+        SetPlayerVirtualWorld(playerid, 0);
+        SetPlayerInterior(playerid, 0);
+        SetPlayerPos(playerid, HouseInfo[PlayerInfo[playerid][pHouseO]][hX], HouseInfo[PlayerInfo[playerid][pHouseO]][hY], HouseInfo[PlayerInfo[playerid][pHouseO]][hZ]);
+    }
+    if (PlayerInfo[playerid][pSpawnO] == 5)
+    {
+        SetPlayerVirtualWorld(playerid, 0);
+        SetPlayerInterior(playerid, 0);
+        SetPlayerPos(playerid, BizInfo[PlayerInfo[playerid][pBizO]][bX], BizInfo[PlayerInfo[playerid][pBizO]][bY], BizInfo[PlayerInfo[playerid][pBizO]][bZ]);
+    }
+    if (PlayerInfo[playerid][pADuty] == 0)
+    {
+        if (PlayerInfo[playerid][pVIPLabel] == 1)
+        {
+            UpdateDynamic3DTextLabelText(PlayerLabel[playerid], 0x800000FF, " ");
+            format(VipText3D[playerid], 26, "");
+            PlayerLabel[playerid] = CreateDynamic3DTextLabel(VipText3D[playerid], 0x800000FF, 0.0, 0.0, 0.0, 15.0, playerid, INVALID_VEHICLE_ID, 0, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid), -1, 15.0);
+        }
+    }
+    if (PlayerInfo[playerid][pADuty] == 1)
+    {
+        SetPlayerColor(playerid, 0x7BFFFFFF);
+        adutyskinchanged[playerid] = 1;
+        SendClientMessage(playerid, 0x40BF00FF, "Ти все-още си On-Duty и трябва да помагаш на играчите");
+        SetPlayerSkin(playerid, PlayerInfo[playerid][pASkin]);
+        if (godmode[playerid] == 1)
+        {
+            SetPlayerHealth(playerid, 99999);
+            SetPlayerArmour(playerid, 99999);
+        }
+        ResetPlayerWeapons(playerid);
+    }
+    if (PlayerInfo[playerid][pPJail] > 0)
+    {
+        SetPlayerInterior(playerid, 3);
+        SendClientMessage(playerid, 0x0040FFFF, "Jail: Ти все още си в затвора на полицията!");
+        SetPlayerPos(playerid, 197.9882, 175.4870, 1003.0234);
+        ResetPlayerWeapons(playerid);
+    }
+    UpdatePlayerHeadText(playerid);
+
+    return Y_HOOKS_CONTINUE_RETURN_1;
+}
+
+hook OnPlayerStateChange(playerid, newstate, oldstate)
+{
+    /*
+    * Checks if vehicle is locked
+    */
+    if (vehLocker[playerid] != -1)
+    {
+        if (newstate == PLAYER_STATE_PASSENGER || newstate == PLAYER_STATE_ONFOOT)
+        {
+            for (new i = 0; i < MAX_PLAYERS; i++)
+            {
+                SetVehicleParamsForPlayer(vehLocker[playerid], i, 0, 0);
+            }
+        }
+    }
+    if (newstate == PLAYER_STATE_DRIVER || newstate == PLAYER_STATE_PASSENGER || newstate == PLAYER_STATE_ONFOOT)
+    {
+        vehLocker[playerid] = -1;
+    }
+
+    /*
+    * Sets armed weapon to id 0
+    */
+    if (newstate == PLAYER_STATE_DRIVER)
+    {
+        SetPlayerArmedWeapon(playerid, 0);
+        g_veh[playerid] = GetPlayerVehicleID(playerid);
+    }
+    if (AntiFallOfBike[playerid] == 1)
+    {
+        if (GetVehicleModel(g_veh[playerid]) == 509 || GetVehicleModel(g_veh[playerid]) == 510 || GetVehicleModel(g_veh[playerid]) == 481)
+        {
+            new Float:Health;
+            GetPlayerHealth(playerid, Health);
+            if (newstate == PLAYER_STATE_ONFOOT && oldstate == PLAYER_STATE_DRIVER && lastkey[playerid] != 16 && Health > 0.0)
+            {
+                PutPlayerInVehicle(playerid, g_veh[playerid], 0);
+            }
+        }
+    }
+    if (newstate == PLAYER_STATE_DRIVER)
+    {
+        drive[GetPlayerVehicleID(playerid)] = 1;
+    }
+    if (newstate == PLAYER_STATE_PASSENGER)
+    {
+        passenger[playerid] = true;
+        if (GetVehicleModel(GetPlayerVehicleID(playerid)) == 431 ||
+                GetVehicleModel(GetPlayerVehicleID(playerid)) == 437 ||
+                GetVehicleModel(GetPlayerVehicleID(playerid)) == 508 ||
+                GetVehicleModel(GetPlayerVehicleID(playerid)) == 431 ||
+                GetVehicleModel(GetPlayerVehicleID(playerid)) == 573)
+        {
+            SetPlayerInterior(playerid, 0);
+            SetPlayerVirtualWorld(playerid, GetPlayerVehicleID(playerid));
+            SetPlayerPos(playerid, 2021.8448, 2235.1274, 2103.9536);
+            SetPlayerFacingAngle(playerid, 180.7037);
+            SetCameraBehindPlayer(playerid);
+        }
+    }
+    if (newstate == PLAYER_STATE_DRIVER)
+    {
+        driver[playerid] = 1;
+        PlayerInfo[playerid][pFuel] = 25;
+    }
+    if (newstate != PLAYER_STATE_DRIVER)
+    {
+        driver[playerid] = 0;
+        PlayerInfo[playerid][pFuel] = -1;
+    }
+    if (newstate == PLAYER_STATE_DRIVER || newstate == PLAYER_STATE_PASSENGER)
+    {
+        if (loadedtext[playerid] == 0)
+        {
+            if (speedo[playerid] == 0)
+            {
+                TextDrawShowForPlayer(playerid, vehstatus[playerid]);
+            }
+            loadedtext[playerid] = 1;
+        }
+        GetVehicleHealth(GetPlayerVehicleID(playerid), vehhealth[playerid]);
+        if (GetVehicleModel(GetPlayerVehicleID(playerid)) != 481 &&
+                GetVehicleModel(GetPlayerVehicleID(playerid)) != 509 &&
+                GetVehicleModel(GetPlayerVehicleID(playerid)) != 510 &&
+                GetVehicleModel(GetPlayerVehicleID(playerid)) != 481)
+        {
+            if (speedo[playerid] == 0)
+            {
+                if (kmh[playerid] == 0)
+                {
+                    format(stringvehicle[playerid], 115, "~w~Speed: %dkm/h~n~~g~Health: %.0f~n~~r~Fuel: %dL", GetVehicleKmh(GetPlayerVehicleID(playerid)), vehhealth[playerid], vehfuel[GetPlayerVehicleID(playerid)]);
+                }
+                else
+                {
+                    new vehicleid, Float:speed_x, Float:speed_y, Float:speed_z, final_speed_int;
+                    vehicleid = GetPlayerVehicleID(playerid);
+                    GetVehicleVelocity(vehicleid, speed_x, speed_y, speed_z);
+                    final_speed_int = GetVehicleKmh(vehicleid);
+                    format(stringvehicle[playerid], 115, "~w~Speed: %dm/s~n~~g~Health: %.0f~n~~r~Fuel: %dL", final_speed_int, vehhealth[playerid], vehfuel[GetPlayerVehicleID(playerid)]);
+                }
+            }
+        }
+        else
+        {
+            if (speedo[playerid] == 0)
+            {
+                if (kmh[playerid] == 0)
+                {
+                    format(stringvehicle[playerid], 115, "~w~Speed: %dkm/h~n~~g~Health: %.0f", GetVehicleKmh(GetPlayerVehicleID(playerid)), vehhealth[playerid]);
+                }
+                else
+                {
+                    new vehicleid, Float:speed_x, Float:speed_y, Float:speed_z, final_speed_int;
+                    vehicleid = GetPlayerVehicleID(playerid);
+                    GetVehicleVelocity(vehicleid, speed_x, speed_y, speed_z);
+                    final_speed_int = GetVehicleKmh(vehicleid);
+                    format(stringvehicle[playerid], 115, "~w~Speed: %dm/s~n~~g~Health: %.0f", final_speed_int, vehhealth[playerid]);
+                }
+            }
+        }
+        TextDrawSetString(vehstatus[playerid], stringvehicle[playerid]);
+    }
+    if (oldstate == PLAYER_STATE_DRIVER && newstate == PLAYER_STATE_ONFOOT || oldstate == PLAYER_STATE_PASSENGER && newstate == PLAYER_STATE_ONFOOT || oldstate == PLAYER_STATE_DRIVER && newstate == PLAYER_STATE_WASTED || oldstate == PLAYER_STATE_DRIVER && newstate == PLAYER_STATE_SPECTATING || oldstate == PLAYER_STATE_PASSENGER && newstate == PLAYER_STATE_SPECTATING ||
+            oldstate == PLAYER_STATE_DRIVER && newstate == PLAYER_STATE_SPECTATING)
+    {
+        if (loadedtext[playerid] == 1)
+        {
+            TextDrawHideForPlayer(playerid, vehstatus[playerid]);
+            loadedtext[playerid] = 0;
+        }
+    }
+
+    return Y_HOOKS_CONTINUE_RETURN_1;
+}
+
+hook OnPlayerExitVehicle(playerid, vehicleid)
+{
+    drive[vehicleid] = 0;
+    return Y_HOOKS_CONTINUE_RETURN_1;
+}
+
+hook OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
+{
+    if (GetVehicleModel(vehicleid) == 481)
+    {
+        SetPlayerArmedWeapon(playerid, 0);
+    }
+
+    if (GetVehicleModel(vehicleid) == 454 || GetVehicleModel(vehicleid) == 472 || GetVehicleModel(vehicleid) == 473 || GetVehicleModel(vehicleid) == 484 || GetVehicleModel(vehicleid) == 430 || GetVehicleModel(vehicleid) == 446 || GetVehicleModel(vehicleid) == 452 || GetVehicleModel(vehicleid) == 453 || GetVehicleModel(vehicleid) == 493 || GetVehicleModel(vehicleid) == 595)
+    {
+        if (!ispassenger)
+        {
+            if (PlayerInfo[playerid][pLodka] == 0)
+            {
+                new Float:cx, Float:cy, Float:cz;
+                GetPlayerPos(playerid, cx, cy, cz);
+                SetPlayerPos(playerid, cx, cy, cz);
+                SendClientMessage(playerid, 0x636363FF, "Ти нямаш шофьорска книжка за лодка!");
+                return 0;
+            }
+        }
+    }
+    if (GetVehicleModel(vehicleid) == 460 || GetVehicleModel(vehicleid) == 476 || GetVehicleModel(vehicleid) == 511 || GetVehicleModel(vehicleid) == 512 || GetVehicleModel(vehicleid) == 513 || GetVehicleModel(vehicleid) == 519 || GetVehicleModel(vehicleid) == 520 || GetVehicleModel(vehicleid) == 553 || GetVehicleModel(vehicleid) == 577 || GetVehicleModel(vehicleid) == 592)
+    {
+        if (!ispassenger)
+        {
+            if (PlayerInfo[playerid][pSamolet] == 0)
+            {
+                new Float:cx, Float:cy, Float:cz;
+                GetPlayerPos(playerid, cx, cy, cz);
+                SetPlayerPos(playerid, cx, cy, cz);
+                SendClientMessage(playerid, 0x636363FF, "Ти нямаш шофьорска книжка за самолет!");
+                return 0;
+            }
+        }
+    }
+    if (GetVehicleModel(vehicleid) == 417 || GetVehicleModel(vehicleid) == 425 || GetVehicleModel(vehicleid) == 447 || GetVehicleModel(vehicleid) == 460 || GetVehicleModel(vehicleid) == 469 || GetVehicleModel(vehicleid) == 487 || GetVehicleModel(vehicleid) == 488 || GetVehicleModel(vehicleid) == 497 || GetVehicleModel(vehicleid) == 548 || GetVehicleModel(vehicleid) == 563)
+    {
+        if (!ispassenger)
+        {
+            if (PlayerInfo[playerid][pHelikopter] == 0)
+            {
+                new Float:cx, Float:cy, Float:cz;
+                GetPlayerPos(playerid, cx, cy, cz);
+                SetPlayerPos(playerid, cx, cy, cz);
+                SendClientMessage(playerid, 0x636363FF, "Ти нямаш шофьорска книжка за хеликоптер!");
+                return 0;
+            }
+        }
+    }
+    if (GetVehicleModel(vehicleid) == 537 || GetVehicleModel(vehicleid) == 538)
+    {
+        if (!ispassenger)
+        {
+            if (PlayerInfo[playerid][pVlak] == 0)
+            {
+                new Float:cx, Float:cy, Float:cz;
+                GetPlayerPos(playerid, cx, cy, cz);
+                SetPlayerPos(playerid, cx, cy, cz);
+                SendClientMessage(playerid, 0x636363FF, "Ти нямаш шофьорска книжка за влак!");
+                return 0;
+            }
+        }
+    }
+    if (isTurfMember[playerid])
+    {
+        new Float:cx, Float:cy, Float:cz;
+        GetPlayerPos(playerid, cx, cy, cz);
+        SetPlayerPos(playerid, cx, cy, cz);
+        return SendClientMessage(playerid, COLOR_GRAD1, "Влизането в превозни средства, докато си в търф атака е забранено !");
+    }
+    if (eev == 0 && inevent[playerid] == 1)
+    {
+        new Float:cx, Float:cy, Float:cz;
+        GetPlayerPos(playerid, cx, cy, cz);
+        SetPlayerPos(playerid, cx, cy, cz);
+        return SendClientMessage(playerid, COLOR_GRAD1, "Влизането в превозни средства в евента е забранено !");
+    }
+
+    return Y_HOOKS_CONTINUE_RETURN_1;
+}
+
+hook OnPlayerGiveDamage(playerid, damagedid, Float: amount, weaponid, bodypart)
+{
+    if (weaponid == 34 && bodypart == 9) // Sniper rifle + head
+    {
+        // Kill the victim
+        SetPlayerHealth(damagedid, 0.0);
+        GameTextForPlayer(playerid, "~r~HEADSHOT!", 3000, 3);
+        // Victim visual/sound
+        GameTextForPlayer(damagedid, "~r~HEADSHOT!", 3000, 3);
+        PlayerPlaySound(damagedid, 17802, 0.0, 0.0, 0.0);
+    }
+
+    if (damagedid != INVALID_PLAYER_ID && damagedid != playerid)
+    {
+        if (PlayerInfo[damagedid][pIPDDuty] && !PlayerInfo[playerid][pIPDDuty] && !PlayerInfo[playerid][pADuty])
+        {
+            new now = gettime();
+            if (now - lastCriminalPoliceUser[playerid] >= 30)
+            {
+                lastCriminalPoliceUser[playerid] = now;
+                GivePlayerWantedLevel(playerid, 1, "Стрелба по полицaй");
+            }
+        }
+    }
+
+    return Y_HOOKS_CONTINUE_RETURN_1;
+}
+
+/*
+* Player command
+*/
+public OnPlayerCommandPerformed(playerid, cmdtext[], success)
+{
+    printf("[i-zcmd] %s (ID: %d): %s", GetPlayerNickname(playerid), playerid, cmdtext);
+    if (!success)
+    {
+        SendClientMessage(playerid, COLOR_WHITE, "SERVER: Unknown command!");
+        return 1;
+    }
+    // Prevent commands if not logged in
+    if (logged[playerid] == 0)
+    {
+        SendClientMessage(playerid, COLOR_GRAD1, "Трябва да влезеш в акаунта преди да ползваш команда!");
+        return 1;
+    }
+
+    // Command spam timer
+    if (PlayerInfo[playerid][pCommandSpamTimer] == 0)
+    {
+        PlayerInfo[playerid][pCommandSpamTimer] = 8;
+    }
+    if (PlayerInfo[playerid][pAdmin] < 5)
+    {
+        commandspam[playerid] += 1;
+    }
+    if (commandspam[playerid] == 9)
+    {
+        format(string115, 115, "SERVER: %s was kicked by THE SERVER [Reason: Command Spam]", GetPlayerNickname(playerid));
+        SendClientMessageToAll(0xE60000FF, string115);
+        PlayerInfo[playerid][pKick] = 1;
+        return 1;
+    }
+
+    return 1;
+}
+
+/*
+* Time
+*/
+stock ResetPlayerTime(playerid)
+{
+    SetPlayerWeather(playerid, 1);
+    if (hours == 0)
+    {
+        SetPlayerTime(playerid, 0, 0);
+    }
+    if (hours == 6)
+    {
+        SetPlayerTime(playerid, 0, 0);
+    }
+    if (hours == 12)
+    {
+        SetPlayerTime(playerid, 12, 0);
+    }
+    if (hours == 18)
+    {
+        SetPlayerTime(playerid, 23, 0);
+    }
+    if (hours == 1)
+    {
+        SetPlayerTime(playerid, 0, 0);
+    }
+    if (hours == 7)
+    {
+        SetPlayerTime(playerid, 6, 0);
+    }
+    if (hours == 13)
+    {
+        SetPlayerTime(playerid, 12, 0);
+    }
+    if (hours == 19)
+    {
+        SetPlayerTime(playerid, 23, 0);
+    }
+    if (hours == 2)
+    {
+        SetPlayerTime(playerid, 0, 0);
+    }
+    if (hours == 8)
+    {
+        SetPlayerTime(playerid, 6, 0);
+    }
+    if (hours == 14)
+    {
+        SetPlayerTime(playerid, 12, 0);
+    }
+    if (hours == 20)
+    {
+        SetPlayerTime(playerid, 0, 0);
+    }
+    if (hours == 3)
+    {
+        SetPlayerTime(playerid, 0, 0);
+    }
+    if (hours == 9)
+    {
+        SetPlayerTime(playerid, 12, 0);
+    }
+    if (hours == 15)
+    {
+        SetPlayerTime(playerid, 12, 0);
+    }
+    if (hours == 21)
+    {
+        SetPlayerTime(playerid, 0, 0);
+    }
+    if (hours == 4)
+    {
+        SetPlayerTime(playerid, 0, 0);
+    }
+    if (hours == 10)
+    {
+        SetPlayerTime(playerid, 12, 0);
+    }
+    if (hours == 16)
+    {
+        SetPlayerTime(playerid, 12, 0);
+    }
+    if (hours == 22)
+    {
+        SetPlayerTime(playerid, 0, 0);
+    }
+    if (hours == 5)
+    {
+        SetPlayerTime(playerid, 0, 0);
+    }
+    if (hours == 11)
+    {
+        SetPlayerTime(playerid, 12, 0);
+    }
+    if (hours == 17)
+    {
+        SetPlayerTime(playerid, 12, 0);
+    }
+    if (hours == 23)
+    {
+        SetPlayerTime(playerid, 0, 0);
+    }
+}
+
+/*
+* On player death
+*/
+hook OnPlayerDeath(playerid, killerid, reason)
+{
+    SendDeathMessage(killerid, playerid, reason);
+    PlayerInfo[playerid][pDeaths] += 1;
+    PlayerInfo[killerid][pKills] += 1;
+
+    // Remove player label from screen
+    if (PlayerInfo[playerid][pADuty] == 1)
+    {
+        UpdateDynamic3DTextLabelText(PlayerLabel[playerid], 0x800000FF, " ");
+    }
+    if (PlayerInfo[playerid][pVIPLabel] == 1)
+    {
+        UpdateDynamic3DTextLabelText(PlayerLabel[playerid], 0x800000FF, " ");
+    }
+
+    // Get cash from dead person
+    if (killerid != playerid)
+    {
+        if (PlayerInfo[killerid][pVip] == 0)
+        {
+            GivePlayerCash(killerid, 100);
+        }
+        if (PlayerInfo[killerid][pVip] > 0 || CheckFreeVIP() == 1)
+        {
+            GivePlayerCash(killerid, 200);
+        }
+        if (PlayerInfo[killerid][pVip] == 6 || CheckFreeVIP() == 1)
+        {
+            GivePlayerCash(killerid, 600);
+        }
+    }
+    return Y_HOOKS_CONTINUE_RETURN_1;
+}
+
+hook OnPlayerText(playerid, text[])
+{
+    if (logged[playerid] == 0)
+    {
+        SendClientMessage(playerid, 0xBFC0C2FF, "Трябва да влезеш в акаунта преди да пишеш в чата!");
+        return Y_HOOKS_BREAK_RETURN_0;
+    }
+    if (PlayerInfo[playerid][pMuted] > 0 || PlayerInfo[playerid][pADMINMute] == 1)
+    {
+        SendClientMessage(playerid, 0xBFC0C2FF, "Ти си заглушен в чата!");
+        return Y_HOOKS_BREAK_RETURN_0;
+    }
+    if (togchat[playerid] == 1 && cbchat[playerid] == 0)
+    {
+        SendClientMessage(playerid, 0xBFC0C2FF, "Ти си игнорирал да ти идват съобщения от главния чат!");
+        return Y_HOOKS_BREAK_RETURN_0;
+    }
+
+    /*
+    * CB Chat
+    */
+    if (cbchat[playerid] == 0)
+    {
+        if (PlayerInfo[playerid][pTextSpamTimer] == 0)
+        {
+            PlayerInfo[playerid][pTextSpamTimer] = 8;
+        }
+        if (PlayerInfo[playerid][pAdmin] < 5)
+        {
+            textspam[playerid] += 1;
+        }
+        if (textspam[playerid] == 8)
+        {
+            format(string256, 256, "ADMIN: %s was muted by THE SERVER for 100 minutes. [Reason: Спам]", GetPlayerNickname(playerid));
+            SendClientMessageToAll(0xE60000FF, string256);
+            PlayerInfo[playerid][pMuted] = 120 * 100;
+            PlayerInfo[playerid][pMuteReason] = 3;
+            return Y_HOOKS_BREAK_RETURN_0;
+        }
+
+        format(string256, 256, "{FFFFFF}(%d): {FFFFFF}%s", playerid, text[0]);
+        SendPlayerMessageToAll(playerid, string256);
+        return Y_HOOKS_BREAK_RETURN_0;
+    }
+}
+
+stock GivePlayerArmour(playerid, points)
+{
+    new Float:armour;
+    GetPlayerArmour(playerid, armour);
+    if (armour + points > 100)
+    {
+        armour = 100;
+    }
+    SetPlayerArmour(playerid, armour);
 }
