@@ -1963,19 +1963,15 @@ hook OnPlayerGiveDamage(playerid, damagedid, Float: amount, weaponid, bodypart)
 /*
 * Player command
 */
-public OnPlayerCommandPerformed(playerid, cmdtext[], success)
+public OnPlayerCommandReceived(playerid, cmdtext[])
 {
     printf("[i-zcmd] %s (ID: %d): %s", GetPlayerNickname(playerid), playerid, cmdtext);
-    if (!success)
-    {
-        SendClientMessage(playerid, COLOR_WHITE, "SERVER: Unknown command!");
-        return 1;
-    }
+ 
     // Prevent commands if not logged in
     if (logged[playerid] == 0)
     {
         SendClientMessage(playerid, COLOR_GRAD1, "Трябва да влезеш в акаунта преди да ползваш команда!");
-        return 1;
+        return 0;
     }
 
     // Command spam timer
@@ -1992,7 +1988,7 @@ public OnPlayerCommandPerformed(playerid, cmdtext[], success)
         format(string115, 115, "SERVER: %s was kicked by THE SERVER [Reason: Command Spam]", GetPlayerNickname(playerid));
         SendClientMessageToAll(0xE60000FF, string115);
         PlayerInfo[playerid][pKick] = 1;
-        return 1;
+        return 0;
     }
 
     return 1;
