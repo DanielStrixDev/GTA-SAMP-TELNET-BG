@@ -6492,7 +6492,7 @@ CMD:spawnpv(playerid, params[])
     PutPlayerInVehicle(playerid, PrivateVeh[vehicleid][pvID], 0);
 
     new message[128];
-    format(message, sizeof(message), "Ти спавнахте частно превозно средство ID: %d", vehicleid);
+    format(message, sizeof(message), "Ти spawn-на частно превозно средство ID: %d", vehicleid);
     SendClientMessage(playerid, 0xFFFFFFFF, message);
 
     return 1;

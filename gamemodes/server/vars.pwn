@@ -114,7 +114,7 @@ new santaHatObject[MAX_PLAYERS];
 new carshopobjects[12];
 new carshopcars[12];
 new carshopcars2[12];
-
+new vehInShop[MAX_VEHICLES] = false;
 /*
 * Keys
 */

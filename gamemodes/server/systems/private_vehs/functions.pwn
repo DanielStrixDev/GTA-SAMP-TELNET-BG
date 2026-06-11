@@ -64,6 +64,7 @@ stock LoadPrivateVehsTune(vehicleid)
 
 stock LoadPrivateVehicleModels()
 {
+    PrivateVeh[0][pvModel] = 411;
     PrivateVeh[1][pvModel] = 411;
     PrivateVeh[2][pvModel] = 560;
     PrivateVeh[3][pvModel] = 565;
@@ -76,4 +77,67 @@ stock LoadPrivateVehicleModels()
     PrivateVeh[10][pvModel] = 562;
     PrivateVeh[11][pvModel] = 565;
     PrivateVeh[12][pvModel] = 411;
+}
+
+stock LoadPrivateVehicleColors()
+{
+    for (new i = 0; i < 13; i++)
+    {
+        PrivateVeh[i][pvColor1] = 1;
+        PrivateVeh[i][pvColor2] = 1;
+    }
+}
+
+stock IsValidPrivateVehicle(privateVehID)
+{
+    new vehicleid = PrivateVeh[privateVehID][pvID];
+    if (vehicleid >= 1 && vehicleid < MAX_VEHICLES && IsValidVehicle(vehicleid))
+    {
+        return true;
+    }
+    return false;
+}
+
+hook OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
+{
+    new stringprivate[256];
+    new slot = VehicleToPrivateSlot[vehicleid];
+    if (slot != -1 && !ispassenger)
+    {
+        printf("Player %d entered vehicle %d", playerid, vehicleid);
+        printf("Slot %d", slot);
+        if (PrivateVeh[slot][pvOwner][0] == '\0' || strcmp(PrivateVeh[slot][pvOwner], GetPlayerNickname(playerid), true) != 0)
+        {
+            new Float:cx, Float:cy, Float:cz;
+            GetPlayerPos(playerid, cx, cy, cz);
+            SetPlayerPos(playerid, cx, cy, cz);
+
+            if (PrivateVeh[slot][pvOwner][0] == '\0')
+            {
+                format(stringprivate, 256, "“ова превозно средство н€ма притежател");
+            }
+            else
+            {
+                format(stringprivate, 256, "“ова превозно средство принадлежи на %s", PrivateVeh[slot][pvOwner]);
+            }
+            SendClientMessage(playerid, 0x636363FF, stringprivate);
+
+        }
+        return Y_HOOKS_CONTINUE_RETURN_1;
+    }
+
+
+
+    if (vehInShop[vehicleid])
+    {
+        if (!ispassenger)
+        {
+            new Float:cx, Float:cy, Float:cz;
+            GetPlayerPos(playerid, cx, cy, cz);
+            SetPlayerPos(playerid, cx, cy, cz);
+            SendClientMessage(playerid, 0x636363FF, " упи си превозното средство и ще го караш !");
+            return Y_HOOKS_CONTINUE_RETURN_1;
+        }
+    }
+    return Y_HOOKS_CONTINUE_RETURN_1;
 }

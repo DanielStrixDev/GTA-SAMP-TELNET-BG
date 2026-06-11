@@ -1,80 +1,105 @@
 CMD:vehres(playerid, params[])
 {
     new haveprivate = 0;
-    for (new alv = 1; alv < MAX_PRIVATEVEHS; alv++)
+    new playername[MAX_PLAYER_NAME];
+    GetPlayerName(playerid, playername, sizeof(playername));
+
+    for (new privateVehID = 1; privateVehID < MAX_PRIVATEVEHS; privateVehID++)
     {
-        if (strcmp(PrivateVeh[alv][pvOwner], GetPlayerNickname(playerid), true) == 0)
+        if (PrivateVeh[privateVehID][pvOwner][0] != '\0' &&
+                strcmp(PrivateVeh[privateVehID][pvOwner], playername, true) == 0)
         {
-            SetVehicleToRespawn(PrivateVeh[alv][pvID]);
-            haveprivate = 1;
+            if (IsValidPrivateVehicle(privateVehID))
+            {
+                SetVehicleToRespawn(PrivateVeh[privateVehID][pvID]);
+                haveprivate = 1;
+            }
         }
     }
-    if (haveprivate == 0) return SendClientMessage(playerid, 0xB4B5B7FF, "Ти нямаш лично превозно средство!");
+
+    if (haveprivate == 0)
+        return SendClientMessage(playerid, 0xB4B5B7FF, "Ти нямаш лично превозно средство!");
+
+    // Лог само при успех
+    printf("[vehres] Играч %s респаун-на личните си превозни средства!", playername);
+
     format(string256, 256, "Own Vehicle: Ти respawn-на твоите лични превозни средства!");
     SendClientMessage(playerid, 0xB8860BFF, string256);
     return 1;
 }
+
 CMD:vehnorespawn(playerid, params[])
 {
-    new vehiclestring[64];
-    new haveprivate = 0;
-    new inveh = 0;
-    for (new alv = 1; alv < MAX_PRIVATEVEHS; alv++)
+    new vehicleid = GetPlayerVehicleID(playerid);
+
+    if (!IsPlayerInAnyVehicle(playerid))
     {
-        if (strcmp(PrivateVeh[alv][pvOwner], GetPlayerNickname(playerid), true) == 0)
-        {
-            haveprivate = 1;
-            if (IsPlayerInVehicle(playerid, PrivateVeh[alv][pvID]))
-            {
-                PrivateVehSetRespawn(alv, -1);
-                inveh = 1;
-            }
-        }
+        return SendClientMessage(playerid, 0xB4B5B7FF, "Ти не си в превозно средство!");
     }
-    if (haveprivate == 0) return SendClientMessage(playerid, 0xB4B5B7FF, "Ти нямаш лично превозно средство!");
-    if (inveh == 0)
+    new slot = VehicleToPrivateSlot[vehicleid];
+
+    if (slot == -1 || PrivateVeh[slot][pvOwner][0] == '\0')
     {
-        return SendClientMessage(playerid, 0xB4B5B7FF, "Ти не си в своето превозно средство!");
+        return SendClientMessage(playerid, 0xB4B5B7FF, "Това не е лично превозно средство!");
     }
+    new playername[MAX_PLAYER_NAME];
+    GetPlayerName(playerid, playername, sizeof(playername));
+
+    if (strcmp(PrivateVeh[slot][pvOwner], playername, true) != 0)
+    {
+        return SendClientMessage(playerid, 0xB4B5B7FF, "Това не е твоето превозно средство!");
+    }
+    PrivateVehSetRespawn(slot, -1);
+
+    printf("[vehnorespawn] Играч %s сложи NO RESPAWN на колата си (VehicleID=%d, Slot=%d)",
+           playername, vehicleid, slot);
+
     SendClientMessage(playerid, 0xB8860BFF, "Ти сложи NO RESPAWN на твоето превозно средство!");
     SendClientMessage(playerid, 0xB8860BFF, "SERVER: Превозното средство ще бъде NO RESPAWN след рестартиране на сървъра!");
     return 1;
 }
 
-
 CMD:vehsave(playerid, params[])
 {
-    new haveprivate = 0;
-    new inveh = 0;
-    new vehiclestring[64];
-    new Float:angleveh;
-    GetVehicleZAngle(GetPlayerVehicleID(playerid), angleveh);
-    new Float:vehx, Float:vehy, Float:vehz;
-    new saveli = 0;
-    GetVehiclePos(GetPlayerVehicleID(playerid), vehx, vehy, vehz);
-    for (new alv = 1; alv < MAX_PRIVATEVEHS; alv++) //MAX_PRIVATEVEHS
+    new vehicleid = GetPlayerVehicleID(playerid);
+    if (!IsPlayerInAnyVehicle(playerid))
     {
-        if (strcmp(PrivateVeh[alv][pvOwner], GetPlayerNickname(playerid), true) == 0)
-        {
-            haveprivate = 1;
-            if (IsPlayerInVehicle(playerid, PrivateVeh[alv][pvID]))
-            {
-                PrivateVehSetPos(alv, vehx, vehy, vehz, angleveh);
-                inveh = 1;
-            }
-        }
+        return SendClientMessage(playerid, 0xB4B5B7FF, "Ти не си в превозно средство!");
     }
-    if (haveprivate == 0) return SendClientMessage(playerid, 0xB4B5B7FF, "Ти нямаш лично превозно средство!");
-    if (inveh == 0) return SendClientMessage(playerid, 0xB4B5B7FF, "Ти не си в своето превозно средство!");
+    
+    new slot = VehicleToPrivateSlot[vehicleid];
+    if (slot == -1 || PrivateVeh[slot][pvOwner][0] == '\0')
+    {
+        return SendClientMessage(playerid, 0xB4B5B7FF, "Това не е лично превозно средство!");
+    }
+    
+    new playername[MAX_PLAYER_NAME];
+    GetPlayerName(playerid, playername, sizeof(playername));
+    if (strcmp(PrivateVeh[slot][pvOwner], playername, true) != 0)
+    {
+        return SendClientMessage(playerid, 0xB4B5B7FF, "Това не е твоето превозно средство!");
+    }
+    
+    new Float:angleveh;
+    GetVehicleZAngle(vehicleid, angleveh);
+    new Float:vehx, Float:vehy, Float:vehz;
+    GetVehiclePos(vehicleid, vehx, vehy, vehz);
+    PrivateVehSetPos(slot, vehx, vehy, vehz, angleveh);
+    
+    printf("[vehsave] Играч %s запази позицията на колата си (Slot=%d, VehicleID=%d, Pos=%.2f,%.2f,%.2f, Angle=%.2f)",
+        playername, slot, vehicleid, vehx, vehy, vehz, angleveh);
+    
     SendClientMessage(playerid, 0xBFFF80FF, "Новата позиция на твоето превозно средство ще бъде валидна след рестарт!");
     return 1;
 }
+
 CMD:respawnv(playerid, params[])
 {
     if (GetPlayerVehicleID(playerid) < 1) return SendClientMessage(playerid, 0xB4B5B7FF, "Ти не си в превозно средство!");
     if (PlayerInfo[playerid][pAdmin] >= 5)
     {
         SetVehicleToRespawn(GetPlayerVehicleID(playerid));
+        printf("[respawnv] Админ %s (ID:%d) респаун-на кола ID: %d", GetPlayerNickname(playerid), playerid, GetPlayerVehicleID(playerid));
     }
     else
     {
@@ -82,23 +107,29 @@ CMD:respawnv(playerid, params[])
     }
     return 1;
 }
+
 CMD:vehrespawn(playerid, params[])
 {
-    // Check if player has private vehicle
-    new hasPrivateVehicle = 0;
-    for (new i = 1; i < MAX_PRIVATEVEHS; i++)
+    new vehicleid = GetPlayerVehicleID(playerid);
+    
+    if (!IsPlayerInAnyVehicle(playerid))
     {
-        if (strcmp(PrivateVeh[i][pvOwner], GetPlayerNickname(playerid), true) == 0)
-        {
-            hasPrivateVehicle = 1;
-            break;
-        }
+        return SendClientMessage(playerid, 0xB4B5B7FF, "Ти не си в превозно средство!");
     }
     
-    if (!hasPrivateVehicle)
+    new slot = VehicleToPrivateSlot[vehicleid];
+    
+    if (slot == -1 || PrivateVeh[slot][pvOwner][0] == '\0')
     {
-        SendClientMessage(playerid, 0xB4B5B7FF, "Ти нямаш лично превозно средство!");
-        return 1;
+        return SendClientMessage(playerid, 0xB4B5B7FF, "Това не е лично превозно средство!");
+    }
+    
+    new playername[MAX_PLAYER_NAME];
+    GetPlayerName(playerid, playername, sizeof(playername));
+    
+    if (strcmp(PrivateVeh[slot][pvOwner], playername, true) != 0)
+    {
+        return SendClientMessage(playerid, 0xB4B5B7FF, "Това не е твоето превозно средство!");
     }
     
     new seconds;
@@ -114,28 +145,10 @@ CMD:vehrespawn(playerid, params[])
         return 1;
     }
     
-    // Find and update the vehicle the player is in
-    new inVehicle = 0;
-    new currentVehicle = GetPlayerVehicleID(playerid);
+    PrivateVehSetRespawn(slot, seconds);
     
-    for (new i = 1; i < MAX_PRIVATEVEHS; i++)
-    {
-        if (strcmp(PrivateVeh[i][pvOwner], GetPlayerNickname(playerid), true) == 0)
-        {
-            if (currentVehicle == PrivateVeh[i][pvID])
-            {
-                PrivateVehSetRespawn(i, seconds);
-                inVehicle = 1;
-                break;
-            }
-        }
-    }
-    
-    if (!inVehicle)
-    {
-        SendClientMessage(playerid, 0xB4B5B7FF, "Ти не си в своето превозно средство!");
-        return 1;
-    }
+    printf("[vehrespawn] Играч %s сложи %d секунди respawn на колата си (Slot=%d, VehicleID=%d)",
+        playername, seconds, slot, vehicleid);
     
     SendClientMessage(playerid, 0xB8860BFF, "Ти сложи време за Respawn на твоето превозно средство!");
     SendClientMessage(playerid, 0xB8860BFF, "SERVER: Превозното средство ще бъде с времето за RESPAWN след рестартиране на сървъра!");
@@ -145,10 +158,32 @@ CMD:vehrespawn(playerid, params[])
 
 CMD:vehcolor(playerid, params[])
 {
+    new vehicleid = GetPlayerVehicleID(playerid);
+    
+    if (!IsPlayerInAnyVehicle(playerid))
+    {
+        return SendClientMessage(playerid, 0xB4B5B7FF, "Ти не си в превозно средство!");
+    }
+    
+    new slot = VehicleToPrivateSlot[vehicleid];
+    
+    if (slot == -1 || PrivateVeh[slot][pvOwner][0] == '\0')
+    {
+        return SendClientMessage(playerid, 0xB4B5B7FF, "Това не е лично превозно средство!");
+    }
+    
+    new playername[MAX_PLAYER_NAME];
+    GetPlayerName(playerid, playername, sizeof(playername));
+    
+    if (strcmp(PrivateVeh[slot][pvOwner], playername, true) != 0)
+    {
+        return SendClientMessage(playerid, 0xB4B5B7FF, "Това не е твоето превозно средство!");
+    }
+    
     new color1, color2;
     if (sscanf(params, "dd", color1, color2))
     {
-        SendClientMessage(playerid, 0xFFFFFFFF, "Използвай: /vehcolor [color 1] [color 2]");
+        SendClientMessage(playerid, 0xFFFFFFFF, "Използвай: /vehcolor [цвят1] [цвят2]");
         return 1;
     }
     
@@ -158,41 +193,13 @@ CMD:vehcolor(playerid, params[])
         return 1;
     }
     
-    // Check if player has private vehicle
-    new hasPrivateVehicle = 0;
-    new inOwnVehicle = 0;
-    new currentVehicle = GetPlayerVehicleID(playerid);
+    PrivateVehSetColor(slot, color1, color2);
+    ChangeVehicleColor(vehicleid, color1, color2);
     
-    for (new i = 1; i < MAX_PRIVATEVEHS; i++)
-    {
-        if (strcmp(PrivateVeh[i][pvOwner], GetPlayerNickname(playerid), true) == 0)
-        {
-            hasPrivateVehicle = 1;
-            
-            if (currentVehicle == PrivateVeh[i][pvID])
-            {
-                inOwnVehicle = 1;
-                PrivateVehSetColor(i, color1, color2);
-                ChangeVehicleColor(PrivateVeh[i][pvID], color1, color2);
-                break;
-            }
-        }
-    }
-    
-    if (!hasPrivateVehicle)
-    {
-        SendClientMessage(playerid, 0xB4B5B7FF, "Ти нямаш лично превозно средство!");
-        return 1;
-    }
-    
-    if (!inOwnVehicle)
-    {
-        SendClientMessage(playerid, 0xB4B5B7FF, "Ти не си в своето превозно средство!");
-        return 1;
-    }
+    printf("[vehcolor] Играч %s промени цвета на колата си (Slot=%d, VehicleID=%d) на (%d,%d)",
+        playername, slot, vehicleid, color1, color2);
     
     SendClientMessage(playerid, 0xB8860BFF, "Ти промени цвета на твоето превозно средство!");
     
     return 1;
 }
-

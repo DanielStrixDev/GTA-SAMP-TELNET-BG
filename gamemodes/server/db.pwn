@@ -311,7 +311,7 @@ stock SQLConnect_Operations()
         AlterTableStr("businesses", "name", 256);       // bName[256]
 
         //Vehicles
-        AlterTableInt("private_vehicles", "v_id");                   // vID
+        AlterTableInt("private_vehicles", "model");                   // model
         AlterTableInt("private_vehicles", "c1");                   // vC1
         AlterTableInt("private_vehicles", "c2");                   // vC2
         AlterTableInt("private_vehicles", "respawn_time");         // vRespawnTime

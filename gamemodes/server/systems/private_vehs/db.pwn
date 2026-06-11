@@ -6,9 +6,15 @@ stock LoadPrivateVehicles()
 {
     LoadPrivateVehicleModels();
 
-    new Cache: resultCache;
+    // Инициализиране с -1 за празните слотове
+    for (new i = 0; i < MAX_VEHICLES; i++)
+    {
+        VehicleToPrivateSlot[i] = -1;
+    }
+
+    new Cache:resultCache;
     new query[128];
-    format(query, sizeof(query), "SELECT * FROM private_vehicles");
+    format(query, sizeof(query), "SELECT * FROM private_vehicles ORDER BY id");
     resultCache = mysql_query(MySQL:Database, query);
 
     new rows = cache_num_rows();
@@ -16,40 +22,56 @@ stock LoadPrivateVehicles()
     {
         for (new i = 0; i < rows; i++)
         {
-            cache_get_value_name_int(i, "v_id", PrivateVeh[i][pvModel]);
-            cache_get_value_name_int(i, "c1", PrivateVeh[i][pvColor1]);
-            cache_get_value_name_int(i, "c2", PrivateVeh[i][pvColor2]);
-            cache_get_value_name_int(i, "respawn_time", PrivateVeh[i][pvRespawnTime]);
-            cache_get_value_name_float(i, "x", PrivateVeh[i][pvX]);
-            cache_get_value_name_float(i, "y", PrivateVeh[i][pvY]);
-            cache_get_value_name_float(i, "z", PrivateVeh[i][pvZ]);
-            cache_get_value_name_float(i, "angle", PrivateVeh[i][pvAngle]);
-            cache_get_value_name(i, "owner", PrivateVeh[i][pvOwner], 40);
+            new dbId;
+            cache_get_value_name_int(i, "id", dbId);
 
-            PrivateVeh[i][pvIsOwned] = 1; // всички записи от БД се считат за "активни"
+            // Проверка за валиден индекс
+            if (dbId < 1 || dbId > MAX_PRIVATEVEHS)
+            {
+                printf("Грешка: Невалиден ID %d при зареждане на private vehicle", dbId);
+                continue;
+            }
+
+            cache_get_value_name_int(i, "model", PrivateVeh[dbId][pvModel]);
+            cache_get_value_name_int(i, "c1", PrivateVeh[dbId][pvColor1]);
+            cache_get_value_name_int(i, "c2", PrivateVeh[dbId][pvColor2]);
+            cache_get_value_name_int(i, "respawn_time", PrivateVeh[dbId][pvRespawnTime]);
+            cache_get_value_name_float(i, "x", PrivateVeh[dbId][pvX]);
+            cache_get_value_name_float(i, "y", PrivateVeh[dbId][pvY]);
+            cache_get_value_name_float(i, "z", PrivateVeh[dbId][pvZ]);
+            cache_get_value_name_float(i, "angle", PrivateVeh[dbId][pvAngle]);
+            cache_get_value_name(i, "owner", PrivateVeh[dbId][pvOwner], 40);
+            PrivateVeh[dbId][pvIsOwned] = 1;
 
             // Създаване на превозното средство
-            PrivateVeh[i][pvID] = CreateVehicle(
-                PrivateVeh[i][pvModel],
-                PrivateVeh[i][pvX],
-                PrivateVeh[i][pvY],
-                PrivateVeh[i][pvZ],
-                PrivateVeh[i][pvAngle],
-                PrivateVeh[i][pvColor1],
-                PrivateVeh[i][pvColor2],
-                -1 // без автоматичен респаун
-            );
-
-            if (PrivateVeh[i][pvRespawnTime] == -1)
+            if (PrivateVeh[dbId][pvRespawnTime] == -1)
             {
-                PrivateVeh[i][pvID] = AddStaticVehicle(PrivateVeh[i][pvModel], PrivateVeh[i][pvX], PrivateVeh[i][pvY], PrivateVeh[i][pvZ], PrivateVeh[i][pvAngle], PrivateVeh[i][pvColor1], PrivateVeh[i][pvColor2]);
-                SetVehicleVirtualWorld(PrivateVeh[i][pvID], PrivateVeh[i][pvVirtualWorld]);
+                PrivateVeh[dbId][pvID] = AddStaticVehicle(
+                                             PrivateVeh[dbId][pvModel],
+                                             PrivateVeh[dbId][pvX],
+                                             PrivateVeh[dbId][pvY],
+                                             PrivateVeh[dbId][pvZ],
+                                             PrivateVeh[dbId][pvAngle],
+                                             PrivateVeh[dbId][pvColor1],
+                                             PrivateVeh[dbId][pvColor2]
+                                         );
             }
             else
             {
-                PrivateVeh[i][pvID] = CreateVehicle(PrivateVeh[i][pvModel], PrivateVeh[i][pvX], PrivateVeh[i][pvY], PrivateVeh[i][pvZ], PrivateVeh[i][pvAngle], PrivateVeh[i][pvColor1], PrivateVeh[i][pvColor2], PrivateVeh[i][pvRespawnTime]);
-                SetVehicleVirtualWorld(PrivateVeh[i][pvID], PrivateVeh[i][pvVirtualWorld]);
+                PrivateVeh[dbId][pvID] = CreateVehicle(
+                                             PrivateVeh[dbId][pvModel],
+                                             PrivateVeh[dbId][pvX],
+                                             PrivateVeh[dbId][pvY],
+                                             PrivateVeh[dbId][pvZ],
+                                             PrivateVeh[dbId][pvAngle],
+                                             PrivateVeh[dbId][pvColor1],
+                                             PrivateVeh[dbId][pvColor2],
+                                             PrivateVeh[dbId][pvRespawnTime]
+                                         );
             }
+
+            VehicleToPrivateSlot[PrivateVeh[dbId][pvID]] = dbId;
+            SetVehicleToRespawn(PrivateVeh[dbId][pvID]);
         }
     }
 
@@ -64,143 +86,139 @@ stock LoadPrivateVehicles()
 
 stock InsertPrivateVehIntoDB(vehicleid)
 {
-    new query[512];
-    mysql_format(MySQL:Database, query, sizeof(query),
-        "INSERT INTO `private_vehicles` " \
-        "(`id`, `v_id`, `c1`, `c2`, `x`, `y`, `z`, `angle`, `owner`) " \
-        "VALUES (%d, %d, %d, %d, %f, %f, %f, %f, '%s');",
-        vehicleid+1,
-        PrivateVeh[vehicleid][pvModel],
-        PrivateVeh[vehicleid][pvColor1],
-        PrivateVeh[vehicleid][pvColor2],
-        PrivateVeh[vehicleid][pvX],
-        PrivateVeh[vehicleid][pvY],
-        PrivateVeh[vehicleid][pvZ],
-        PrivateVeh[vehicleid][pvAngle],
-        PrivateVeh[vehicleid][pvOwner]
-    );
+    LoadPrivateVehicleModels();
 
-    mysql_tquery(MySQL:Database, query);
+    if (IsDefinedPrivateVehID(vehicleid))
+    {
+        LoadPrivateVehicleColors();
+
+        new query[512];
+        mysql_format(MySQL:Database, query, sizeof(query),
+                     "INSERT INTO `private_vehicles` \
+        (`model`, `c1`, `c2`, `x`, `y`, `z`, `angle`, `owner`, `respawn_time`) \
+        VALUES (%d, %d, %d, %f, %f, %f, %f, '%s', %d);",
+                     PrivateVeh[vehicleid][pvModel],
+                     PrivateVeh[vehicleid][pvColor1],
+                     PrivateVeh[vehicleid][pvColor2],
+                     PrivateVeh[vehicleid][pvX],
+                     PrivateVeh[vehicleid][pvY],
+                     PrivateVeh[vehicleid][pvZ],
+                     PrivateVeh[vehicleid][pvAngle],
+                     PrivateVeh[vehicleid][pvOwner],
+                     PrivateVeh[vehicleid][pvRespawnTime]
+                    );
+
+        // Вземете последния вмъкнат ID
+        mysql_tquery(MySQL:Database, query, "OnPrivateVehicleInsert", "i", vehicleid);
+    }
     return 1;
+}
+
+// Callback за получаване на ID-то
+forward OnPrivateVehicleInsert(vehicleid);
+public OnPrivateVehicleInsert(vehicleid)
+{
+    PrivateVeh[vehicleid][pvID] = cache_insert_id();
+    printf("Създадено ново private vehicle с ID: %d", PrivateVeh[vehicleid][pvID]);
 }
 
 /*
 * Saves Private Veh into DB
 */
+
 stock SavePrivateVeh(vehicleid)
 {
     new query[512];
 
     mysql_format(Database, query, sizeof(query),
-        "UPDATE private_vehicles SET " \
-        "model = '%d', " \
-        "is_owned = '%d', " \
-        "owner = '%e', " \
-        "x = '%f', " \
-        "y = '%f', " \
-        "z = '%f', " \
-        "angle = '%f', " \
-        "virtual_world = '%d', " \
-        "color1 = '%d', " \
-        "color2 = '%d', " \
-        "respawn_time = '%d' " \
-        "WHERE id = '%d';",
-
-        // integer values
-        PrivateVeh[vehicleid][pvModel],
-        PrivateVeh[vehicleid][pvIsOwned],
-
-        // string (escaped)
-        PrivateVeh[vehicleid][pvOwner],
-
-        // float values
-        PrivateVeh[vehicleid][pvX],
-        PrivateVeh[vehicleid][pvY],
-        PrivateVeh[vehicleid][pvZ],
-        PrivateVeh[vehicleid][pvAngle],
-
-        // more integers
-        PrivateVeh[vehicleid][pvVirtualWorld],
-        PrivateVeh[vehicleid][pvColor1],
-        PrivateVeh[vehicleid][pvColor2],
-        PrivateVeh[vehicleid][pvRespawnTime],
-
-        // WHERE id = ...
-        vehicleid
-    );
+                 "UPDATE private_vehicles SET \
+        model = %d, \
+        owner = '%e', \
+        x = %f, \
+        y = %f, \
+        z = %f, \
+        angle = %f, \
+        c1 = %d, \
+        c2 = %d, \
+        respawn_time = %d \
+        WHERE id = %d;",
+                 PrivateVeh[vehicleid][pvModel],
+                 PrivateVeh[vehicleid][pvOwner],
+                 PrivateVeh[vehicleid][pvX],
+                 PrivateVeh[vehicleid][pvY],
+                 PrivateVeh[vehicleid][pvZ],
+                 PrivateVeh[vehicleid][pvAngle],
+                 PrivateVeh[vehicleid][pvColor1],
+                 PrivateVeh[vehicleid][pvColor2],
+                 PrivateVeh[vehicleid][pvRespawnTime],
+                 vehicleid
+                );
 
     mysql_tquery(Database, query);
 }
-
 
 /*
 * Set Private Veh Respawn Time
 */
+
 stock PrivateVehSetRespawn(vehicleid, time)
 {
     new query[512];
-    
+
     mysql_format(Database, query, sizeof(query),
-        "UPDATE private_vehicles SET " \
-        "respawn_time = '%d', " \
-        "WHERE id = '%d';",
-        
-        time,
-        vehicleid
-    );
-    
-    // Изпълняваме заявката
+                 "UPDATE private_vehicles SET respawn_time = %d WHERE id = %d;",
+                 time,
+                 vehicleid
+                );
+
     mysql_tquery(Database, query);
+
+    // Актуализира и локалната променлива
+    PrivateVeh[vehicleid][pvRespawnTime] = time;
 }
 
 /*
 * Set Private Veh Coords
 */
+
 stock PrivateVehSetPos(vehicleid, Float:x, Float:y, Float:z, Float:angle)
 {
     new query[512];
-    
+
     mysql_format(Database, query, sizeof(query),
-        "UPDATE private_vehicles SET " \
-        "x = '%f', " \
-        "y = '%f', " \
-        "z = '%f', " \
-        "angle = '%f', " \
-        "WHERE id = '%d';",
-        
-        // integer values
-        x,
-        y,
-        z,
-        angle,
-        vehicleid
-    );
-    
-    // Изпълняваме заявката
+                 "UPDATE private_vehicles SET x = %f, y = %f, z = %f, angle = %f WHERE id = %d;",
+                 x, y, z, angle, vehicleid
+                );
+
     mysql_tquery(Database, query);
+
+    // Актуализира и локалните променливи
+    PrivateVeh[vehicleid][pvX] = x;
+    PrivateVeh[vehicleid][pvY] = y;
+    PrivateVeh[vehicleid][pvZ] = z;
+    PrivateVeh[vehicleid][pvAngle] = angle;
 }
 
 /*
-* Set Private Veh Coords
+* Set Private Veh Color
 */
+
 stock PrivateVehSetColor(vehicleid, color1, color2)
 {
     new query[512];
-    
+
     mysql_format(Database, query, sizeof(query),
-        "UPDATE private_vehicles SET " \
-        "c1 = '%d', " \
-        "c2 = '%d', " \
-        "WHERE id = '%d';",
-        
-        // integer values
-        color1,
-        color2,
-        vehicleid
-    );
-    
-    // Изпълняваме заявката
+                 "UPDATE private_vehicles SET c1 = %d, c2 = %d WHERE id = %d;",
+                 color1,
+                 color2,
+                 vehicleid
+                );
+
     mysql_tquery(Database, query);
+
+    // Актуализира и локалните променливи
+    PrivateVeh[vehicleid][pvColor1] = color1;
+    PrivateVeh[vehicleid][pvColor2] = color2;
 }
 
 /*
@@ -211,14 +229,26 @@ stock PrivateVehExists(vehid)
 {
     new query[64];
     mysql_format(Database, query, sizeof(query),
-        "SELECT id FROM private_vehicles WHERE id = '%d' LIMIT 1;",
-        vehid
-    );
+                 "SELECT id FROM private_vehicles WHERE id = %d LIMIT 1;",
+                 vehid
+                );
 
     new Cache:result = mysql_query(Database, query);
-
     new bool:exists = (cache_num_rows() > 0);
-
     cache_delete(result);
+
     return exists;
+}
+
+/*
+* Checks if private veh exists by id
+*/
+
+stock IsDefinedPrivateVehID(vehicleid)
+{
+    if (PrivateVeh[vehicleid][pvModel] == 0)
+    {
+        return false;
+    }
+    return true;
 }

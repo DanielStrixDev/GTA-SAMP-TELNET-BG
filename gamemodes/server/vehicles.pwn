@@ -141,6 +141,13 @@ hook OnGameModeInit()
     AttachObjectToVehicle(carshopcars[8], carshopobjects[0], 0.00160, 3.57950, 0.21160, 120.00000, 90.00000, 0.00000);
     LinkVehicleToInterior(carshopcars[8], 15);
 
+    for (new id = 0; id<9; id++)
+    {
+        vehInShop[carshopcars2[id]] = true;
+        vehInShop[carshopcars[id]] = true;
+    }
+    
+
     fishBoat1[0] = AddStaticVehicle(453, -1364.9620, 2105.0552, 40.2413, 312.2090, 1, 1); // lodka1
     fishBoat1[1] = AddStaticVehicle(453, -1361.4890, 2100.8291, 40.2132, 307.5796, 1, 1); // lodka2
     fishBoat1[2] = AddStaticVehicle(453, -1357.1643, 2096.5186, 40.2492, 314.6524, 1, 1); // lodka3

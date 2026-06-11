@@ -64,7 +64,7 @@
 * PRIVATE VEHICLES
 */
 
-#define MAX_PRIVATEVEHS      13
+#define MAX_PRIVATEVEHS      50
 
 /*
 * FISHING
