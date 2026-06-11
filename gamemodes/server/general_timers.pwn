@@ -1537,7 +1537,7 @@ public GeneralTimer1s()
                 SendClientMessage(i, 0xFFFFFFFF, string156);
                 new stringveha[115];
                 format(stringveha, 115, "~n~~n~~n~~y~PT: %dL", vehfuel2[GetVehicleTrailer(GetPlayerVehicleID(i))]);
-                TextDrawSetString(vehstatus2[i], stringveha);
+                TextDrawSetString(ifcFuelText[i], stringveha);
             }
         }
         if (PlayerInfo[i][pRefuelTube] > 0)

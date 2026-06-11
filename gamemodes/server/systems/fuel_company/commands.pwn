@@ -1,74 +1,25 @@
 CMD:refillgs(playerid, params[])
 {
-    if (PlayerInfo[playerid][pIFC] == 0) return SendClientMessage(playerid, 0xE60000FF, "Трябва да си член на Intense Fuel Company!");
-    new isWithFuelVeh = 0;
-    if (GetVehicleTrailer(GetPlayerVehicleID(playerid)) == fuelremarke[0] || GetVehicleTrailer(GetPlayerVehicleID(playerid)) == fuelremarke[1] || GetVehicleTrailer(GetPlayerVehicleID(playerid)) == fuelremarke[2])
+    if (PlayerInfo[playerid][pIFC] == 0)
     {
-        isWithFuelVeh = 1;
+        return SendClientMessage(playerid, 0xE60000FF, "Трябва да си член на Intense Fuel Company!");
     }
-    if (isWithFuelVeh == 0)
+
+    if (!IsPlayerInFuelTrailer(playerid))
     {
-        SendClientMessage(playerid, 0xB4B5B7FF, "Ти не си в превозното средство за разнасяне на бензин!");
-        return 1;
+        return SendClientMessage(playerid, 0xB4B5B7FF, "Ти не си в превозното средство за разнасяне на бензин!");
     }
-    if (IsPlayerInRangeOfPoint(playerid, 10, 1004.0327, -937.5370, 42.3281) ||
-            IsPlayerInRangeOfPoint(playerid, 10, 1942.3719, -1772.8666, 13.6406) ||
-            IsPlayerInRangeOfPoint(playerid, 10, -1606.7223, -2713.3562, 48.5335) ||
-            IsPlayerInRangeOfPoint(playerid, 10, -2026.7813, 156.5509, 29.0391) ||
-            IsPlayerInRangeOfPoint(playerid, 10, -2243.8149, -2559.8899, 31.9219) ||
-            IsPlayerInRangeOfPoint(playerid, 10, -1676.2601, 413.5443, 7.1797) ||
-            IsPlayerInRangeOfPoint(playerid, 10, 2201.8296, 2475.1350, 10.8203) ||
-            IsPlayerInRangeOfPoint(playerid, 10, 615.3391, 1690.0454, 6.9922) ||
-            IsPlayerInRangeOfPoint(playerid, 10, -1328.2731, 2677.5278, 50.0625) ||
-            IsPlayerInRangeOfPoint(playerid, 10, 70.3842, 1219.0177, 18.8116) ||
-            IsPlayerInRangeOfPoint(playerid, 10, 2113.3835, 919.5655, 10.8203) ||
-            IsPlayerInRangeOfPoint(playerid, 10, 2641.0115, 1106.6252, 10.8203) ||
-            IsPlayerInRangeOfPoint(playerid, 10, 2146.7964, 2747.8115, 10.8203) ||
-            IsPlayerInRangeOfPoint(playerid, 10, 1595.7935, 2199.5996, 10.8203) ||
-            IsPlayerInRangeOfPoint(playerid, 10, -1471.1836, 1863.7598, 32.6328) ||
-            IsPlayerInRangeOfPoint(playerid, 10, 655.7673, -565.0798, 16.3359) ||
-            IsPlayerInRangeOfPoint(playerid, 10, 1381.8230, 459.1453, 20.3452))
+
+    new stationId = GetPlayerNearFuelStation(playerid);
+    if (stationId == -1)
     {
-        if (IsPlayerInRangeOfPoint(playerid, 10, 1004.0327, -937.5370, 42.3281) && fuelStationsFuel[0] == 5000) return SendClientMessage(playerid, 0xB4B5B7FF, "В бензиностанцията има достатъчно бензин.");
-        if (IsPlayerInRangeOfPoint(playerid, 10, 1942.3719, -1772.8666, 13.6406) && fuelStationsFuel[1] == 5000) return SendClientMessage(playerid, 0xB4B5B7FF, "В бензиностанцията има достатъчно бензин.");
-        if (IsPlayerInRangeOfPoint(playerid, 10, -1606.7223, -2713.3562, 48.5335) && fuelStationsFuel[2] == 5000) return SendClientMessage(playerid, 0xB4B5B7FF, "В бензиностанцията има достатъчно бензин.");
-        if (IsPlayerInRangeOfPoint(playerid, 10, -2026.7813, 156.5509, 29.0391) && fuelStationsFuel[3] == 5000) return SendClientMessage(playerid, 0xB4B5B7FF, "В бензиностанцията има достатъчно бензин.");
-        if (IsPlayerInRangeOfPoint(playerid, 10, -2243.8149, -2559.8899, 31.9219) && fuelStationsFuel[4] == 5000) return SendClientMessage(playerid, 0xB4B5B7FF, "В бензиностанцията има достатъчно бензин.");
-        if (IsPlayerInRangeOfPoint(playerid, 10, -1676.2601, 413.5443, 7.1797) && fuelStationsFuel[5] == 5000) return SendClientMessage(playerid, 0xB4B5B7FF, "В бензиностанцията има достатъчно бензин.");
-        if (IsPlayerInRangeOfPoint(playerid, 10, 2201.8296, 2475.1350, 10.8203) && fuelStationsFuel[6] == 5000) return SendClientMessage(playerid, 0xB4B5B7FF, "В бензиностанцията има достатъчно бензин.");
-        if (IsPlayerInRangeOfPoint(playerid, 10, 615.3391, 1690.0454, 6.9922) && fuelStationsFuel[7] == 5000) return SendClientMessage(playerid, 0xB4B5B7FF, "В бензиностанцията има достатъчно бензин.");
-        if (IsPlayerInRangeOfPoint(playerid, 10, -1328.2731, 2677.5278, 50.0625) && fuelStationsFuel[8] == 5000) return SendClientMessage(playerid, 0xB4B5B7FF, "В бензиностанцията има достатъчно бензин.");
-        if (IsPlayerInRangeOfPoint(playerid, 10, 70.3842, 1219.0177, 18.8116) && fuelStationsFuel[9] == 5000) return SendClientMessage(playerid, 0xB4B5B7FF, "В бензиностанцията има достатъчно бензин.");
-        if (IsPlayerInRangeOfPoint(playerid, 10, 2113.3835, 919.5655, 10.8203) && fuelStationsFuel[10] == 5000) return SendClientMessage(playerid, 0xB4B5B7FF, "В бензиностанцията има достатъчно бензин.");
-        if (IsPlayerInRangeOfPoint(playerid, 10, 2641.0115, 1106.6252, 10.8203) && fuelStationsFuel[11] == 5000) return SendClientMessage(playerid, 0xB4B5B7FF, "В бензиностанцията има достатъчно бензин.");
-        if (IsPlayerInRangeOfPoint(playerid, 10, 2146.7964, 2747.8115, 10.8203) && fuelStationsFuel[12] == 5000) return SendClientMessage(playerid, 0xB4B5B7FF, "В бензиностанцията има достатъчно бензин.");
-        if (IsPlayerInRangeOfPoint(playerid, 10, 1595.7935, 2199.5996, 10.8203) && fuelStationsFuel[13] == 5000) return SendClientMessage(playerid, 0xB4B5B7FF, "В бензиностанцията има достатъчно бензин.");
-        if (IsPlayerInRangeOfPoint(playerid, 10, -1471.1836, 1863.7598, 32.6328) && fuelStationsFuel[14] == 5000) return SendClientMessage(playerid, 0xB4B5B7FF, "В бензиностанцията има достатъчно бензин.");
-        if (IsPlayerInRangeOfPoint(playerid, 10, 655.7673, -565.0798, 16.3359) && fuelStationsFuel[15] == 5000) return SendClientMessage(playerid, 0xB4B5B7FF, "В бензиностанцията има достатъчно бензин.");
-        if (IsPlayerInRangeOfPoint(playerid, 10, 1381.8230, 459.1453, 20.3452) && fuelStationsFuel[16] == 5000) return SendClientMessage(playerid, 0xB4B5B7FF, "В бензиностанцията има достатъчно бензин.");
-        new neededFuel = 5000 - fuelStationsFuel[FuelStationClose(playerid)];
-        if (vehfuel2[GetVehicleTrailer(GetPlayerVehicleID(playerid))] < neededFuel)
-        {
-            SendClientMessage(playerid, 0xB4B5B7FF, "Нямаш достатъчно бензин за да заредиш бензиностанцията!");
-            return 1;
-        }
-        new refuelstring[500];
-        format(refuelstring, 500, "{0040FF}[ Бензиностанция ]\n{FF0000}5000/5000 литра\n{C14124}1 литър {FFFFFF}= {00BF00}1 долар\n{F97804}Напиши {FFFF00}/refuel {F97804}за да заредиш");
-        Update3DTextLabelText(fuelStationText[FuelStationClose(playerid)], 0xFFFFFFFF, refuelstring);
-        vehfuel2[GetVehicleTrailer(GetPlayerVehicleID(playerid))] -= neededFuel;
-        fuelStationsFuel[FuelStationClose(playerid)] = 5000;
-        new profitFuel = neededFuel + 1030;
-        GivePlayerCash(playerid, profitFuel);
-        GivePlayerEP(playerid, 2);
-        format(string256, 256, "Ти зареди бензиностанцията с %d литра и твоята печалба е {3FDE00}$%d + 2 EP", neededFuel, profitFuel);
-        SendClientMessage(playerid, 0xFFFFFFFF, string256);
+        return SendClientMessage(playerid, 0xB4B5B7FF, "Вие не сте до бензиностанция!");
     }
-    else
-    {
-        SendClientMessage(playerid, 0xB4B5B7FF, "Вие не сте до бензиностанция!");
-    }
+
+    RefuelFuelStation(playerid, stationId);
     return 1;
 }
+
 CMD:refillpt(playerid, params[])
 {
     if (IsPlayerInRangeOfPoint(playerid, 5, 264.4341, 1454.9220, 10.5859))
@@ -343,3 +294,70 @@ CMD:makeifc(playerid, params[])
     return 1;
 }
 
+CMD:checkfuel(playerid, params[])
+{
+    if (PlayerInfo[playerid][pIFC] == 0)
+        return SendClientMessage(playerid, 0xE60000FF, "Трябва да си член на Intense Fuel Company!");
+
+    new dialogContent[2000];
+    for (new i = 0; i < 17; i++)
+    {
+        new line[256];
+        new fuelAmount = fuelStationsFuel[i];
+        new fuelColor[16];
+
+        format(line, sizeof(line), "{A4FFA4}%s: {FFFFFF}%d литра\n",
+            g_FuelStationData[i][fsName], fuelAmount);
+        strcat(dialogContent, line);
+    }
+
+    new closeddialog = 3500;
+    ShowPlayerDialog(playerid, closeddialog, DIALOG_STYLE_MSGBOX, "Бензиностанции", dialogContent, "Затвори", "");
+
+    return 1;
+}
+
+CMD:gpsfuel(playerid, params[])
+{
+    if (PlayerInfo[playerid][pIFC] == 0)
+        return SendClientMessage(playerid, 0xE60000FF, "Трябва да си член на Intense Fuel Company!");
+
+    new dialogContent[2000];
+    for (new i = 0; i < 17; i++)
+    {
+        new line[256];
+        new fuelAmount = fuelStationsFuel[i];
+        new fuelColor[16];
+
+        format(line, sizeof(line), "{FFFFFF}%s\n",
+            g_FuelStationData[i][fsName], fuelAmount);
+        strcat(dialogContent, line);
+    }
+
+    ShowPlayerDialog(playerid, DIALOG_IFC_GPS, DIALOG_STYLE_LIST, "GPS - Бензиностанции", dialogContent, "Навигирай", "Затвори");
+
+    return 1;
+}
+
+CMD:ifchelp(playerid, params[])
+{
+    if (PlayerInfo[playerid][pIFC] == 0) return SendClientMessage(playerid, 0xE60000FF, "Трябва да си член на Intense Fuel Company!");
+    new string2230[512];
+    new string2230result[1500];
+    strcat(string2230result, string2230);
+    format(string2230, 512, "{00FF00}---Команди за членовете на Intense Fuel Company---\n");
+    format(string2230, 512, "{FFFFFF}/refillpt - за да заредиш цистерната\n");
+    strcat(string2230result, string2230);
+    format(string2230, 512, "{008000}/refillgs - за да заредиш бензиностанцията\n");
+    strcat(string2230result, string2230);
+    format(string2230, 512, "{FF0000}/ifcduty - за да влезете/излезете от IFC служба\n");
+    strcat(string2230result, string2230);
+    format(string2230, 512, "{FFFFFF}/checkfuel - за да провериш колко литра има всяка бензиностанция\n");
+    strcat(string2230result, string2230);
+    format(string2230, 512, "{008000}/gpsfuel - за да разбереш дадена бензиностанция къде се намира\n");
+    strcat(string2230result, string2230);
+    format(string2230, 512, "{FF0000}/leaveifc - за да напуснеш Intense Fuel Company\n");
+    strcat(string2230result, string2230);
+    ShowPlayerDialog(playerid, 3500, DIALOG_STYLE_MSGBOX, "IFC HELP", string2230result, "Затвори", "");
+    return 1;
+}

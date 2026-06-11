@@ -105,7 +105,7 @@ CMD:speedo(playerid, params[])
             TextDrawHideForPlayer(playerid, vehstatus[playerid]);
             if (GetVehicleTrailer(GetPlayerVehicleID(playerid)) == fuelremarke[0] || GetVehicleTrailer(GetPlayerVehicleID(playerid)) == fuelremarke[1] || GetVehicleTrailer(GetPlayerVehicleID(playerid)) == fuelremarke[2])
             {
-                TextDrawHideForPlayer(playerid, vehstatus2[playerid]);
+                TextDrawHideForPlayer(playerid, ifcFuelText[playerid]);
             }
         }
         return 1;
@@ -120,7 +120,7 @@ CMD:speedo(playerid, params[])
             TextDrawShowForPlayer(playerid, vehstatus[playerid]);
             if (GetVehicleTrailer(GetPlayerVehicleID(playerid)) == fuelremarke[0] || GetVehicleTrailer(GetPlayerVehicleID(playerid)) == fuelremarke[1] || GetVehicleTrailer(GetPlayerVehicleID(playerid)) == fuelremarke[2])
             {
-                TextDrawShowForPlayer(playerid, vehstatus2[playerid]);
+                TextDrawShowForPlayer(playerid, ifcFuelText[playerid]);
             }
         }
         return 1;

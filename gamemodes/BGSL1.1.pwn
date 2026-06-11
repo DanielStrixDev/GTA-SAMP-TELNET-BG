@@ -94,6 +94,8 @@ new string256[256];
 #include "server/systems/vehicles/vars.pwn"
 #include "server/systems/vip/vars.pwn"
 #include "server/systems/record/vars.pwn"
+#include "server/systems/fuel/vars.pwn"
+#include "server/systems/gps/vars.pwn"
 
 // FUNCTIONS
 #include "server/forwards.pwn"
@@ -128,6 +130,7 @@ new string256[256];
 #include "server/systems/afk/functions.pwn"
 #include "server/systems/jail/functions.pwn"
 #include "server/systems/admin/functions.pwn"
+#include "server/systems/fuel/functions.pwn"
 
 // DATABASE
 #include "server/db.pwn"

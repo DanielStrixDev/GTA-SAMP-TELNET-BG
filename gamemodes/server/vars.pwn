@@ -164,7 +164,7 @@ new Text: epText[MAX_PLAYERS];
 new Text: msText[MAX_PLAYERS];
 new Text: epsText[MAX_PLAYERS];
 new Text:vehstatus[MAX_PLAYERS];
-new Text:vehstatus2[MAX_PLAYERS];
+new Text:ifcFuelText[MAX_PLAYERS];
 new Text:ClockDate;
 new Text:intensetext;
 new Text:RESTART;
@@ -648,7 +648,7 @@ new respawnVehsNo = 0;
 /*
 * General Vars
 */
-new bool: vehStatus2On[MAX_PLAYERS] = false;
+new bool: ifcFuelTextOn[MAX_PLAYERS] = false;
 new returnUsersCount = 0;
 new spawnedcars = 0;
 new attachobjecta;

@@ -51,7 +51,7 @@ hook OnPlayerExitVehicle(playerid, vehicleid)
     }
     if (loadedtext[playerid] == 1)
     {
-        TextDrawHideForPlayer(playerid, vehstatus2[playerid]);
+        TextDrawHideForPlayer(playerid, ifcFuelText[playerid]);
         TextDrawHideForPlayer(playerid, vehstatus[playerid]);
         loadedtext[playerid] = 0;
     }

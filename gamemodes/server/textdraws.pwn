@@ -61,7 +61,7 @@ hook OnGameModeInit()
     Intro[3] = TextDrawCreate(190.0, 202.0, ".");
     TextDrawFont(Intro[3], 1);
     TextDrawLetterSize(Intro[3], 23.250051, 1.099999);
-    Intro[4] = TextDrawCreate(304.00, 223.0, "~w~Bulgarian ~g~intense ~r~s-e-r-v-e-r");
+    Intro[4] = TextDrawCreate(304.00, 223.0, "~w~B-u-l-g-a-r-i-a-n ~g~i-n-t-e-n-s-e ~r~s-e-r-v-e-r");
     TextDrawFont(Intro[4], 2);
     TextDrawLetterSize(Intro[4], 0.340000, 1.099999);
     Intro[5] = TextDrawCreate(331.0, 235.0, "~w~official ~g~site ~r~soon");

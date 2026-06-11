@@ -191,7 +191,7 @@ stock ResetPlayerStats(playerid)
     playerInDMON[playerid] = 0;
     hidename[playerid] = 0;
     adutyskinchanged[playerid] = 0;
-    vehStatus2On[playerid] = false;
+    ifcFuelTextOn[playerid] = false;
     lastpaydaykinti[playerid] = 0;
     firstskin[playerid] = 29;
     logged[playerid] = 0;
@@ -589,13 +589,13 @@ stock LoadPlayerTexts(playerid)
     TextDrawSetProportional(msText[playerid], 1);
     TextDrawSetShadow(msText[playerid], 1);
 
-    vehstatus2[playerid] = TextDrawCreate(510.5190, 363.0, "~n~~n~~n~~y~PT: 0L"); //369
-    TextDrawBackgroundColor(vehstatus2[playerid], 250);
-    TextDrawFont(vehstatus2[playerid], 1);
-    TextDrawLetterSize(vehstatus2[playerid], 0.4099, 1.5000);
-    TextDrawColor(vehstatus2[playerid], -1);
-    TextDrawSetOutline(vehstatus2[playerid], 1);
-    TextDrawSetProportional(vehstatus2[playerid], 1);
+    ifcFuelText[playerid] = TextDrawCreate(510.5190, 363.0, "~n~~n~~n~~y~PT: 0L"); //369
+    TextDrawBackgroundColor(ifcFuelText[playerid], 250);
+    TextDrawFont(ifcFuelText[playerid], 1);
+    TextDrawLetterSize(ifcFuelText[playerid], 0.4099, 1.5000);
+    TextDrawColor(ifcFuelText[playerid], -1);
+    TextDrawSetOutline(ifcFuelText[playerid], 1);
+    TextDrawSetProportional(ifcFuelText[playerid], 1);
 
 
     vehstatus[playerid] = TextDrawCreate(510.5190, 363.0, ""); //369

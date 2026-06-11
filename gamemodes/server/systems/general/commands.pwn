@@ -166,28 +166,6 @@ CMD:rules(playerid, params[])
     ShowPlayerDialog(playerid, 3500, DIALOG_STYLE_MSGBOX, "{FFFFFF}ПР{008000}АВИ{FF0000}ЛА", string2230result, "OK", "");
     return 1;
 }
-CMD:ifchelp(playerid, params[])
-{
-    if (PlayerInfo[playerid][pIFC] == 0) return SendClientMessage(playerid, 0xE60000FF, "Трябва да си член на Intense Fuel Company!");
-    new string2230[512];
-    new string2230result[1500];
-    strcat(string2230result, string2230);
-    format(string2230, 512, "{00FF00}---Команди за членовете на Intense Fuel Company---\n");
-    format(string2230, 512, "{FFFFFF}/refillpt - за да заредиш цистерната\n");
-    strcat(string2230result, string2230);
-    format(string2230, 512, "{008000}/refillgs - за да заредиш бензиностанцията\n");
-    strcat(string2230result, string2230);
-    format(string2230, 512, "{FF0000}/ifcduty - за да влезете/излезете от IFC служба\n");
-    strcat(string2230result, string2230);
-    format(string2230, 512, "{FFFFFF}/checkfuel - за да провериш колко литра има всяка бензиностанция\n");
-    strcat(string2230result, string2230);
-    format(string2230, 512, "{008000}/gpsfuel - за да разбереш дадена бензиностанция къде се намира\n");
-    strcat(string2230result, string2230);
-    format(string2230, 512, "{FF0000}/leaveifc - за да напуснеш Intense Fuel Company\n");
-    strcat(string2230result, string2230);
-    ShowPlayerDialog(playerid, 3500, DIALOG_STYLE_MSGBOX, "IFC HELP", string2230result, "Затвори", "");
-    return 1;
-}
 
 CMD:intro(playerid, params[])
 {

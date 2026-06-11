@@ -9,7 +9,7 @@
 #define DIALOG_CLOTHES_3      54
 #define DIALOG_HELP_OFFICE    55
 #define DIALOG_BUY_OFFICE     56
-
+#define DIALOG_IFC_GPS        57
 /*
 * MENU WITH ITEMS
 */

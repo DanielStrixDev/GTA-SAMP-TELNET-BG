@@ -777,272 +777,113 @@ new Cache:
         GameTextForPlayer(playerid, "~g~PLEASE WAIT", 8000, 3);
         SendClientMessage(playerid, 0xA4FFA4FF, "Моля, изчакайте, докато се зареди вашето превозно средство!");
     }
+
     if (dialogid == 38)
     {
-        new refuelstring[500];
-        if (strval(inputtext) < 1)
+        new amount = strval(inputtext);
+
+        if (amount < 1)
         {
-            format(string256, 256, "Не можете да заредите 0 литра във вашата туба за бензин.", strval(inputtext));
-            SendClientMessage(playerid, 0xB4B5B7FF, string256);
+            SendClientMessage(playerid, 0xB4B5B7FF, "Не можете да заредите 0 литра във вашата туба за бензин.");
             return 0;
         }
+
         if (PlayerInfo[playerid][pFuelcase] == 100)
         {
             SendClientMessage(playerid, 0xB4B5B7FF, "Вашата туба за бензин е пълна.");
             return 0;
         }
-        if (strval(inputtext) > 100 - PlayerInfo[playerid][pFuelcase])
+
+        if (amount > 100 - PlayerInfo[playerid][pFuelcase])
         {
-            format(string256, 256, "Можете да заредите до %d литра във вашата туба за бензин.", 100 - PlayerInfo[playerid][pFuelcase]);
-            SendClientMessage(playerid, 0xB4B5B7FF, string256);
+            new msg[128];
+            format(msg, sizeof(msg), "Можете да заредите до %d литра във вашата туба за бензин.", 100 - PlayerInfo[playerid][pFuelcase]);
+            SendClientMessage(playerid, 0xB4B5B7FF, msg);
             return 0;
         }
-        if (IsPlayerInRangeOfPoint(playerid, 10, 1004.0327, -937.5370, 42.3281) && fuelStationsFuel[0] < strval(inputtext)) return SendClientMessage(playerid, 0xB4B5B7FF, "В бензиностанцията няма толкова бензин.");
-        if (IsPlayerInRangeOfPoint(playerid, 10, 1942.3719, -1772.8666, 13.6406) && fuelStationsFuel[1] < strval(inputtext)) return SendClientMessage(playerid, 0xB4B5B7FF, "В бензиностанцията няма толкова бензин.");
-        if (IsPlayerInRangeOfPoint(playerid, 10, -1606.7223, -2713.3562, 48.5335) && fuelStationsFuel[2] < strval(inputtext)) return SendClientMessage(playerid, 0xB4B5B7FF, "В бензиностанцията няма толкова бензин.");
-        if (IsPlayerInRangeOfPoint(playerid, 10, -2026.7813, 156.5509, 29.0391) && fuelStationsFuel[3] < strval(inputtext)) return SendClientMessage(playerid, 0xB4B5B7FF, "В бензиностанцията няма толкова бензин.");
-        if (IsPlayerInRangeOfPoint(playerid, 10, -2243.8149, -2559.8899, 31.9219) && fuelStationsFuel[4] < strval(inputtext)) return SendClientMessage(playerid, 0xB4B5B7FF, "В бензиностанцията няма толкова бензин.");
-        if (IsPlayerInRangeOfPoint(playerid, 10, -1676.2601, 413.5443, 7.1797) && fuelStationsFuel[5] < strval(inputtext)) return SendClientMessage(playerid, 0xB4B5B7FF, "В бензиностанцията няма толкова бензин.");
-        if (IsPlayerInRangeOfPoint(playerid, 10, 2201.8296, 2475.1350, 10.8203) && fuelStationsFuel[6] < strval(inputtext)) return SendClientMessage(playerid, 0xB4B5B7FF, "В бензиностанцията няма толкова бензин.");
-        if (IsPlayerInRangeOfPoint(playerid, 10, 615.3391, 1690.0454, 6.9922) && fuelStationsFuel[7] < strval(inputtext)) return SendClientMessage(playerid, 0xB4B5B7FF, "В бензиностанцията няма толкова бензин.");
-        if (IsPlayerInRangeOfPoint(playerid, 10, -1328.2731, 2677.5278, 50.0625) && fuelStationsFuel[8] < strval(inputtext)) return SendClientMessage(playerid, 0xB4B5B7FF, "В бензиностанцията няма толкова бензин.");
-        if (IsPlayerInRangeOfPoint(playerid, 10, 70.3842, 1219.0177, 18.8116) && fuelStationsFuel[9] < strval(inputtext)) return SendClientMessage(playerid, 0xB4B5B7FF, "В бензиностанцията няма толкова бензин.");
-        if (IsPlayerInRangeOfPoint(playerid, 10, 2113.3835, 919.5655, 10.8203) && fuelStationsFuel[10] < strval(inputtext)) return SendClientMessage(playerid, 0xB4B5B7FF, "В бензиностанцията няма толкова бензин.");
-        if (IsPlayerInRangeOfPoint(playerid, 10, 2641.0115, 1106.6252, 10.8203) && fuelStationsFuel[11] < strval(inputtext)) return SendClientMessage(playerid, 0xB4B5B7FF, "В бензиностанцията няма толкова бензин.");
-        if (IsPlayerInRangeOfPoint(playerid, 10, 2146.7964, 2747.8115, 10.8203) && fuelStationsFuel[12] < strval(inputtext)) return SendClientMessage(playerid, 0xB4B5B7FF, "В бензиностанцията няма толкова бензин.");
-        if (IsPlayerInRangeOfPoint(playerid, 10, 1595.7935, 2199.5996, 10.8203) && fuelStationsFuel[13] < strval(inputtext)) return SendClientMessage(playerid, 0xB4B5B7FF, "В бензиностанцията няма толкова бензин.");
-        if (IsPlayerInRangeOfPoint(playerid, 10, -1471.1836, 1863.7598, 32.6328) && fuelStationsFuel[14] < strval(inputtext)) return SendClientMessage(playerid, 0xB4B5B7FF, "В бензиностанцията няма толкова бензин.");
-        if (IsPlayerInRangeOfPoint(playerid, 10, 655.7673, -565.0798, 16.3359) && fuelStationsFuel[15] < strval(inputtext)) return SendClientMessage(playerid, 0xB4B5B7FF, "В бензиностанцията няма толкова бензин.");
-        if (IsPlayerInRangeOfPoint(playerid, 10, 1381.8230, 459.1453, 20.3452) && fuelStationsFuel[16] < strval(inputtext)) return SendClientMessage(playerid, 0xB4B5B7FF, "В бензиностанцията няма толкова бензин.");
-        if (strval(inputtext) <= 100 - PlayerInfo[playerid][pFuelcase])
+
+        new stationId = GetPlayerNearFuelStation(playerid);
+        if (stationId == -1)
         {
-            //tuk
-            refuelcan[playerid] = strval(inputtext);
-            PlayerInfo[playerid][pRefuelTube] = 4;
-            TogglePlayerControllable(playerid, 0);
-            GivePlayerCash(playerid, -strval(inputtext));
-            GameTextForPlayer(playerid, "~g~PLEASE WAIT", 2000, 3);
-            SendClientMessage(playerid, 0xA4FFA4FF, "Gas Station: Моля, изчакайте, докато заредим вашата туба!");
-            if (IsPlayerInRangeOfPoint(playerid, 10, 1004.0327, -937.5370, 42.3281))
-            {
-                fuelStationsFuel[0] -= strval(inputtext);
-            }
-            if (IsPlayerInRangeOfPoint(playerid, 10, 1942.3719, -1772.8666, 13.6406))
-            {
-                fuelStationsFuel[1] -= strval(inputtext);
-            }
-            if (IsPlayerInRangeOfPoint(playerid, 10, -1606.7223, -2713.3562, 48.5335))
-            {
-                fuelStationsFuel[2] -= strval(inputtext);
-            }
-            if (IsPlayerInRangeOfPoint(playerid, 10, -2026.7813, 156.5509, 29.0391))
-            {
-                fuelStationsFuel[3] -= strval(inputtext);
-            }
-            if (IsPlayerInRangeOfPoint(playerid, 10, -2243.8149, -2559.8899, 31.9219))
-            {
-                fuelStationsFuel[4] -= strval(inputtext);
-            }
-            if (IsPlayerInRangeOfPoint(playerid, 10, -1676.2601, 413.5443, 7.1797))
-            {
-                fuelStationsFuel[5] -= strval(inputtext);
-            }
-            if (IsPlayerInRangeOfPoint(playerid, 10, 2201.8296, 2475.1350, 10.8203))
-            {
-                fuelStationsFuel[6] -= strval(inputtext);
-            }
-            if (IsPlayerInRangeOfPoint(playerid, 10, 615.3391, 1690.0454, 6.9922))
-            {
-                fuelStationsFuel[7] -= strval(inputtext);
-            }
-            if (IsPlayerInRangeOfPoint(playerid, 10, -1328.2731, 2677.5278, 50.0625))
-            {
-                fuelStationsFuel[8] -= strval(inputtext);
-            }
-            if (IsPlayerInRangeOfPoint(playerid, 10, 70.3842, 1219.0177, 18.8116))
-            {
-                fuelStationsFuel[9] -= strval(inputtext);
-            }
-            if (IsPlayerInRangeOfPoint(playerid, 10, 2113.3835, 919.5655, 10.8203))
-            {
-                fuelStationsFuel[10] -= strval(inputtext);
-            }
-            if (IsPlayerInRangeOfPoint(playerid, 10, 2641.0115, 1106.6252, 10.8203))
-            {
-                fuelStationsFuel[11] -= strval(inputtext);
-            }
-            if (IsPlayerInRangeOfPoint(playerid, 10, 2146.7964, 2747.8115, 10.8203))
-            {
-                fuelStationsFuel[12] -= strval(inputtext);
-            }
-            if (IsPlayerInRangeOfPoint(playerid, 10, 1595.7935, 2199.5996, 10.8203))
-            {
-                fuelStationsFuel[13] -= strval(inputtext);
-            }
-            if (IsPlayerInRangeOfPoint(playerid, 10, -1471.1836, 1863.7598, 32.6328))
-            {
-                fuelStationsFuel[14] -= strval(inputtext);
-            }
-            if (IsPlayerInRangeOfPoint(playerid, 10, 655.7673, -565.0798, 16.3359))
-            {
-                fuelStationsFuel[15] -= strval(inputtext);
-            }
-            if (IsPlayerInRangeOfPoint(playerid, 10, 1381.8230, 459.1453, 20.3452))
-            {
-                fuelStationsFuel[16] -= strval(inputtext);
-            }
-            if (IsPlayerInRangeOfPoint(playerid, 10, 1004.0327, -937.5370, 42.3281))
-            {
-                Delete3DTextLabel(fuelStationText[0]);
-                format(refuelstring, 500, "{0040FF}[ Бензиностанция ]\n{FF0000}%d/5000 литра\n{C14124}1 литър {FFFFFF}= {00BF00}1 долар\n{F97804}Напиши {FFFF00}/refuel {F97804}за да заредиш", fuelStationsFuel[0]);
-                fuelStationText[0] = Create3DTextLabel(refuelstring, 0xFFFFFFFF, 1004.0327, -937.5370, 42.3281, 40, 0, 0);
-            }
-            if (IsPlayerInRangeOfPoint(playerid, 10, 1942.3719, -1772.8666, 13.6406))
-            {
-                Delete3DTextLabel(fuelStationText[1]);
-                format(refuelstring, 500, "{0040FF}[ Бензиностанция ]\n{FF0000}%d/5000 литра\n{C14124}1 литър {FFFFFF}= {00BF00}1 долар\n{F97804}Напиши {FFFF00}/refuel {F97804}за да заредиш", fuelStationsFuel[1]);
-                fuelStationText[1] = Create3DTextLabel(refuelstring, 0xFFFFFFFF, 1942.3719, -1772.8666, 13.6406, 40, 0, 0);
-            }
-            if (IsPlayerInRangeOfPoint(playerid, 10, -1606.7223, -2713.3562, 48.5335))
-            {
-                Delete3DTextLabel(fuelStationText[2]);
-                format(refuelstring, 500, "{0040FF}[ Бензиностанция ]\n{FF0000}%d/5000 литра\n{C14124}1 литър {FFFFFF}= {00BF00}1 долар\n{F97804}Напиши {FFFF00}/refuel {F97804}за да заредиш", fuelStationsFuel[2]);
-                fuelStationText[2] = Create3DTextLabel(refuelstring, 0xFFFFFFFF, -1606.7223, -2713.3562, 48.5335, 40, 0, 0);
-            }
-            if (IsPlayerInRangeOfPoint(playerid, 10, -2026.7813, 156.5509, 29.0391))
-            {
-                Delete3DTextLabel(fuelStationText[3]);
-                format(refuelstring, 500, "{0040FF}[ Бензиностанция ]\n{FF0000}%d/5000 литра\n{C14124}1 литър {FFFFFF}= {00BF00}1 долар\n{F97804}Напиши {FFFF00}/refuel {F97804}за да заредиш", fuelStationsFuel[3]);
-                fuelStationText[3] = Create3DTextLabel(refuelstring, 0xFFFFFFFF, -2026.7813, 156.5509, 29.0391, 40, 0, 0);
-            }
-            if (IsPlayerInRangeOfPoint(playerid, 10, -2243.8149, -2559.8899, 31.9219))
-            {
-                Delete3DTextLabel(fuelStationText[4]);
-                format(refuelstring, 500, "{0040FF}[ Бензиностанция ]\n{FF0000}%d/5000 литра\n{C14124}1 литър {FFFFFF}= {00BF00}1 долар\n{F97804}Напиши {FFFF00}/refuel {F97804}за да заредиш", fuelStationsFuel[4]);
-                fuelStationText[4] = Create3DTextLabel(refuelstring, 0xFFFFFFFF, -2243.8149, -2559.8899, 31.9219, 40, 0, 0);
-            }
-            if (IsPlayerInRangeOfPoint(playerid, 10, -1676.2601, 413.5443, 7.1797))
-            {
-                Delete3DTextLabel(fuelStationText[5]);
-                format(refuelstring, 500, "{0040FF}[ Бензиностанция ]\n{FF0000}%d/5000 литра\n{C14124}1 литър {FFFFFF}= {00BF00}1 долар\n{F97804}Напиши {FFFF00}/refuel {F97804}за да заредиш", fuelStationsFuel[5]);
-                fuelStationText[5] = Create3DTextLabel(refuelstring, 0xFFFFFFFF, -1676.2601, 413.5443, 7.1797, 40, 0, 0);
-            }
-            if (IsPlayerInRangeOfPoint(playerid, 10, 2201.8296, 2475.1350, 10.8203))
-            {
-                Delete3DTextLabel(fuelStationText[6]);
-                format(refuelstring, 500, "{0040FF}[ Бензиностанция ]\n{FF0000}%d/5000 литра\n{C14124}1 литър {FFFFFF}= {00BF00}1 долар\n{F97804}Напиши {FFFF00}/refuel {F97804}за да заредиш", fuelStationsFuel[6]);
-                fuelStationText[6] = Create3DTextLabel(refuelstring, 0xFFFFFFFF, 2201.8296, 2475.1350, 10.8203, 40, 0, 0);
-            }
-            if (IsPlayerInRangeOfPoint(playerid, 10, 615.3391, 1690.0454, 6.9922))
-            {
-                Delete3DTextLabel(fuelStationText[7]);
-                format(refuelstring, 500, "{0040FF}[ Бензиностанция ]\n{FF0000}%d/5000 литра\n{C14124}1 литър {FFFFFF}= {00BF00}1 долар\n{F97804}Напиши {FFFF00}/refuel {F97804}за да заредиш", fuelStationsFuel[7]);
-                fuelStationText[7] = Create3DTextLabel(refuelstring, 0xFFFFFFFF, 615.3391, 1690.0454, 6.9922, 40, 0, 0);
-            }
-            if (IsPlayerInRangeOfPoint(playerid, 10, -1328.2731, 2677.5278, 50.0625))
-            {
-                Delete3DTextLabel(fuelStationText[8]);
-                format(refuelstring, 500, "{0040FF}[ Бензиностанция ]\n{FF0000}%d/5000 литра\n{C14124}1 литър {FFFFFF}= {00BF00}1 долар\n{F97804}Напиши {FFFF00}/refuel {F97804}за да заредиш", fuelStationsFuel[8]);
-                fuelStationText[8] = Create3DTextLabel(refuelstring, 0xFFFFFFFF, -1328.2731, 2677.5278, 50.0625, 40, 0, 0);
-            }
-            if (IsPlayerInRangeOfPoint(playerid, 10, 70.3842, 1219.0177, 18.8116))
-            {
-                Delete3DTextLabel(fuelStationText[9]);
-                format(refuelstring, 500, "{0040FF}[ Бензиностанция ]\n{FF0000}%d/5000 литра\n{C14124}1 литър {FFFFFF}= {00BF00}1 долар\n{F97804}Напиши {FFFF00}/refuel {F97804}за да заредиш", fuelStationsFuel[9]);
-                fuelStationText[9] = Create3DTextLabel(refuelstring, 0xFFFFFFFF, 70.3842, 1219.0177, 18.8116, 40, 0, 0);
-            }
-            if (IsPlayerInRangeOfPoint(playerid, 10, 2113.3835, 919.5655, 10.8203))
-            {
-                Delete3DTextLabel(fuelStationText[10]);
-                format(refuelstring, 500, "{0040FF}[ Бензиностанция ]\n{FF0000}%d/5000 литра\n{C14124}1 литър {FFFFFF}= {00BF00}1 долар\n{F97804}Напиши {FFFF00}/refuel {F97804}за да заредиш", fuelStationsFuel[10]);
-                fuelStationText[10] = Create3DTextLabel(refuelstring, 0xFFFFFFFF, 2113.3835, 919.5655, 10.8203, 40, 0, 0);
-            }
-            if (IsPlayerInRangeOfPoint(playerid, 10, 2641.0115, 1106.6252, 10.8203))
-            {
-                Delete3DTextLabel(fuelStationText[11]);
-                format(refuelstring, 500, "{0040FF}[ Бензиностанция ]\n{FF0000}%d/5000 литра\n{C14124}1 литър {FFFFFF}= {00BF00}1 долар\n{F97804}Напиши {FFFF00}/refuel {F97804}за да заредиш", fuelStationsFuel[11]);
-                fuelStationText[11] = Create3DTextLabel(refuelstring, 0xFFFFFFFF, 2641.0115, 1106.6252, 10.8203, 40, 0, 0);
-            }
-            if (IsPlayerInRangeOfPoint(playerid, 10, 2146.7964, 2747.8115, 10.8203))
-            {
-                Delete3DTextLabel(fuelStationText[12]);
-                format(refuelstring, 500, "{0040FF}[ Бензиностанция ]\n{FF0000}%d/5000 литра\n{C14124}1 литър {FFFFFF}= {00BF00}1 долар\n{F97804}Напиши {FFFF00}/refuel {F97804}за да заредиш", fuelStationsFuel[12]);
-                fuelStationText[12] = Create3DTextLabel(refuelstring, 0xFFFFFFFF, 2146.7964, 2747.8115, 10.8203, 40, 0, 0);
-            }
-            if (IsPlayerInRangeOfPoint(playerid, 10, 1595.7935, 2199.5996, 10.8203))
-            {
-                Delete3DTextLabel(fuelStationText[13]);
-                format(refuelstring, 500, "{0040FF}[ Бензиностанция ]\n{FF0000}%d/5000 литра\n{C14124}1 литър {FFFFFF}= {00BF00}1 долар\n{F97804}Напиши {FFFF00}/refuel {F97804}за да заредиш", fuelStationsFuel[13]);
-                fuelStationText[13] = Create3DTextLabel(refuelstring, 0xFFFFFFFF, 1595.7935, 2199.5996, 10.8203, 40, 0, 0);
-            }
-            if (IsPlayerInRangeOfPoint(playerid, 10, -1471.1836, 1863.7598, 32.6328))
-            {
-                Delete3DTextLabel(fuelStationText[14]);
-                format(refuelstring, 500, "{0040FF}[ Бензиностанция ]\n{FF0000}%d/5000 литра\n{C14124}1 литър {FFFFFF}= {00BF00}1 долар\n{F97804}Напиши {FFFF00}/refuel {F97804}за да заредиш", fuelStationsFuel[14]);
-                fuelStationText[14] = Create3DTextLabel(refuelstring, 0xFFFFFFFF, -1471.1836, 1863.7598, 32.6328, 40, 0, 0);
-            }
-            if (IsPlayerInRangeOfPoint(playerid, 10, 655.7673, -565.0798, 16.3359))
-            {
-                Delete3DTextLabel(fuelStationText[15]);
-                format(refuelstring, 500, "{0040FF}[ Бензиностанция ]\n{FF0000}%d/5000 литра\n{C14124}1 литър {FFFFFF}= {00BF00}1 долар\n{F97804}Напиши {FFFF00}/refuel {F97804}за да заредиш", fuelStationsFuel[15]);
-                fuelStationText[15] = Create3DTextLabel(refuelstring, 0xFFFFFFFF, 655.7673, -565.0798, 16.3359, 40, 0, 0);
-            }
-            if (IsPlayerInRangeOfPoint(playerid, 10, 1381.8230, 459.1453, 20.3452))
-            {
-                Delete3DTextLabel(fuelStationText[16]);
-                format(refuelstring, 500, "{0040FF}[ Бензиностанция ]\n{FF0000}%d/5000 литра\n{C14124}1 литър {FFFFFF}= {00BF00}1 долар\n{F97804}Напиши {FFFF00}/refuel {F97804}за да заредиш", fuelStationsFuel[16]);
-                fuelStationText[16] = Create3DTextLabel(refuelstring, 0xFFFFFFFF, 1381.8230, 459.1453, 20.3452, 40, 0, 0);
-            }
+            SendClientMessage(playerid, 0xB4B5B7FF, "Не сте до бензиностанция!");
+            return 0;
         }
+
+        if (fuelStationsFuel[stationId] < amount)
+        {
+            SendClientMessage(playerid, 0xB4B5B7FF, "В бензиностанцията няма толкова бензин.");
+            return 0;
+        }
+
+        refuelcan[playerid] = amount;
+        PlayerInfo[playerid][pRefuelTube] = 4;
+        TogglePlayerControllable(playerid, 0);
+        GivePlayerCash(playerid, -amount);
+        GameTextForPlayer(playerid, "~g~PLEASE WAIT", 2000, 3);
+        SendClientMessage(playerid, 0xA4FFA4FF, "Gas Station: Моля, изчакайте, докато заредим вашата туба!");
+
+        fuelStationsFuel[stationId] -= amount;
+
+        UpdateFuelStationLabel(stationId);
+
+        return 1;
     }
+
     if (dialogid == 18)
     {
-        new refuelstring[500];
-        if (strval(inputtext) < 1)
+        new amount = strval(inputtext);
+        new vehicleid = GetPlayerVehicleID(playerid);
+
+        if (amount < 1)
         {
-            format(string256, 256, "Не можете да заредите 0 литра във вашето превозно средство.", strval(inputtext));
+            format(string256, sizeof(string256), "Не можете да заредите 0 литра във вашето превозно средство.", amount);
             SendClientMessage(playerid, 0xB4B5B7FF, string256);
             return 0;
         }
-        if (vehfuel[GetPlayerVehicleID(playerid)] == 100)
+
+        if (vehfuel[vehicleid] == 100)
         {
             SendClientMessage(playerid, 0xB4B5B7FF, "Вашето превозно средство има 100 литра бензин.");
             return 0;
         }
-        if (strval(inputtext) > 100 - vehfuel[GetPlayerVehicleID(playerid)])
+
+        if (amount > 100 - vehfuel[vehicleid])
         {
-            format(string256, 256, "Можете да заредите до %d литра във вашето превозно средство.", 100 - vehfuel[GetPlayerVehicleID(playerid)]);
+            format(string256, sizeof(string256), "Можете да заредите до %d литра във вашето превозно средство.", 100 - vehfuel[vehicleid]);
             SendClientMessage(playerid, 0xB4B5B7FF, string256);
             return 0;
         }
-        if (IsPlayerInRangeOfPoint(playerid, 10, 1004.0327, -937.5370, 42.3281) && fuelStationsFuel[0] < strval(inputtext)) return SendClientMessage(playerid, 0xB4B5B7FF, "В бензиностанцията няма толкова бензин.");
-        if (IsPlayerInRangeOfPoint(playerid, 10, 1942.3719, -1772.8666, 13.6406) && fuelStationsFuel[1] < strval(inputtext)) return SendClientMessage(playerid, 0xB4B5B7FF, "В бензиностанцията няма толкова бензин.");
-        if (IsPlayerInRangeOfPoint(playerid, 10, -1606.7223, -2713.3562, 48.5335) && fuelStationsFuel[2] < strval(inputtext)) return SendClientMessage(playerid, 0xB4B5B7FF, "В бензиностанцията няма толкова бензин.");
-        if (IsPlayerInRangeOfPoint(playerid, 10, -2026.7813, 156.5509, 29.0391) && fuelStationsFuel[3] < strval(inputtext)) return SendClientMessage(playerid, 0xB4B5B7FF, "В бензиностанцията няма толкова бензин.");
-        if (IsPlayerInRangeOfPoint(playerid, 10, -2243.8149, -2559.8899, 31.9219) && fuelStationsFuel[4] < strval(inputtext)) return SendClientMessage(playerid, 0xB4B5B7FF, "В бензиностанцията няма толкова бензин.");
-        if (IsPlayerInRangeOfPoint(playerid, 10, -1676.2601, 413.5443, 7.1797) && fuelStationsFuel[5] < strval(inputtext)) return SendClientMessage(playerid, 0xB4B5B7FF, "В бензиностанцията няма толкова бензин.");
-        if (IsPlayerInRangeOfPoint(playerid, 10, 2201.8296, 2475.1350, 10.8203) && fuelStationsFuel[6] < strval(inputtext)) return SendClientMessage(playerid, 0xB4B5B7FF, "В бензиностанцията няма толкова бензин.");
-        if (IsPlayerInRangeOfPoint(playerid, 10, 615.3391, 1690.0454, 6.9922) && fuelStationsFuel[7] < strval(inputtext)) return SendClientMessage(playerid, 0xB4B5B7FF, "В бензиностанцията няма толкова бензин.");
-        if (IsPlayerInRangeOfPoint(playerid, 10, -1328.2731, 2677.5278, 50.0625) && fuelStationsFuel[8] < strval(inputtext)) return SendClientMessage(playerid, 0xB4B5B7FF, "В бензиностанцията няма толкова бензин.");
-        if (IsPlayerInRangeOfPoint(playerid, 10, 70.3842, 1219.0177, 18.8116) && fuelStationsFuel[9] < strval(inputtext)) return SendClientMessage(playerid, 0xB4B5B7FF, "В бензиностанцията няма толкова бензин.");
-        if (IsPlayerInRangeOfPoint(playerid, 10, 2113.3835, 919.5655, 10.8203) && fuelStationsFuel[10] < strval(inputtext)) return SendClientMessage(playerid, 0xB4B5B7FF, "В бензиностанцията няма толкова бензин.");
-        if (IsPlayerInRangeOfPoint(playerid, 10, 2641.0115, 1106.6252, 10.8203) && fuelStationsFuel[11] < strval(inputtext)) return SendClientMessage(playerid, 0xB4B5B7FF, "В бензиностанцията няма толкова бензин.");
-        if (IsPlayerInRangeOfPoint(playerid, 10, 2146.7964, 2747.8115, 10.8203) && fuelStationsFuel[12] < strval(inputtext)) return SendClientMessage(playerid, 0xB4B5B7FF, "В бензиностанцията няма толкова бензин.");
-        if (IsPlayerInRangeOfPoint(playerid, 10, 1595.7935, 2199.5996, 10.8203) && fuelStationsFuel[13] < strval(inputtext)) return SendClientMessage(playerid, 0xB4B5B7FF, "В бензиностанцията няма толкова бензин.");
-        if (IsPlayerInRangeOfPoint(playerid, 10, -1471.1836, 1863.7598, 32.6328) && fuelStationsFuel[14] < strval(inputtext)) return SendClientMessage(playerid, 0xB4B5B7FF, "В бензиностанцията няма толкова бензин.");
-        if (IsPlayerInRangeOfPoint(playerid, 10, 655.7673, -565.0798, 16.3359) && fuelStationsFuel[15] < strval(inputtext)) return SendClientMessage(playerid, 0xB4B5B7FF, "В бензиностанцията няма толкова бензин.");
-        if (IsPlayerInRangeOfPoint(playerid, 10, 1381.8230, 459.1453, 20.3452) && fuelStationsFuel[16] < strval(inputtext)) return SendClientMessage(playerid, 0xB4B5B7FF, "В бензиностанцията няма толкова бензин.");
-        if (strval(inputtext) <= 100 - vehfuel[GetPlayerVehicleID(playerid)])
+
+        new stationId = FuelStationClose(playerid);
+        if (stationId == -1)
         {
-            format(string256, 256, "Вие заредихте успешно {FFFF00}%d{FFFFFF} литра във вашето превозно средство.", strval(inputtext));
-            SendClientMessage(playerid, 0xFFFFFFFFF, string256);
-            vehfuel[GetPlayerVehicleID(playerid)] += strval(inputtext);
-            GivePlayerCash(playerid, -strval(inputtext));
-            fuelStationsFuel[FuelStationClose(playerid)] -= strval(inputtext);
-            format(refuelstring, 500, "{0040FF}[ Бензиностанция ]\n{FF0000}%d/5000 литра\n{C14124}1 литър {FFFFFF}= {00BF00}1 долар\n{F97804}Напиши {FFFF00}/refuel {F97804}за да заредиш", fuelStationsFuel[FuelStationClose(playerid)]);
-            Update3DTextLabelText(fuelStationText[FuelStationClose(playerid)], 0xFFFFFFFF, refuelstring);
+            SendClientMessage(playerid, 0xB4B5B7FF, "Не сте до бензиностанция!");
+            return 0;
         }
+
+        if (fuelStationsFuel[stationId] < amount)
+        {
+            SendClientMessage(playerid, 0xB4B5B7FF, "В бензиностанцията няма толкова бензин.");
+            return 0;
+        }
+
+        if (amount <= 100 - vehfuel[vehicleid])
+        {
+            format(string256, sizeof(string256), "Вие заредихте успешно {FFFF00}%d{FFFFFF} литра във вашето превозно средство.", amount);
+            SendClientMessage(playerid, 0xFFFFFFFF, string256);
+
+            vehfuel[vehicleid] += amount;
+            GivePlayerCash(playerid, -amount);
+            fuelStationsFuel[stationId] -= amount;
+
+            new refuelstring[500];
+            format(refuelstring, sizeof(refuelstring), "{0040FF}[ Бензиностанция ]\n{FF0000}%d/5000 литра\n{C14124}1 литър {FFFFFF}= {00BF00}1 долар\n{F97804}Напиши {FFFF00}/refuel {F97804}за да заредиш", fuelStationsFuel[stationId]);
+            Update3DTextLabelText(fuelStationText[stationId], 0xFFFFFFFF, refuelstring);
+        }
+
+        return 1;
     }
+
     if (dialogid == 11)
     {
         //if(respawnVehsVoteTimer==0)
@@ -2767,6 +2608,26 @@ new Cache:
         {
             ShowPlayerDialog(playerid, 5, DIALOG_STYLE_LIST, "Банкомат", "Обща сума\nИзтегли пари\nВнеси пари", "Избери", "Затвори");
         }
+    }
+    if (dialogid == DIALOG_IFC_GPS && response)
+    {
+        new stationId = listitem;
+        if (stationId < 0 || stationId >= 17) return 1;
+
+        gpsType[playerid] = GPS_TYPE_FUELSTATION;
+
+        SetPlayerCheckpoint(playerid,
+                            g_FuelStationData[stationId][fsX],
+                            g_FuelStationData[stationId][fsY],
+                            g_FuelStationData[stationId][fsZ],
+                            5.0);
+
+        gpsX[playerid] = g_FuelStationData[stationId][fsX];
+        gpsY[playerid] = g_FuelStationData[stationId][fsY];
+        gpsZ[playerid] = g_FuelStationData[stationId][fsZ];
+        SendClientMessage(playerid, 0x80BFFFFF, "GPS: Следвай червеня маркер, той ще те отведе до мястото, което посочи!");
+
+        return 1;
     }
     if (dialogid == 7)
     {
