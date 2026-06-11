@@ -913,8 +913,8 @@ ShowPlayerStats(playerReceive, playerStats)
         case 6: format(ranktext, 256, "%s", TeamInfo[PlayerInfo[playerStats][pTeam]][tRank6]);
     }
 
-    if (PlayerInfo[playerStats][pOffice] == 0) format(isofficeowner, 5, "No");
-    if (PlayerInfo[playerStats][pOffice] == 1) format(isofficeowner, 5, "Yes");
+    if (GetPlayerOfficeID(playerStats) == 0) format(isofficeowner, 5, "No");
+    if (GetPlayerOfficeID(playerStats) >= 1) format(isofficeowner, 5, "Yes");
 
     if (PlayerInfo[playerStats][pBizO] > -1)
     {
@@ -959,7 +959,7 @@ ShowPlayerStats(playerReceive, playerStats)
     format(string256, 1024, "%sCash: $%d | Kills: %d | Deaths: %d | House: %s(%d) | Bizz: %s(%d) | Office: %s(%d) | Job: %s | EP: %d/%d\n",
            statsText,
            PlayerInfo[playerStats][pCash], PlayerInfo[playerStats][pKills], PlayerInfo[playerStats][pDeaths],
-           ishouseowner, housenumber, isbizzowner, bizznumber, isofficeowner, PlayerInfo[playerStats][pOffice],
+           ishouseowner, housenumber, isbizzowner, bizznumber, isofficeowner, GetPlayerOfficeID(playerStats),
            isinjob, PlayerInfo[playerStats][pEP], PlayerInfo[playerStats][pLevel] + 6);
 
     format(statsText, 1024, "%sMoneybox: %d/4 | Streetrace: %d/4 | Deathmatch: %d/4 | CMN1 Kills: %d/4\n",
@@ -1123,6 +1123,44 @@ hook OnPlayerSpawn(playerid)
         SetPlayerColor(playerid, 0xD6F34AFF);
         SetPlayerPos(playerid, 2215.454833, -1147.475585, 1025.796875);
         SetPlayerVirtualWorld(playerid, playerid + 500);
+    }
+    if (PlayerInfo[playerid][pSpawnO] == 0)
+    {
+        if (GetPlayerOfficeID(playerid) == -1)
+        {
+            PlayerInfo[playerid][pSpawnO] = 1;
+        }
+        else
+        {
+            SetPlayerVirtualWorld(playerid, 0);
+            SetPlayerInterior(playerid, 0);
+
+            switch (GetPlayerOfficeID(playerid))
+            {
+                case 1: SetPlayerPos(playerid, 1786.4745, -1300.6366, 23.2109);
+                case 2: SetPlayerPos(playerid, 1786.4745, -1300.6366, 28.6719);
+                case 3: SetPlayerPos(playerid, 1786.4745, -1300.6366, 34.1250);
+                case 4: SetPlayerPos(playerid, 1786.4745, -1300.6366, 39.5781);
+                case 5: SetPlayerPos(playerid, 1786.4745, -1300.6366, 45.0391);
+                case 6: SetPlayerPos(playerid, 1786.4745, -1300.6366, 50.4453);
+                case 7: SetPlayerPos(playerid, 1786.4745, -1300.6366, 55.9063);
+                case 8: SetPlayerPos(playerid, 1786.4745, -1300.6366, 61.3594);
+                case 9: SetPlayerPos(playerid, 1786.4745, -1300.6366, 66.8125);
+                case 10: SetPlayerPos(playerid, 1786.4745, -1300.6366, 72.2734);
+                case 11: SetPlayerPos(playerid, 1786.4745, -1300.6366, 77.6719);
+                case 12: SetPlayerPos(playerid, 1786.4745, -1300.6366, 83.1328);
+                case 13: SetPlayerPos(playerid, 1786.4745, -1300.6366, 88.5859);
+                case 14: SetPlayerPos(playerid, 1786.4745, -1300.6366, 94.0391);
+                case 15: SetPlayerPos(playerid, 1786.4745, -1300.6366, 99.5145);
+                case 16: SetPlayerPos(playerid, 1786.4745, -1300.6366, 104.9188);
+                case 17: SetPlayerPos(playerid, 1786.4745, -1300.6366, 110.3594);
+                case 18: SetPlayerPos(playerid, 1786.4745, -1300.6366, 115.8227);
+                case 19: SetPlayerPos(playerid, 1786.4745, -1300.6366, 121.2656);
+                case 20: SetPlayerPos(playerid, 1786.4745, -1300.6366, 126.7335);
+            }
+
+            SetCameraBehindPlayer(playerid);
+        }
     }
 
     if (PlayerInfo[playerid][pSpawnO] == 1)
@@ -1966,7 +2004,7 @@ hook OnPlayerGiveDamage(playerid, damagedid, Float: amount, weaponid, bodypart)
 public OnPlayerCommandReceived(playerid, cmdtext[])
 {
     printf("[i-zcmd] %s (ID: %d): %s", GetPlayerNickname(playerid), playerid, cmdtext);
- 
+
     // Prevent commands if not logged in
     if (logged[playerid] == 0)
     {
@@ -2191,4 +2229,16 @@ stock GivePlayerArmour(playerid, points)
         armour = 100;
     }
     SetPlayerArmour(playerid, armour);
+}
+
+stock GetPlayerOfficeID(playerid)
+{
+    for (new i = 1; i < MAX_OFFICES; i++)
+    {
+        if (OfficeInfo[i][isOwned] == 1 && strcmp(OfficeInfo[i][OwnerName], GetPlayerNickname(playerid), true) == 0)
+        {
+            return i;
+        }
+    }
+    return -1;
 }

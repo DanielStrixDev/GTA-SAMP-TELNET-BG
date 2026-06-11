@@ -1138,6 +1138,12 @@ new Cache:
         new officeID = (listitem + 1);
         new string2230[512];
 
+        if (GetPlayerOfficeID(playerid) >= 1)
+        {
+            SendClientMessage(playerid, COLOR_GRAD1, "Ти вече притежаваш офис и не можеш да си купиш нов!");
+            return 1;
+        }
+
         if (OfficeInfo[officeID][isOwned] == 1)
         {
             format(string2230, 512, "Офис %d вече се притежава от друг играч и не можеш да го купиш!", officeID);
@@ -1177,6 +1183,7 @@ new Cache:
         OfficeInfo[officeID][isOwned] = 1;
         format(OfficeInfo[officeID][OwnerName], 50, "%s", GetPlayerNickname(playerid));
         SaveOffices();
+        DefineFloorOwnerName(officeID);
 
         format(string2230, 512, "Честито! Ти си купи офис номер %d за $%d", officeID, OfficeInfo[officeID][NeededCash]);
         SendClientMessage(playerid, 0x00FF00FF, string2230);

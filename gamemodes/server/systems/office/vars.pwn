@@ -17,4 +17,4 @@ new OfficeInfo[MAX_OFFICES][offInfo];
 /*
 * 3D Text
 */
-new Text3D:officeOwnerText[21];
+new Text3D:Office3DLabel[MAX_OFFICES];

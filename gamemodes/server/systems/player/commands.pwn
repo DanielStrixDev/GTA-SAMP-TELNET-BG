@@ -1023,6 +1023,7 @@ CMD:spawn(playerid, params[])
     {
         case 0:
         {
+            if (GetPlayerOfficeID(playerid) == -1) return SendClientMessage(playerid, 0xB4B5B7FF, "Ти не притежаваш офис!");
             if (PlayerInfo[playerid][pSpawnO] == 0) return SendClientMessage(playerid, 0xB4B5B7FF, "Твоят spawn вече е на Office!");
             SendClientMessage(playerid, 0xFFFFFFFF, "SERVER: Ти промени твоя spawn на Office spawn!");
         }

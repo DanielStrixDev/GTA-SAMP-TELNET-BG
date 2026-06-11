@@ -212,9 +212,9 @@ public GeneralTimer1s()
                     SendClientMessage(i, 0x00CCCCFF, noerrorstring2);
                     GivePlayerEP(i, BizInfo[PlayerInfo[i][pBizO]][bEP]);
                 }
-                if (PlayerInfo[i][pOffice] > 0)
+                if (GetPlayerOfficeID(i) > 0)
                 {
-                    new hisOffice = PlayerInfo[i][pOffice];
+                    new hisOffice = GetPlayerOfficeID(i);
                     new bonusEP = OfficeInfo[hisOffice][BonusEP];
                     new bonusCash = OfficeInfo[hisOffice][BonusCash];
                     format(noerrorstring2, 115, "Office: + %d EP è %d$", bonusEP, bonusCash);
