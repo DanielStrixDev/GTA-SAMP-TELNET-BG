@@ -505,7 +505,6 @@ hook OnPlayerConnect(playerid)
     /*
     * Based on stats
     */
-    SetSuspectStars(playerid);
     ShowPlayerTurfs(playerid);
     SetPlayerFightStyle(playerid);
     SetPlayerVipLaser(playerid);

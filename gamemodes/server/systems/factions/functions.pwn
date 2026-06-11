@@ -340,6 +340,7 @@ stock SetPlayerToFactionSpawn(playerid)
                 {-688.0349, 926.8151, 13.6293},
                 {-708.7231, 950.2300, 12.4724}
             };
+            new Float:angles[3] = {91.9914, 91.9914, 88.8813};
             SpawnOutside(playerid, pos, angles, 3);
         }
         else if (team == FACTION_VAGOS)
@@ -362,6 +363,7 @@ stock SetPlayerToFactionSpawn(playerid)
                 {-22.8780, 1063.8611, 19.7422},
                 {-7.8116, 1075.0288, 19.7422}
             };
+            new Float:angles[3] = {91.9914, 91.9914, 88.8813};
             SpawnOutside(playerid, pos, angles, 3);
         }
         else if (team == FACTION_SYNDICATE)
@@ -372,6 +374,7 @@ stock SetPlayerToFactionSpawn(playerid)
                 {1749.6184, 2797.0723, 10.8359},
                 {1783.9874, 2787.4541, 10.8359}
             };
+            new Float:angles[3] = {91.9914, 91.9914, 88.8813};
             SpawnOutside(playerid, pos, angles, 3);
             SetPlayerArmour(playerid, 100);
         }
@@ -383,6 +386,7 @@ stock SetPlayerToFactionSpawn(playerid)
                 {1117.1194, -1237.0652, 15.9510},
                 {1122.6483, -1247.2380, 25.3020}
             };
+            new Float:angles[3] = {91.9914, 91.9914, 88.8813};
             SpawnOutside(playerid, pos, angles, 3);
         }
         else if (team == FACTION_343)
@@ -393,6 +397,7 @@ stock SetPlayerToFactionSpawn(playerid)
                 {-814.1357, 1542.5577, 27.1172},
                 {-800.3713, 1531.4137, 27.1172}
             };
+            new Float:angles[3] = {91.9914, 91.9914, 88.8813};
             SpawnOutside(playerid, pos, angles, 3);
         }
         else if (team == FACTION_YAKUZA)
@@ -403,6 +408,7 @@ stock SetPlayerToFactionSpawn(playerid)
                 {2581.6055, 2747.6665, 10.8203},
                 {2531.0698, 2794.3374, 10.8203}
             };
+            new Float:angles[3] = {91.9914, 91.9914, 88.8813};
             SpawnOutside(playerid, pos, angles, 3);
         }
         else if (team == FACTION_GROVE)
@@ -916,7 +922,7 @@ hook OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 
 stock IsPlayerInHidenTeam(playerid)
 {
-    if (PlayerInfo[playerid][pTeam] == FACTION_IPD && hideIPD == 1)
+    if (PlayerInfo[playerid][pTeam] == FACTION_INTENSE_POLICE && hideIPD == 1)
     {
         return true;
     }

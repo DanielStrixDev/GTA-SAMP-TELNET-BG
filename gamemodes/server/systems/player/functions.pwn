@@ -654,6 +654,10 @@ stock GetPlayerLastCoors(playerid)
 */
 stock SetSuspectStars(playerid)
 {
+    if (PlayerInfo[playerid][pWanted] >= 7)
+    {
+        PlayerInfo[playerid][pWanted] = 6;
+    }
     SetPlayerWantedLevel(playerid, PlayerInfo[playerid][pWanted]);
 }
 
@@ -1086,7 +1090,7 @@ hook OnPlayerSpawn(playerid)
     }
     if (PlayerInfo[playerid][pSpawnO] == 0)
     {
-        SetPlayerToOfficeSpawn(playeridi);
+        SetPlayerToOfficeSpawn(playerid);
     }
     if (PlayerInfo[playerid][pSpawnO] == 1)
     {
@@ -1106,6 +1110,7 @@ hook OnPlayerSpawn(playerid)
     OnPlayerSpawnAsVIP(playerid);
     RestartPlayerSkin(playerid);
     CheckAdutySkinChange(playerid);
+    SetSuspectStars(playerid);
 
     if (PlayerInfo[playerid][pSpawnO] == 4)
     {
@@ -1131,7 +1136,7 @@ hook OnPlayerSpawn(playerid)
     {
         SetPlayerToDmonSpawn(playerid);
     }
-    if (IsPlayerInDeathmatchMission(playyerid))
+    if (IsPlayerInDeathmatchMission(playerid))
     {
         SpawnInDeathmatchMission(playerid);
     }
@@ -1141,7 +1146,7 @@ hook OnPlayerSpawn(playerid)
     }
     if (PlayerInfo[playerid][pPJail] > 0)
     {
-        SetPlayerToPoliceJailSpawn(playyerid);
+        SetPlayerToPoliceJailSpawn(playerid);
     }
     if (PlayerInfo[playerid][pJail] > 0)
     {
