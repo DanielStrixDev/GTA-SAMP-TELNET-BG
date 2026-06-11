@@ -26888,6 +26888,7 @@ SetPlayerPos(playerid, cx, cy, cz);
 new string256z[256];
 format(string256z,256,"“ова превозно средство принадлежи на %s",TeamInfo[FACTION_GROVE][tName]);
 return SendClientMessage(playerid, 0x636363FF, string256z);
+
 }
 }
 }

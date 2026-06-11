@@ -2,67 +2,198 @@
 * MISSIONS LOCATIONS
 */
 
-#define MoneyBoxCheckpoint1 1400.5925, -1485.3390, 20.4353
-#define MoneyBoxCheckpoint2 1031.3981, -1376.8380, 13.5932
-#define MoneyBoxCheckpoint3 359.7007, -1471.7852, 36.0238
-#define MoneyBoxCheckpoint4 268.4943, -1446.0317, 23.7274
+// MoneyBox Checkpoints
+#define MoneyBoxCheckpoint1_X 1400.5925
+#define MoneyBoxCheckpoint1_Y -1485.3390
+#define MoneyBoxCheckpoint1_Z 20.4353
 
-#define MoneyBoxDeliverpoint1 2208.4001, 1432.2076, 11.0547
-#define MoneyBoxDeliverpoint2 2489.3777, 1448.1366, 10.9063
-#define MoneyBoxDeliverpoint3 2316.8396, 1732.6959, 10.8203
-#define MoneyBoxDeliverpoint4 2256.0981, 2564.9705, 10.8203
+#define MoneyBoxCheckpoint2_X 1031.3981
+#define MoneyBoxCheckpoint2_Y -1376.8380
+#define MoneyBoxCheckpoint2_Z 13.5932
 
-//Drag
-#define StreetRaceDragWaitPoint -1722.9529,-574.8784,15.9721
-#define StreetRaceDragCheckPoint1 -1781.6704,-575.6155,16.0630
-#define StreetRaceDragCheckPoint2 -1888.9840,-576.6488,24.1741
-#define StreetRaceDragCheckPoint3 -2020.8083,-577.6575,26.3063
-#define StreetRaceDragCheckPoint4 -2117.9346,-524.7858,35.1644
-#define StreetRaceDragFinalPoint -2231.3345,-406.7641,50.5942
+#define MoneyBoxCheckpoint3_X 359.7007
+#define MoneyBoxCheckpoint3_Y -1471.7852
+#define MoneyBoxCheckpoint3_Z 36.0238
 
-//Sprint
-#define StreetRaceSprintWaitPoint 1786.5955,1497.7411,6.4615
-#define StreetRaceSprintCheckPoint1 1787.1387,1573.3997,6.4615
-#define StreetRaceSprintCheckPoint2 1788.1617,1702.6829,6.4615
-#define StreetRaceSprintCheckPoint3 1788.1381,1881.0883,6.4615
-#define StreetRaceSprintCheckPoint4 1788.9952,2052.8132,3.6330
-#define StreetRaceSprintFinalPoint 1787.1313,2295.8889,5.5133
+#define MoneyBoxCheckpoint4_X 268.4943
+#define MoneyBoxCheckpoint4_Y -1446.0317
+#define MoneyBoxCheckpoint4_Z 23.7274
 
-//Drift
-#define StreetRaceDriftWaitPoint -1858.7616,-1404.7510,38.0279
-#define StreetRaceDriftCheckPoint1 -1827.2673,-1422.8276,36.4690
-#define StreetRaceDriftCheckPoint2 -1740.6162,-1474.2750,34.1339
-#define StreetRaceDriftCheckPoint3 -1621.0465,-1510.5717,37.2494
-#define StreetRaceDriftCheckPoint4 -1578.4031,-1602.9431,36.6926
-#define StreetRaceDriftFinalPoint -1953.4404,-1811.0680,33.7089
+// MoneyBox Deliverpoints
+#define MoneyBoxDeliverpoint1_X 2208.4001
+#define MoneyBoxDeliverpoint1_Y 1432.2076
+#define MoneyBoxDeliverpoint1_Z 11.0547
 
+#define MoneyBoxDeliverpoint2_X 2489.3777
+#define MoneyBoxDeliverpoint2_Y 1448.1366
+#define MoneyBoxDeliverpoint2_Z 10.9063
 
-//Laps
-#define StreetRaceLapsWaitPoint 1285.2955,-382.7452,2.2483
-#define StreetRaceLapsCheckPoint1 1428.1626,-320.5428,2.7552
-#define StreetRaceLapsCheckPoint2 1629.2355,-326.8333,21.6734
-#define StreetRaceLapsCheckPoint3 1757.5409,-346.4585,46.0157
-#define StreetRaceLapsCheckPoint4 1871.6470,-263.7513,38.1082
-#define StreetRaceLapsFinalPoint 1877.6993,-70.1240,34.4164
+#define MoneyBoxDeliverpoint3_X 2316.8396
+#define MoneyBoxDeliverpoint3_Y 1732.6959
+#define MoneyBoxDeliverpoint3_Z 10.8203
 
-//Offroad
+#define MoneyBoxDeliverpoint4_X 2256.0981
+#define MoneyBoxDeliverpoint4_Y 2564.9705
+#define MoneyBoxDeliverpoint4_Z 10.8203
 
-#define StreetRaceOffroadWaitPoint -863.8476,1090.6401,25.4467
-#define StreetRaceOffroadCheckPoint1 -877.8967,1274.1046,34.8127
-#define StreetRaceOffroadCheckPoint2 -1029.2034,1279.4197,39.7953
-#define StreetRaceOffroadCheckPoint3 -1146.6042,1105.5200,38.2972
-#define StreetRaceOffroadCheckPoint4 -1296.1880,949.3697,45.2623
-#define StreetRaceOffroadFinalPoint -1429.2609,808.4440,46.9212
+// Deathmatch Locations
+#define DeathmatchCheckpoint1_X 1584.9596
+#define DeathmatchCheckpoint1_Y -1520.3334
+#define DeathmatchCheckpoint1_Z 13.5788
 
-//locations - open
-#define DeathmatchCheckpoint1 1584.9596,-1520.3334,13.5788
-#define DeathmatchCheckpoint2 2005.0504,1545.0089,13.5859
-#define DeathmatchPlace1Spawn1 2298.8459,1974.8574,9.8671
-#define DeathmatchPlace1Spawn2 2282.9092,1948.3878,9.8671
-#define DeathmatchPlace1Spawn3 2243.7249,1939.0444,9.8671
-#define DeathmatchPlace2Spawn1 1915.4152,1781.0076,18.9339
-#define DeathmatchPlace2Spawn2 1951.3872,1764.6440,18.9046
-#define DeathmatchPlace2Spawn3 1964.6542,1735.2903,18.9339
+#define DeathmatchCheckpoint2_X 2005.0504
+#define DeathmatchCheckpoint2_Y 1545.0089
+#define DeathmatchCheckpoint2_Z 13.5859
+
+// Deathmatch Spawns
+#define DeathmatchPlace1Spawn1_X 2298.8459
+#define DeathmatchPlace1Spawn1_Y 1974.8574
+#define DeathmatchPlace1Spawn1_Z 9.8671
+
+#define DeathmatchPlace1Spawn2_X 2282.9092
+#define DeathmatchPlace1Spawn2_Y 1948.3878
+#define DeathmatchPlace1Spawn2_Z 9.8671
+
+#define DeathmatchPlace1Spawn3_X 2243.7249
+#define DeathmatchPlace1Spawn3_Y 1939.0444
+#define DeathmatchPlace1Spawn3_Z 9.8671
+
+#define DeathmatchPlace2Spawn1_X 1915.4152
+#define DeathmatchPlace2Spawn1_Y 1781.0076
+#define DeathmatchPlace2Spawn1_Z 18.9339
+
+#define DeathmatchPlace2Spawn2_X 1951.3872
+#define DeathmatchPlace2Spawn2_Y 1764.6440
+#define DeathmatchPlace2Spawn2_Z 18.9046
+
+#define DeathmatchPlace2Spawn3_X 1964.6542
+#define DeathmatchPlace2Spawn3_Y 1735.2903
+#define DeathmatchPlace2Spawn3_Z 18.9339
+
+// Drag Race
+#define StreetRaceDragWaitPoint_X -1722.9529
+#define StreetRaceDragWaitPoint_Y -574.8784
+#define StreetRaceDragWaitPoint_Z 15.9721
+
+#define StreetRaceDragCheckPoint1_X -1781.6704
+#define StreetRaceDragCheckPoint1_Y -575.6155
+#define StreetRaceDragCheckPoint1_Z 16.0630
+
+#define StreetRaceDragCheckPoint2_X -1888.9840
+#define StreetRaceDragCheckPoint2_Y -576.6488
+#define StreetRaceDragCheckPoint2_Z 24.1741
+
+#define StreetRaceDragCheckPoint3_X -2020.8083
+#define StreetRaceDragCheckPoint3_Y -577.6575
+#define StreetRaceDragCheckPoint3_Z 26.3063
+
+#define StreetRaceDragCheckPoint4_X -2117.9346
+#define StreetRaceDragCheckPoint4_Y -524.7858
+#define StreetRaceDragCheckPoint4_Z 35.1644
+
+#define StreetRaceDragFinalPoint_X -2231.3345
+#define StreetRaceDragFinalPoint_Y -406.7641
+#define StreetRaceDragFinalPoint_Z 50.5942
+
+// Sprint Race
+#define StreetRaceSprintWaitPoint_X 1786.5955
+#define StreetRaceSprintWaitPoint_Y 1497.7411
+#define StreetRaceSprintWaitPoint_Z 6.4615
+
+#define StreetRaceSprintCheckPoint1_X 1787.1387
+#define StreetRaceSprintCheckPoint1_Y 1573.3997
+#define StreetRaceSprintCheckPoint1_Z 6.4615
+
+#define StreetRaceSprintCheckPoint2_X 1788.1617
+#define StreetRaceSprintCheckPoint2_Y 1702.6829
+#define StreetRaceSprintCheckPoint2_Z 6.4615
+
+#define StreetRaceSprintCheckPoint3_X 1788.1381
+#define StreetRaceSprintCheckPoint3_Y 1881.0883
+#define StreetRaceSprintCheckPoint3_Z 6.4615
+
+#define StreetRaceSprintCheckPoint4_X 1788.9952
+#define StreetRaceSprintCheckPoint4_Y 2052.8132
+#define StreetRaceSprintCheckPoint4_Z 3.6330
+
+#define StreetRaceSprintFinalPoint_X 1787.1313
+#define StreetRaceSprintFinalPoint_Y 2295.8889
+#define StreetRaceSprintFinalPoint_Z 5.5133
+
+// Drift Race
+#define StreetRaceDriftWaitPoint_X -1858.7616
+#define StreetRaceDriftWaitPoint_Y -1404.7510
+#define StreetRaceDriftWaitPoint_Z 38.0279
+
+#define StreetRaceDriftCheckPoint1_X -1827.2673
+#define StreetRaceDriftCheckPoint1_Y -1422.8276
+#define StreetRaceDriftCheckPoint1_Z 36.4690
+
+#define StreetRaceDriftCheckPoint2_X -1740.6162
+#define StreetRaceDriftCheckPoint2_Y -1474.2750
+#define StreetRaceDriftCheckPoint2_Z 34.1339
+
+#define StreetRaceDriftCheckPoint3_X -1621.0465
+#define StreetRaceDriftCheckPoint3_Y -1510.5717
+#define StreetRaceDriftCheckPoint3_Z 37.2494
+
+#define StreetRaceDriftCheckPoint4_X -1578.4031
+#define StreetRaceDriftCheckPoint4_Y -1602.9431
+#define StreetRaceDriftCheckPoint4_Z 36.6926
+
+#define StreetRaceDriftFinalPoint_X -1953.4404
+#define StreetRaceDriftFinalPoint_Y -1811.0680
+#define StreetRaceDriftFinalPoint_Z 33.7089
+
+// Laps Race
+#define StreetRaceLapsWaitPoint_X 1285.2955
+#define StreetRaceLapsWaitPoint_Y -382.7452
+#define StreetRaceLapsWaitPoint_Z 2.2483
+
+#define StreetRaceLapsCheckPoint1_X 1428.1626
+#define StreetRaceLapsCheckPoint1_Y -320.5428
+#define StreetRaceLapsCheckPoint1_Z 2.7552
+
+#define StreetRaceLapsCheckPoint2_X 1629.2355
+#define StreetRaceLapsCheckPoint2_Y -326.8333
+#define StreetRaceLapsCheckPoint2_Z 21.6734
+
+#define StreetRaceLapsCheckPoint3_X 1757.5409
+#define StreetRaceLapsCheckPoint3_Y -346.4585
+#define StreetRaceLapsCheckPoint3_Z 46.0157
+
+#define StreetRaceLapsCheckPoint4_X 1871.6470
+#define StreetRaceLapsCheckPoint4_Y -263.7513
+#define StreetRaceLapsCheckPoint4_Z 38.1082
+
+#define StreetRaceLapsFinalPoint_X 1877.6993
+#define StreetRaceLapsFinalPoint_Y -70.1240
+#define StreetRaceLapsFinalPoint_Z 34.4164
+
+// Offroad Race
+#define StreetRaceOffroadWaitPoint_X -863.8476
+#define StreetRaceOffroadWaitPoint_Y 1090.6401
+#define StreetRaceOffroadWaitPoint_Z 25.4467
+
+#define StreetRaceOffroadCheckPoint1_X -877.8967
+#define StreetRaceOffroadCheckPoint1_Y 1274.1046
+#define StreetRaceOffroadCheckPoint1_Z 34.8127
+
+#define StreetRaceOffroadCheckPoint2_X -1029.2034
+#define StreetRaceOffroadCheckPoint2_Y 1279.4197
+#define StreetRaceOffroadCheckPoint2_Z 39.7953
+
+#define StreetRaceOffroadCheckPoint3_X -1146.6042
+#define StreetRaceOffroadCheckPoint3_Y 1105.5200
+#define StreetRaceOffroadCheckPoint3_Z 38.2972
+
+#define StreetRaceOffroadCheckPoint4_X -1296.1880
+#define StreetRaceOffroadCheckPoint4_Y 949.3697
+#define StreetRaceOffroadCheckPoint4_Z 45.2623
+
+#define StreetRaceOffroadFinalPoint_X -1429.2609
+#define StreetRaceOffroadFinalPoint_Y 808.4440
+#define StreetRaceOffroadFinalPoint_Z 46.9212
 
 /*
 * ROBBERY LOCATIONS

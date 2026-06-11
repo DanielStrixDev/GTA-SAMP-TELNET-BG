@@ -661,7 +661,7 @@ stock SetSuspectStars(playerid)
     SetPlayerWantedLevel(playerid, PlayerInfo[playerid][pWanted]);
 }
 
-stock GivePlayerWantedLevel(playerid, level, reason[], hide = false)
+stock GivePlayerWantedLevel(playerid, level, const reason[], hide = false)
 {
     PlayerInfo[playerid][pWanted] += level;
     if (PlayerInfo[playerid][pWanted] >= 6)

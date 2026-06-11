@@ -897,7 +897,6 @@ hook OnPlayerDisconnect(playerid, reason)
         RemoveVarDriver(playerid);
 
         // Player Exit Functions
-        ExitWithMoneyBox(playerid);
         ExitWithCMN1(playerid);
         ExitInTurfAttack(playerid);
         LeaveStreetRace(playerid);
