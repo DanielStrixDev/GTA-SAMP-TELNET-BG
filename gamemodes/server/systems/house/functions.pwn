@@ -89,7 +89,7 @@ stock IsValidHouse(houseid)
 */
 hook OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 {
-    if(VehicleInfo[vehicleid][vIsHouseVeh])
+    if (VehicleInfo[vehicleid][vIsHouseVeh])
     {
         if (PlayerInfo[playerid][pHouseO] != VehicleInfo[vehicleid][vHouseID])
         {
@@ -114,9 +114,12 @@ hook OnPlayerEnterCheckpoint(playerid)
     {
         gpsOn[playerid] = false;
         new playersHouse = PlayerInfo[playerid][pHouseO];
-        new Float: playerHouseX = HouseInfo[playersHouse][hX];
-        new Float: playerHouseY = HouseInfo[playersHouse][hY];
-        new Float: playerHouseZ = HouseInfo[playersHouse][hZ];
+new Float:
+        playerHouseX = HouseInfo[playersHouse][hX];
+new Float:
+        playerHouseY = HouseInfo[playersHouse][hY];
+new Float:
+        playerHouseZ = HouseInfo[playersHouse][hZ];
         if (IsPlayerInRangeOfPoint(playerid, 4.0, playerHouseX, playerHouseY, playerHouseZ))
         {
             SendClientMessage(playerid, 0xffff00FF, "Ти пристигна до твоята къща!");
@@ -125,3 +128,73 @@ hook OnPlayerEnterCheckpoint(playerid)
     }
     return Y_HOOKS_CONTINUE_RETURN_1;
 }
+
+/*
+* Is Player Near House
+*/
+stock IsPlayerNearHouse(playerid)
+{
+    new houseid = playerInHousePickup[playerid];
+    if (IsValidHouse(houseid))
+    {
+        if (IsPlayerInRangeOfPoint(playerid, 3.0, HouseInfo[houseid][hX], HouseInfo[houseid][hY], HouseInfo[houseid][hZ]))
+        {
+            return houseid;
+        }
+    }
+    return -1;
+}
+
+/*
+* Enter Pickup
+*/
+hook OnPlayerPickUpPickup(playerid, pickupid)
+{
+    new houseid = HouseByPickup[pickupid];
+    if (IsValidHouse(houseid))
+    {
+        isinhousepickup[playerid] = 1;
+        onhousepick2[playerid] = 1;
+        playerInHousePickup[playerid] = houseid;
+    }
+
+    if (IsValidHouse(houseid))
+    {
+        if (IsPlayerInRangeOfPoint(playerid, 3.0, HouseInfo[houseid][hX], HouseInfo[houseid][hY], HouseInfo[houseid][hZ]))
+        {
+            new housestring[256];
+            if (HouseInfo[houseid][hOwner] == 1)
+            {
+                format(housestring, sizeof(housestring), "~w~Owner:~g~ %s~n~~w~Level: ~b~ %d~n~",
+                       HouseInfo[houseid][hOwnerName],
+                       HouseInfo[houseid][hLevel]);
+                GameTextForPlayer(playerid, housestring, 1500, 3);
+                return 1;
+            }
+
+            static const roomDesc[][] =
+            {
+                "3 ROOMS", "1 ROOM", "1 ROOM", "5 ROOMS", "6 ROOMS",
+                "3 ROOMS", "3 ROOMS", "3 ROOMS", "7 ROOMS", "3 ROOMS",
+                "4 ROOMS", "4 ROOMS", "7 ROOMS", "7 ROOMS", "4 ROOMS",
+                "9 ROOMS", "9 ROOMS", "5 ROOMS", "2 ROOMS", "5 ROOMS",
+                "5 ROOMS", "22 ROOMS", "4 ROOMS", "5 ROOMS", "5 ROOMS",
+                "4 ROOMS"
+            };
+
+            new interior = HouseInfo[houseid][hInterior];
+            new rooms[32] = "UNKNOWN";
+            if (interior >= 1 && interior <= sizeof(roomDesc))
+                format(rooms, sizeof(rooms), "%s", roomDesc[interior - 1]);
+
+            format(housestring, sizeof(housestring),
+                   "~y~House For Sale~n~~w~Description:~p~ %s~n~~w~Price:~g~ $%d~n~~w~Level: ~b~%d",
+                   rooms, HouseInfo[houseid][hPrice], HouseInfo[houseid][hLevel]);
+
+            GameTextForPlayer(playerid, housestring, 1500, 3);
+            return 1;
+        }
+    }
+    return Y_HOOKS_CONTINUE_RETURN_1;
+}
+

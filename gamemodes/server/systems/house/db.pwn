@@ -114,68 +114,67 @@ stock LoadHouses()
     {
         new dbID;
         cache_get_value_int(i, "id", dbID);
-
-        // Преобразуваме dbID към индекс в масива
-        new arrayIndex = dbID - 1; // <-- Промяна: -1 за масива
-
-        if (arrayIndex < 0 || arrayIndex >= MAX_HOUSES)
+        
+        // Проверка за валиден ID - директно използваме dbID като индекс
+        if (dbID < 1 || dbID > MAX_HOUSES) 
         {
-            printf("[ГРЕШКА] Невалиден ID за къща: %d (arrayIndex: %d)", dbID, arrayIndex);
+            printf("[ГРЕШКА] Невалиден ID за къща: %d (приемливи са 1..%d)", dbID, MAX_HOUSES);
             continue;
         }
 
-        cache_get_value_float(i, "x", HouseInfo[arrayIndex][hX]);
-        cache_get_value_float(i, "y", HouseInfo[arrayIndex][hY]);
-        cache_get_value_float(i, "z", HouseInfo[arrayIndex][hZ]);
+        cache_get_value_float(i, "x", HouseInfo[dbID][hX]);
+        cache_get_value_float(i, "y", HouseInfo[dbID][hY]);
+        cache_get_value_float(i, "z", HouseInfo[dbID][hZ]);
 
-        cache_get_value_float(i, "cx", HouseInfo[arrayIndex][hcX]);
-        cache_get_value_float(i, "cy", HouseInfo[arrayIndex][hcY]);
-        cache_get_value_float(i, "cz", HouseInfo[arrayIndex][hcZ]);
-        cache_get_value_float(i, "ca", HouseInfo[arrayIndex][hcA]);
+        cache_get_value_float(i, "cx", HouseInfo[dbID][hcX]);
+        cache_get_value_float(i, "cy", HouseInfo[dbID][hcY]);
+        cache_get_value_float(i, "cz", HouseInfo[dbID][hcZ]);
+        cache_get_value_float(i, "ca", HouseInfo[dbID][hcA]);
 
-        cache_get_value_int(i, "cc", HouseInfo[arrayIndex][hcC]);
-        cache_get_value_int(i, "c_c2", HouseInfo[arrayIndex][hcC2]);
-        cache_get_value_int(i, "cv", HouseInfo[arrayIndex][hcV]);
-        cache_get_value_int(i, "c_veh", HouseInfo[arrayIndex][hcVeh]);
+        cache_get_value_int(i, "cc", HouseInfo[dbID][hcC]);
+        cache_get_value_int(i, "c_c2", HouseInfo[dbID][hcC2]);
+        cache_get_value_int(i, "cv", HouseInfo[dbID][hcV]);
+        cache_get_value_int(i, "c_veh", HouseInfo[dbID][hcVeh]);
 
-        cache_get_value_int(i, "owner", HouseInfo[arrayIndex][hOwner]);
-        cache_get_value_int(i, "locked", HouseInfo[arrayIndex][hLocked]);
-        cache_get_value_int(i, "veh", HouseInfo[arrayIndex][hcVeh]);
-        cache_get_value_int(i, "level", HouseInfo[arrayIndex][hLevel]);
-        cache_get_value_int(i, "price", HouseInfo[arrayIndex][hPrice]);
-        cache_get_value_int(i, "interior", HouseInfo[arrayIndex][hInterior]);
-        cache_get_value_int(i, "armour", HouseInfo[arrayIndex][hArmour]);
-        cache_get_value_int(i, "health", HouseInfo[arrayIndex][hHealth]);
+        cache_get_value_int(i, "owner", HouseInfo[dbID][hOwner]);
+        cache_get_value_int(i, "locked", HouseInfo[dbID][hLocked]);
+        cache_get_value_int(i, "veh", HouseInfo[dbID][hcVeh]);
+        cache_get_value_int(i, "level", HouseInfo[dbID][hLevel]);
+        cache_get_value_int(i, "price", HouseInfo[dbID][hPrice]);
+        cache_get_value_int(i, "interior", HouseInfo[dbID][hInterior]);
+        cache_get_value_int(i, "armour", HouseInfo[dbID][hArmour]);
+        cache_get_value_int(i, "health", HouseInfo[dbID][hHealth]);
 
-        cache_get_value(i, "owner_name", HouseInfo[arrayIndex][hOwnerName], 256);
+        cache_get_value(i, "owner_name", HouseInfo[dbID][hOwnerName], 256);
 
-        // Create pickup
-        housepickup[arrayIndex] = CreatePickup(1273, 1, HouseInfo[arrayIndex][hX], HouseInfo[arrayIndex][hY], HouseInfo[arrayIndex][hZ], 0);
-        HouseByPickup[housepickup[arrayIndex]] = arrayIndex;
+        // Създаване на пикап
+        housepickup[dbID] = CreatePickup(1273, 1, HouseInfo[dbID][hX], HouseInfo[dbID][hY], HouseInfo[dbID][hZ], 0);
+        HouseByPickup[housepickup[dbID]] = dbID;
 
-        // Spawn house vehicle if needed
-        if (HouseInfo[arrayIndex][hcV] != 0 && HouseInfo[arrayIndex][hcX] != 0.0)
+        // Създаване на паркиран автомобил за къщата (ако има)
+        if (HouseInfo[dbID][hcV] != 0 && HouseInfo[dbID][hcX] != 0.0)
         {
-            HouseInfo[arrayIndex][hcVeh] = CreateVehicle(
-                                               HouseInfo[arrayIndex][hcV],
-                                               HouseInfo[arrayIndex][hcX],
-                                               HouseInfo[arrayIndex][hcY],
-                                               HouseInfo[arrayIndex][hcZ],
-                                               HouseInfo[arrayIndex][hcA],
-                                               HouseInfo[arrayIndex][hcC],
-                                               HouseInfo[arrayIndex][hcC2],
-                                               1800000
-                                           );
+            HouseInfo[dbID][hcVeh] = CreateVehicle(
+                HouseInfo[dbID][hcV],
+                HouseInfo[dbID][hcX],
+                HouseInfo[dbID][hcY],
+                HouseInfo[dbID][hcZ],
+                HouseInfo[dbID][hcA],
+                HouseInfo[dbID][hcC],
+                HouseInfo[dbID][hcC2],
+                1800000
+            );
 
-            new houseVeh = HouseInfo[arrayIndex][hcVeh];
-            VehicleInfo[houseVeh][vHouseID] = arrayIndex;
+            new houseVeh = HouseInfo[dbID][hcVeh];
+            VehicleInfo[houseVeh][vHouseID] = dbID;
             VehicleInfo[houseVeh][vIsHouseVeh] = true;
         }
     }
 
     cache_delete(result);
     CheckMaxHouseID();
-    printf("[MySQL] Заредени са %d на брой къщи", rows);
+    printf("[MySQL] Заредени са %d на брой къщи (ID: 1..%d)", rows, rows);
+    return 1;
 }
 
 /*

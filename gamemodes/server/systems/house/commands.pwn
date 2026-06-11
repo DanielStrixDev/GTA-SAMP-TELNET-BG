@@ -2,7 +2,6 @@ CMD:sellhouse(playerid, params[])
 {
     //if(isinhousepickup[playerid]==1)
     //{
-    new housenoerror = 0;
     if (PlayerInfo[playerid][pHouseO] == -1)
     {
         SendClientMessage(playerid, 0xB4B5B7FF, "Ти не притежаваш къща!");
@@ -18,7 +17,6 @@ CMD:sellhouse(playerid, params[])
             return 1;
         }
 
-        housenoerror = 1;
         format(HouseInfo[house][hOwnerName], 256, "None");
         HouseInfo[house][hOwner] = 0;
         SaveHouse(house);
@@ -30,7 +28,7 @@ CMD:sellhouse(playerid, params[])
         PlayerInfo[playerid][pArmour2] = 0;
 
     }
-    if (housenoerror == 0)
+    else
     {
         SendClientMessage(playerid, 0xB4B5B7FF, "Ти не се намираш близо до къщата си!");
     }
@@ -204,26 +202,6 @@ CMD:housev(playerid, params[])
     return 1;
 }
 
-CMD:houseid(playerid, params[])
-{
-    if (PlayerInfo[playerid][pAdmin] < 3)
-    {
-        SendClientMessage(playerid, COLOR_GRAD1, "Нямаш права за да ползваш командата!");
-        return 1;
-    }
-    for (new alh = 0; alh < maxhouses; alh++) // Dynamic Houses
-    {
-        if (IsPlayerInRangeOfPoint(playerid, 3, HouseInfo[alh][hX], HouseInfo[alh][hY], HouseInfo[alh][hZ]))
-        {
-            new stringhouse[256];
-            format(stringhouse, 256, "HOUSE - {FF0000}%d", alh);
-            SendClientMessage(playerid, 0xFFFFFFFF, stringhouse);
-        }
-        else return SendClientMessage(playerid, 0xB4B5B7FF, "Ти не си близо до къща!");
-    }
-    return 1;
-}
-
 CMD:houseswitchaccept(playerid, params[])
 {
     if (houseSwitchReceiver[playerid] == -1) return SendClientMessage(playerid, 0xB4B5B7FF, "Не ти е предлагана къща за размяна!");
@@ -394,49 +372,67 @@ CMD:unlockhouse(playerid, params[])
     return 1;
 }
 
+CMD:houseid(playerid, params[])
+{
+    if (PlayerInfo[playerid][pAdmin] < 3)
+    {
+        SendClientMessage(playerid, COLOR_GRAD1, "Нямаш права за да ползваш командата!");
+        return 1;
+    }
+
+    new houseID = IsPlayerNearHouse(playerid);
+    if (houseID >= 1)
+    {
+        new stringhouse[256];
+        format(stringhouse, 256, "HOUSE - {FF0000}%d", houseID);
+        SendClientMessage(playerid, 0xFFFFFFFF, stringhouse);
+    }
+    else
+    {
+        return SendClientMessage(playerid, 0xB4B5B7FF, "Ти не си близо до къща!");
+    }
+    return 1;
+}
+
 CMD:buyhouse(playerid, params[])
 {
-    //if(isinhousepickup[playerid]==1)
-    //{
-    new housenoerror = 0;
-    new houseBoughtID;
-    for (new alh = 0; alh < maxhouses; alh++) // Dynamic Houses
+    new houseID = IsPlayerNearHouse(playerid);
+    if (houseID >= 1)
     {
-        if (IsPlayerInRangeOfPoint(playerid, 3, HouseInfo[alh][hX], HouseInfo[alh][hY], HouseInfo[alh][hZ]))
+        if (IsPlayerInRangeOfPoint(playerid, 3, HouseInfo[houseID][hX], HouseInfo[houseID][hY], HouseInfo[houseID][hZ]))
         {
             if (PlayerInfo[playerid][pHouseO] > -1)
             {
                 SendClientMessage(playerid, 0xB4B5B7FF, "Ти вече притежаваш къща!");
                 return 1;
             }
-            if (HouseInfo[alh][hOwner] == 1)
+            if (HouseInfo[houseID][hOwner] == 1)
             {
                 SendClientMessage(playerid, 0xB4B5B7FF, "Тази къща вече има притежател!");
                 return 1;
             }
-            if (HouseInfo[alh][hLevel] > PlayerInfo[playerid][pLevel])
+            if (HouseInfo[houseID][hLevel] > PlayerInfo[playerid][pLevel])
             {
                 SendClientMessage(playerid, 0xB4B5B7FF, "Нямаш достатъчно голямо ниво за тази къща!");
                 return 1;
             }
-            if (HouseInfo[alh][hPrice] > PlayerInfo[playerid][pCash])
+            if (HouseInfo[houseID][hPrice] > PlayerInfo[playerid][pCash])
             {
                 SendClientMessage(playerid, 0xB4B5B7FF, "Нямаш достатъчно пари за тази къща!");
                 return 1;
             }
-            housenoerror = 1;
-            PlayerInfo[playerid][pHouseO] = alh;
-            houseBoughtID = alh;
-            BoughtHouse(playerid, alh);
-            GivePlayerCash(playerid, HouseInfo[alh][hPrice]);
+            PlayerInfo[playerid][pHouseO] = houseID;
+            BoughtHouse(playerid, houseID);
+            GivePlayerCash(playerid, HouseInfo[houseID][hPrice]);
+
+            new stringBoughtHouse[256];
+            format(stringBoughtHouse, 256, "Честито, ти си купи къща на стойност $%d!", HouseInfo[houseID][hPrice]);
+            SendClientMessage(playerid, 0x00FF40FF, stringBoughtHouse);
         }
     }
-    if (housenoerror == 0)
+    else
     {
         return SendClientMessage(playerid, 0xB4B5B7FF, "Ти не се намираш близо до къща!");
     }
-    new stringBoughtHouse[256];
-    format(stringBoughtHouse, 256, "Честито, ти си купи къща на стойност $%d!", HouseInfo[houseBoughtID][hPrice]);
-    SendClientMessage(playerid, 0x00FF40FF, stringBoughtHouse);
     return 1;
 }

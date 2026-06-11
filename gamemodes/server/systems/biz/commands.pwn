@@ -797,96 +797,57 @@ CMD:earnings(playerid, params[])
     BizInfo[PlayerInfo[playerid][pBizO]][bEarnings] = 0;
     return 1;
 }
-/*
-    CMD:sellbiz(playerid, params[])
-{
-    new housenoerror = 0;
-    if (PlayerInfo[playerid][pBizO] == -1)
-    {
-        SendClientMessage(playerid, 0xB4B5B7FF, "Ти не притежаваш бизнес!");
-        return 1;
-    }
-    new biz = PlayerInfo[playerid][pBizO];
 
-    if (IsPlayerInRangeOfPoint(playerid, 3, BizInfo[biz][bX], BizInfo[biz][bY], BizInfo[biz][bZ]))
-    {
-        if (!IsValidBiz(biz))
-        {
-            SendClientMessage(playerid, 0xB4B5B7FF, "Твоята къща е изтрита, свържи се с администратор!");
-            return 1;
-        }
-        housenoerror = 1;
-        format(BizInfo[biz][bOwnerName], 256, "None");
-        BizInfo[biz][bOwner] = 0;
-
-        SaveBiz(biz);
-
-        GivePlayerCash(playerid, BizInfo[biz][bPrice] / 2);
-        format(string256[playerid], 256, "Tи продаде бизнеса си за $%d!", BizInfo[biz][bPrice] / 2);
-        SendClientMessage(playerid, 0x00CCCCFF, string256[playerid]);
-        PlayerInfo[playerid][pBizO] = -1;
-
-    }
-    if (housenoerror == 0)
-    {
-        SendClientMessage(playerid, 0xB4B5B7FF, "Ти не се намираш близо до бизнеса си!");
-    }
-    return 1;
-}
-
-*/
 CMD:buybiz(playerid, params[])
 {
-    new bizznoerror = 0;
-    new alb = IsPlayerNearBiz(playerid);
-    if (alb >= 0)
+    new bizID = IsPlayerNearBiz(playerid);
+    if (bizID >= 1)
     {
         if (PlayerInfo[playerid][pBizO] > -1)
         {
             SendClientMessage(playerid, 0xB4B5B7FF, "Ти вече притежаваш бизнес!");
             return 1;
         }
-        if (BizInfo[alb][bOwner] == 1)
+        if (BizInfo[bizID][bOwner] == 1)
         {
             SendClientMessage(playerid, 0xB4B5B7FF, "Този бизнес вече има притежател!");
             return 1;
         }
-        if (BizInfo[alb][bLevel] > PlayerInfo[playerid][pLevel])
+        if (BizInfo[bizID][bLevel] > PlayerInfo[playerid][pLevel])
         {
             SendClientMessage(playerid, 0xB4B5B7FF, "Нямаш достатъчно голямо ниво за този бизнес!");
             return 1;
         }
-        if (BizInfo[alb][bPrice] > PlayerInfo[playerid][pCash])
+        if (BizInfo[bizID][bPrice] > PlayerInfo[playerid][pCash])
         {
             SendClientMessage(playerid, 0xB4B5B7FF, "Нямаш достатъчно пари за този бизнес!");
             return 1;
         }
-        if (BizInfo[alb][bEPSkill] > PlayerInfo[playerid][pEPS])
+        if (BizInfo[bizID][bEPSkill] > PlayerInfo[playerid][pEPS])
         {
             new stringRequirement[256];
-            format(stringRequirement, 256, "Трябва да имаш поне %d EP Skill за да купиш този бизнес!", BizInfo[alb][bEPSkill]);
+            format(stringRequirement, 256, "Трябва да имаш поне %d EP Skill за да купиш този бизнес!", BizInfo[bizID][bEPSkill]);
             SendClientMessage(playerid, 0xB4B5B7FF, stringRequirement);
             return 1;
         }
-        if (BizInfo[alb][bMSkill] > PlayerInfo[playerid][pMS])
+        if (BizInfo[bizID][bMSkill] > PlayerInfo[playerid][pMS])
         {
             new stringRequirement[256];
-            format(stringRequirement, 256, "Трябва да имаш поне %d Money Skill за да купиш този бизнес!", BizInfo[alb][bMSkill]);
+            format(stringRequirement, 256, "Трябва да имаш поне %d Money Skill за да купиш този бизнес!", BizInfo[bizID][bMSkill]);
             SendClientMessage(playerid, 0xB4B5B7FF, stringRequirement);
             return 1;
         }
-        bizznoerror = 1;
-        PlayerInfo[playerid][pBizO] = alb;
-        format(BizInfo[alb][bOwnerName], 256, "%s", GetPlayerNickname(playerid));
-        BizInfo[alb][bOwner] = 1;
-        BizInfo[alb][bEarnings] = 0;
-        GivePlayerCash(playerid, -BizInfo[alb][bPrice]);
+        PlayerInfo[playerid][pBizO] = bizID;
+        format(BizInfo[bizID][bOwnerName], 256, "%s", GetPlayerNickname(playerid));
+        BizInfo[bizID][bOwner] = 1;
+        BizInfo[bizID][bEarnings] = 0;
+        GivePlayerCash(playerid, -BizInfo[bizID][bPrice]);
         new stringbiz[256];
-        format(stringbiz, 256, "Честито, ти си купи бизнес на стойност $%d!", BizInfo[alb][bPrice]);
+        format(stringbiz, 256, "Честито, ти си купи бизнес на стойност $%d!", BizInfo[bizID][bPrice]);
         SendClientMessage(playerid, 0x00CCCCFF, stringbiz);
 
     }
-    if (bizznoerror == 0)
+    else
     {
         SendClientMessage(playerid, 0xB4B5B7FF, "Ти не се намираш близо до бизнес!");
     }
@@ -895,7 +856,6 @@ CMD:buybiz(playerid, params[])
 
 CMD:sellbiz(playerid, params[])
 {
-    new housenoerror = 0;
     if (PlayerInfo[playerid][pBizO] == -1)
     {
         SendClientMessage(playerid, 0xB4B5B7FF, "Ти не притежаваш бизнес!");
@@ -910,10 +870,8 @@ CMD:sellbiz(playerid, params[])
             SendClientMessage(playerid, 0xB4B5B7FF, "Твоята къща е изтрита, свържи се с администратор!");
             return 1;
         }
-        housenoerror = 1;
         format(BizInfo[biz][bOwnerName], 256, "None");
         BizInfo[biz][bOwner] = 0;
-
         SaveBiz(biz);
 
         GivePlayerCash(playerid, BizInfo[biz][bPrice] / 2);
@@ -922,7 +880,7 @@ CMD:sellbiz(playerid, params[])
         PlayerInfo[playerid][pBizO] = -1;
 
     }
-    if (housenoerror == 0)
+    else
     {
         SendClientMessage(playerid, 0xB4B5B7FF, "Ти не се намираш близо до бизнеса си!");
     }
@@ -931,21 +889,21 @@ CMD:sellbiz(playerid, params[])
 
 CMD:infobiz(playerid, params[])
 {
-    new alb = IsPlayerNearBiz(playerid);
-    if (alb >= 0)
+    new bizID = IsPlayerNearBiz(playerid);
+    if (bizID >= 0)
     {
         SendClientMessage(playerid, 0x00CCCCFF, "________________________");
-        format(string256, 256, "Име на бизнеса: %s", BizInfo[alb][bName]);
+        format(string256, 256, "Име на бизнеса: %s", BizInfo[bizID][bName]);
         SendClientMessage(playerid, 0x00CCCCFF, string256);
-        format(string256, 256, "Цена за вход: $%d", BizInfo[alb][bFee]);
+        format(string256, 256, "Цена за вход: $%d", BizInfo[bizID][bFee]);
         SendClientMessage(playerid, 0x00CCCCFF, string256);
-        format(string256, 256, "Печалба: $%d", BizInfo[alb][bEarnings]);
+        format(string256, 256, "Печалба: $%d", BizInfo[bizID][bEarnings]);
         SendClientMessage(playerid, 0x00CCCCFF, string256);
-        format(string256, 256, "Заплащане: $%d", BizInfo[alb][bPayOut]);
+        format(string256, 256, "Заплащане: $%d", BizInfo[bizID][bPayOut]);
         SendClientMessage(playerid, 0x00CCCCFF, string256);
         SendClientMessage(playerid, 0x00CCCCFF, "________________________");
         new stringbiz[256];
-        format(stringbiz, 256, "Бизнесът има изисквания: %d EP Skill и %d Money Skill", BizInfo[alb][bEPSkill], BizInfo[alb][bMSkill]);
+        format(stringbiz, 256, "Бизнесът има изисквания: %d EP Skill и %d Money Skill", BizInfo[bizID][bEPSkill], BizInfo[bizID][bMSkill]);
         SendClientMessage(playerid, 0x00CCCCFF, stringbiz);
         return 1;
     }
