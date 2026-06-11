@@ -62,6 +62,7 @@ new string175[175];
 new string115n2[115];
 new stringvehicle[501][115];
 new string256[256];
+new string[256];
 //new string[256];
 //==============================================================================
 //          -- > /// Strings ///
@@ -102,7 +103,7 @@ new string256[256];
 #include "server/connection.pwn"
 #include "server/classes.pwn"
 #include "server/functions.pwn"
-#include "server/systems/vehicles/functions.pwn"
+#include "server/systems/dmv/functions.pwn"
 #include "server/systems/private_vehs/functions.pwn"
 #include "server/systems/office/functions.pwn"
 #include "server/systems/robbery/functions.pwn"
@@ -170,6 +171,7 @@ new string256[256];
 #include "server/systems/event/commands.pwn"
 #include "server/systems/private_vehs/commands.pwn"
 #include "server/systems/minigames/commands.pwn"
+#include "server/systems/vehicles/commands.pwn"
 
 // IMPORTANT
 #include "server/general_timers.pwn"

@@ -524,401 +524,79 @@ LeaveGangPlayerAffect(playerid)
     PlayerInfo[playerid][pDeltaForce] = 0;
     if (PlayerInfo[playerid][pVip] > 3 || CheckFreeVIP() == 1) SetPVarInt(playerid, "color", 0);
 }
-hook OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
-{
-    if (vehicleid == aztecasVehs[12])
-    {
-        if (PlayerInfo[playerid][pTeam] != 5)
-        {
-            new Float:cx, Float:cy, Float:cz;
-            GetPlayerPos(playerid, cx, cy, cz);
-            SetPlayerPos(playerid, cx, cy, cz);
-            new string256z[256];
-            format(string256z, 256, "Това превозно средство принадлежи на Varrio Los Aztecas");
-            return SendClientMessage(playerid, 0x636363FF, string256z);
-        }
-    }
-    if (vehicleid == ballasVehs[10])
-    {
-        if (PlayerInfo[playerid][pTeam] != 3)
-        {
-            new Float:cx, Float:cy, Float:cz;
-            GetPlayerPos(playerid, cx, cy, cz);
-            SetPlayerPos(playerid, cx, cy, cz);
-            new string256z[256];
-            format(string256z, 256, "Това превозно средство принадлежи на Rolling Heights Ballas");
-            return SendClientMessage(playerid, 0x636363FF, string256z);
-        }
-    }
-    if (vehicleid == cripzVehs[9])
-    {
-        if (PlayerInfo[playerid][pTeam] != 6)
-        {
-            new Float:cx, Float:cy, Float:cz;
-            GetPlayerPos(playerid, cx, cy, cz);
-            SetPlayerPos(playerid, cx, cy, cz);
-            new string256z[256];
-            format(string256z, 256, "Това превозно средство принадлежи на Vinewood Cripz");
-            return SendClientMessage(playerid, 0x636363FF, string256z);
-        }
-    }
-    if (vehicleid == cripzVehs[9])
-    {
-        if (PlayerInfo[playerid][pTeam] != 6)
-        {
-            new Float:cx, Float:cy, Float:cz;
-            GetPlayerPos(playerid, cx, cy, cz);
-            SetPlayerPos(playerid, cx, cy, cz);
-            new string256z[256];
-            format(string256z, 256, "Това превозно средство принадлежи на Vinewood Cripz");
-            return SendClientMessage(playerid, 0x636363FF, string256z);
-        }
-    }
-    if (!ispassenger)
-    {
-        if (isVipGangVeh[vehicleid] == true)
-        {
-            if (PlayerInfo[playerid][pTeam] != FACTION_VIP)
-            {
-                new Float:cx, Float:cy, Float:cz;
-                GetPlayerPos(playerid, cx, cy, cz);
-                SetPlayerPos(playerid, cx, cy, cz);
-                new string256z[256];
-                format(string256z, 256, "Това превозно средство принадлежи на %s", TeamInfo[FACTION_VIP][tName]);
-                return SendClientMessage(playerid, 0x636363FF, string256z);
-            }
-        }
-    }
-    if (!ispassenger)
-    {
-        if (isGroveGangVeh[vehicleid] == true)
-        {
-            if (PlayerInfo[playerid][pTeam] != FACTION_GROVE)
-            {
-                new Float:cx, Float:cy, Float:cz;
-                GetPlayerPos(playerid, cx, cy, cz);
-                SetPlayerPos(playerid, cx, cy, cz);
-                new string256z[256];
-                format(string256z, 256, "Това превозно средство принадлежи на %s", TeamInfo[FACTION_GROVE][tName]);
-                return SendClientMessage(playerid, 0x636363FF, string256z);
-            }
-        }
-    }
-    if (!ispassenger)
-    {
-        if (isBallasGangVeh[vehicleid] == true)
-        {
-            if (PlayerInfo[playerid][pTeam] != FACTION_BALLAS)
-            {
-                new Float:cx, Float:cy, Float:cz;
-                GetPlayerPos(playerid, cx, cy, cz);
-                SetPlayerPos(playerid, cx, cy, cz);
-                new string256z[256];
-                format(string256z, 256, "Това превозно средство принадлежи на %s", TeamInfo[FACTION_BALLAS][tName]);
-                return SendClientMessage(playerid, 0x636363FF, string256z);
-            }
-        }
-    }
-    if (!ispassenger)
-    {
-        if (isVagosGangVeh[vehicleid] == true)
-        {
-            if (PlayerInfo[playerid][pTeam] != FACTION_VAGOS)
-            {
-                new Float:cx, Float:cy, Float:cz;
-                GetPlayerPos(playerid, cx, cy, cz);
-                SetPlayerPos(playerid, cx, cy, cz);
-                new string256z[256];
-                format(string256z, 256, "Това превозно средство принадлежи на %s", TeamInfo[FACTION_VAGOS][tName]);
-                return SendClientMessage(playerid, 0x636363FF, string256z);
-            }
-        }
-    }
-    if (!ispassenger)
-    {
-        if (isAztecasGangVeh[vehicleid] == true)
-        {
-            if (PlayerInfo[playerid][pTeam] != FACTION_AZTECAS)
-            {
-                new Float:cx, Float:cy, Float:cz;
-                GetPlayerPos(playerid, cx, cy, cz);
-                SetPlayerPos(playerid, cx, cy, cz);
-                new string256z[256];
-                format(string256z, 256, "Това превозно средство принадлежи на %s", TeamInfo[FACTION_AZTECAS][tName]);
-                return SendClientMessage(playerid, 0x636363FF, string256z);
-            }
-        }
-    }
-    if (!ispassenger)
-    {
-        if (isCripzGangVeh[vehicleid] == true)
-        {
-            if (PlayerInfo[playerid][pTeam] != FACTION_CRIPZ)
-            {
-                new Float:cx, Float:cy, Float:cz;
-                GetPlayerPos(playerid, cx, cy, cz);
-                SetPlayerPos(playerid, cx, cy, cz);
-                new string256z[256];
-                format(string256z, 256, "Това превозно средство принадлежи на %s", TeamInfo[FACTION_CRIPZ][tName]);
-                return SendClientMessage(playerid, 0x636363FF, string256z);
-            }
-        }
-    }
-    if (!ispassenger)
-    {
-        if (isTriadsGangVeh[vehicleid] == true)
-        {
-            if (PlayerInfo[playerid][pTeam] != FACTION_TRIADS)
-            {
-                new Float:cx, Float:cy, Float:cz;
-                GetPlayerPos(playerid, cx, cy, cz);
-                SetPlayerPos(playerid, cx, cy, cz);
-                new string256z[256];
-                format(string256z, 256, "Това превозно средство принадлежи на %s", TeamInfo[FACTION_TRIADS][tName]);
-                return SendClientMessage(playerid, 0x636363FF, string256z);
-            }
-        }
-    }
-    if (!ispassenger)
-    {
-        if (isRifaGangVeh[vehicleid] == true)
-        {
-            if (PlayerInfo[playerid][pTeam] != FACTION_RIFA)
-            {
-                new Float:cx, Float:cy, Float:cz;
-                GetPlayerPos(playerid, cx, cy, cz);
-                SetPlayerPos(playerid, cx, cy, cz);
-                new string256z[256];
-                format(string256z, 256, "Това превозно средство принадлежи на %s", TeamInfo[FACTION_RIFA][tName]);
-                return SendClientMessage(playerid, 0x636363FF, string256z);
-            }
-        }
-    }
-    if (!ispassenger)
-    {
-        if (isSoaGangVeh[vehicleid] == true)
-        {
-            if (PlayerInfo[playerid][pTeam] != FACTION_SOA)
-            {
-                new Float:cx, Float:cy, Float:cz;
-                GetPlayerPos(playerid, cx, cy, cz);
-                SetPlayerPos(playerid, cx, cy, cz);
-                new string256z[256];
-                format(string256z, 256, "Това превозно средство принадлежи на %s", TeamInfo[FACTION_SOA][tName]);
-                return SendClientMessage(playerid, 0x636363FF, string256z);
-            }
-        }
-    }
-    if (!ispassenger)
-    {
-        if (isNangGangVeh[vehicleid] == true)
-        {
-            if (PlayerInfo[playerid][pTeam] != FACTION_NANG)
-            {
-                new Float:cx, Float:cy, Float:cz;
-                GetPlayerPos(playerid, cx, cy, cz);
-                SetPlayerPos(playerid, cx, cy, cz);
-                new string256z[256];
-                format(string256z, 256, "Това превозно средство принадлежи на %s", TeamInfo[FACTION_NANG][tName]);
-                return SendClientMessage(playerid, 0x636363FF, string256z);
-            }
-        }
-    }
-    if (!ispassenger)
-    {
-        if (isItalianGangVeh[vehicleid] == true)
-        {
-            if (PlayerInfo[playerid][pTeam] != FACTION_ITALIAN)
-            {
-                new Float:cx, Float:cy, Float:cz;
-                GetPlayerPos(playerid, cx, cy, cz);
-                SetPlayerPos(playerid, cx, cy, cz);
-                new string256z[256];
-                format(string256z, 256, "Това превозно средство принадлежи на %s", TeamInfo[FACTION_ITALIAN][tName]);
-                return SendClientMessage(playerid, 0x636363FF, string256z);
-            }
-        }
-    }
-    if (!ispassenger)
-    {
-        if (isBountyGangVeh[vehicleid] == true)
-        {
-            if (PlayerInfo[playerid][pTeam] != FACTION_BOUNTY)
-            {
-                new Float:cx, Float:cy, Float:cz;
-                GetPlayerPos(playerid, cx, cy, cz);
-                SetPlayerPos(playerid, cx, cy, cz);
-                new string256z[256];
-                format(string256z, 256, "Това превозно средство принадлежи на %s", TeamInfo[FACTION_BOUNTY][tName]);
-                return SendClientMessage(playerid, 0x636363FF, string256z);
-            }
-        }
-    }
-    if (!ispassenger)
-    {
-        if (isThugLifeGangVeh[vehicleid] == true)
-        {
-            if (PlayerInfo[playerid][pTeam] != FACTION_THUGLIFE)
-            {
-                new Float:cx, Float:cy, Float:cz;
-                GetPlayerPos(playerid, cx, cy, cz);
-                SetPlayerPos(playerid, cx, cy, cz);
-                new string256z[256];
-                format(string256z, 256, "Това превозно средство принадлежи на %s", TeamInfo[FACTION_THUGLIFE][tName]);
-                return SendClientMessage(playerid, 0x636363FF, string256z);
-            }
-        }
-    }
-    if (!ispassenger)
-    {
-        if (isCrewGangVeh[vehicleid] == true)
-        {
-            if (PlayerInfo[playerid][pTeam] != FACTION_CREW)
-            {
-                new Float:cx, Float:cy, Float:cz;
-                GetPlayerPos(playerid, cx, cy, cz);
-                SetPlayerPos(playerid, cx, cy, cz);
-                new string256z[256];
-                format(string256z, 256, "Това превозно средство принадлежи на %s", TeamInfo[FACTION_CREW][tName]);
-                return SendClientMessage(playerid, 0x636363FF, string256z);
-            }
-        }
-    }
-    if (!ispassenger)
-    {
-        if (isIntensePDGangVeh[vehicleid] == true)
-        {
-            if (PlayerInfo[playerid][pTeam] != FACTION_INTENSE_POLICE)
-            {
-                new Float:cx, Float:cy, Float:cz;
-                GetPlayerPos(playerid, cx, cy, cz);
-                SetPlayerPos(playerid, cx, cy, cz);
-                new string256z[256];
-                format(string256z, 256, "Това превозно средство принадлежи на %s", TeamInfo[FACTION_INTENSE_POLICE][tName]);
-                return SendClientMessage(playerid, 0x636363FF, string256z);
-            }
-            if (isIntensePDGangVehDUTY[vehicleid] == true)
-            {
-                if (!PlayerInfo[playerid][pIPDDuty])
-                {
-                    new Float:cx, Float:cy, Float:cz;
-                    GetPlayerPos(playerid, cx, cy, cz);
-                    SetPlayerPos(playerid, cx, cy, cz);
-                    new string256z[256];
-                    return SendClientMessage(playerid, 0x636363FF, "Трябва да си на смяна за да караш това превозно средство!");
-                }
-            }
-        }
-    }
-    if (!ispassenger)
-    {
-        if (isSoldierGangVeh[vehicleid] == true)
-        {
-            if (PlayerInfo[playerid][pTeam] != FACTION_SOLDIER)
-            {
-                new Float:cx, Float:cy, Float:cz;
-                GetPlayerPos(playerid, cx, cy, cz);
-                SetPlayerPos(playerid, cx, cy, cz);
-                new string256z[256];
-                format(string256z, 256, "Това превозно средство принадлежи на %s", TeamInfo[FACTION_SOLDIER][tName]);
-                return SendClientMessage(playerid, 0x636363FF, string256z);
-            }
-        }
-    }
-    if (!ispassenger)
-    {
-        if (isYakuzaGangVeh[vehicleid] == true)
-        {
-            if (PlayerInfo[playerid][pTeam] != FACTION_YAKUZA)
-            {
-                new Float:cx, Float:cy, Float:cz;
-                GetPlayerPos(playerid, cx, cy, cz);
-                SetPlayerPos(playerid, cx, cy, cz);
-                new string256z[256];
-                format(string256z, 256, "Това превозно средство принадлежи на %s", TeamInfo[FACTION_YAKUZA][tName]);
-                return SendClientMessage(playerid, 0x636363FF, string256z);
-            }
-        }
-    }
-    if (!ispassenger)
-    {
-        if (isSyndicateGangVeh[vehicleid] == true)
-        {
-            if (PlayerInfo[playerid][pTeam] != FACTION_SYNDICATE)
-            {
-                new Float:cx, Float:cy, Float:cz;
-                GetPlayerPos(playerid, cx, cy, cz);
-                SetPlayerPos(playerid, cx, cy, cz);
-                new string256z[256];
-                format(string256z, 256, "Това превозно средство принадлежи на %s", TeamInfo[FACTION_SYNDICATE][tName]);
-                return SendClientMessage(playerid, 0x636363FF, string256z);
-            }
-        }
-    }
-    if (!ispassenger)
-    {
-        if (isBloodMafiaGangVeh[vehicleid] == true)
-        {
-            if (PlayerInfo[playerid][pTeam] != FACTION_BLOODMAFIA)
-            {
-                new Float:cx, Float:cy, Float:cz;
-                GetPlayerPos(playerid, cx, cy, cz);
-                SetPlayerPos(playerid, cx, cy, cz);
-                new string256z[256];
-                format(string256z, 256, "Това превозно средство принадлежи на %s", TeamInfo[FACTION_BLOODMAFIA][tName]);
-                return SendClientMessage(playerid, 0x636363FF, string256z);
-            }
-        }
-    }
-    if (!ispassenger)
-    {
-        if (isMS13GangVeh[vehicleid] == true)
-        {
-            if (PlayerInfo[playerid][pTeam] != FACTION_MS13)
-            {
-                new Float:cx, Float:cy, Float:cz;
-                GetPlayerPos(playerid, cx, cy, cz);
-                SetPlayerPos(playerid, cx, cy, cz);
-                new string256z[256];
-                format(string256z, 256, "Това превозно средство принадлежи на %s", TeamInfo[FACTION_MS13][tName]);
-                return SendClientMessage(playerid, 0x636363FF, string256z);
-            }
-        }
-    }
-    if (!ispassenger)
-    {
-        if (isBGMafiaGangVeh[vehicleid] == true)
-        {
-            if (PlayerInfo[playerid][pTeam] != FACTION_BGMAFIA)
-            {
-                new Float:cx, Float:cy, Float:cz;
-                GetPlayerPos(playerid, cx, cy, cz);
-                SetPlayerPos(playerid, cx, cy, cz);
-                new string256z[256];
-                format(string256z, 256, "Това превозно средство принадлежи на %s", TeamInfo[FACTION_BGMAFIA][tName]);
-                return SendClientMessage(playerid, 0x636363FF, string256z);
-            }
-        }
-    }
-    if (!ispassenger)
-    {
-        if (is343GangVeh[vehicleid] == true)
-        {
-            if (PlayerInfo[playerid][pTeam] != FACTION_343)
-            {
-                new Float:cx, Float:cy, Float:cz;
-                GetPlayerPos(playerid, cx, cy, cz);
-                SetPlayerPos(playerid, cx, cy, cz);
-                new string256z[256];
-                format(string256z, 256, "Това превозно средство принадлежи на %s", TeamInfo[FACTION_343][tName]);
-                return SendClientMessage(playerid, 0x636363FF, string256z);
-            }
-        }
-    }
 
-    return Y_HOOKS_CONTINUE_RETURN_1;
+stock CheckGangVehicle(playerid, vehicleid, bool:gangVehArray[], faction, const gangName[])
+{
+    if (gangVehArray[vehicleid] && PlayerInfo[playerid][pTeam] != faction)
+    {
+        new message[128];
+        format(message, sizeof(message), "Това превозно средство принадлежи на %s", gangName);
+        DenyVehicleEntry(playerid, message);
+        return 0;
+    }
+    return 1;
 }
 
+hook OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
+{
+    // Проверка за специални единични коли (дори и като пасажер)
+    if (vehicleid == aztecasVehs[12] && PlayerInfo[playerid][pTeam] != FACTION_AZTECAS)
+    {
+        DenyVehicleEntry(playerid, "Това превозно средство принадлежи на Varrio Los Aztecas");
+        return Y_HOOKS_CONTINUE_RETURN_1;
+    }
+    
+    if (vehicleid == ballasVehs[10] && PlayerInfo[playerid][pTeam] != FACTION_BALLAS)
+    {
+        DenyVehicleEntry(playerid, "Това превозно средство принадлежи на Rolling Heights Ballas");
+        return Y_HOOKS_CONTINUE_RETURN_1;
+    }
+    
+    if (vehicleid == cripzVehs[9] && PlayerInfo[playerid][pTeam] != FACTION_CRIPZ)
+    {
+        DenyVehicleEntry(playerid, "Това превозно средство принадлежи на Vinewood Cripz");
+        return Y_HOOKS_CONTINUE_RETURN_1;
+    }
+    
+    if (ispassenger) return Y_HOOKS_CONTINUE_RETURN_1;
+    
+    // Проверка за всички банди (само за шофьори)
+    if (!CheckGangVehicle(playerid, vehicleid, isGroveGangVeh, FACTION_GROVE, TeamInfo[FACTION_GROVE][tName])) return Y_HOOKS_CONTINUE_RETURN_1;
+    if (!CheckGangVehicle(playerid, vehicleid, isBallasGangVeh, FACTION_BALLAS, TeamInfo[FACTION_BALLAS][tName])) return Y_HOOKS_CONTINUE_RETURN_1;
+    if (!CheckGangVehicle(playerid, vehicleid, isVagosGangVeh, FACTION_VAGOS, TeamInfo[FACTION_VAGOS][tName])) return Y_HOOKS_CONTINUE_RETURN_1;
+    if (!CheckGangVehicle(playerid, vehicleid, isAztecasGangVeh, FACTION_AZTECAS, TeamInfo[FACTION_AZTECAS][tName])) return Y_HOOKS_CONTINUE_RETURN_1;
+    if (!CheckGangVehicle(playerid, vehicleid, isCripzGangVeh, FACTION_CRIPZ, TeamInfo[FACTION_CRIPZ][tName])) return Y_HOOKS_CONTINUE_RETURN_1;
+    if (!CheckGangVehicle(playerid, vehicleid, isTriadsGangVeh, FACTION_TRIADS, TeamInfo[FACTION_TRIADS][tName])) return Y_HOOKS_CONTINUE_RETURN_1;
+    if (!CheckGangVehicle(playerid, vehicleid, isRifaGangVeh, FACTION_RIFA, TeamInfo[FACTION_RIFA][tName])) return Y_HOOKS_CONTINUE_RETURN_1;
+    if (!CheckGangVehicle(playerid, vehicleid, isSoaGangVeh, FACTION_SOA, TeamInfo[FACTION_SOA][tName])) return Y_HOOKS_CONTINUE_RETURN_1;
+    if (!CheckGangVehicle(playerid, vehicleid, isNangGangVeh, FACTION_NANG, TeamInfo[FACTION_NANG][tName])) return Y_HOOKS_CONTINUE_RETURN_1;
+    if (!CheckGangVehicle(playerid, vehicleid, isItalianGangVeh, FACTION_ITALIAN, TeamInfo[FACTION_ITALIAN][tName])) return Y_HOOKS_CONTINUE_RETURN_1;
+    if (!CheckGangVehicle(playerid, vehicleid, isBountyGangVeh, FACTION_BOUNTY, TeamInfo[FACTION_BOUNTY][tName])) return Y_HOOKS_CONTINUE_RETURN_1;
+    if (!CheckGangVehicle(playerid, vehicleid, isThugLifeGangVeh, FACTION_THUGLIFE, TeamInfo[FACTION_THUGLIFE][tName])) return Y_HOOKS_CONTINUE_RETURN_1;
+    if (!CheckGangVehicle(playerid, vehicleid, isCrewGangVeh, FACTION_CREW, TeamInfo[FACTION_CREW][tName])) return Y_HOOKS_CONTINUE_RETURN_1;
+    if (!CheckGangVehicle(playerid, vehicleid, isSoldierGangVeh, FACTION_SOLDIER, TeamInfo[FACTION_SOLDIER][tName])) return Y_HOOKS_CONTINUE_RETURN_1;
+    if (!CheckGangVehicle(playerid, vehicleid, isYakuzaGangVeh, FACTION_YAKUZA, TeamInfo[FACTION_YAKUZA][tName])) return Y_HOOKS_CONTINUE_RETURN_1;
+    if (!CheckGangVehicle(playerid, vehicleid, isSyndicateGangVeh, FACTION_SYNDICATE, TeamInfo[FACTION_SYNDICATE][tName])) return Y_HOOKS_CONTINUE_RETURN_1;
+    if (!CheckGangVehicle(playerid, vehicleid, isBloodMafiaGangVeh, FACTION_BLOODMAFIA, TeamInfo[FACTION_BLOODMAFIA][tName])) return Y_HOOKS_CONTINUE_RETURN_1;
+    if (!CheckGangVehicle(playerid, vehicleid, isMS13GangVeh, FACTION_MS13, TeamInfo[FACTION_MS13][tName])) return Y_HOOKS_CONTINUE_RETURN_1;
+    if (!CheckGangVehicle(playerid, vehicleid, isBGMafiaGangVeh, FACTION_BGMAFIA, TeamInfo[FACTION_BGMAFIA][tName])) return Y_HOOKS_CONTINUE_RETURN_1;
+    if (!CheckGangVehicle(playerid, vehicleid, is343GangVeh, FACTION_343, TeamInfo[FACTION_343][tName])) return Y_HOOKS_CONTINUE_RETURN_1;
+    
+    // Полицейски проверки
+    if (isIntensePDGangVeh[vehicleid] && PlayerInfo[playerid][pTeam] != FACTION_INTENSE_POLICE)
+    {
+        DenyVehicleEntry(playerid, TeamInfo[FACTION_INTENSE_POLICE][tName]);
+        return Y_HOOKS_CONTINUE_RETURN_1;
+    }
+    
+    if (isIntensePDGangVehDUTY[vehicleid] && !PlayerInfo[playerid][pIPDDuty])
+    {
+        DenyVehicleEntry(playerid, "Трябва да си на смяна за да караш това превозно средство!");
+        return Y_HOOKS_CONTINUE_RETURN_1;
+    }
+    
+    return Y_HOOKS_CONTINUE_RETURN_1;
+}
 
 stock IsPlayerInHidenTeam(playerid)
 {

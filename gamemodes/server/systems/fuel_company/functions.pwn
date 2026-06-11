@@ -116,7 +116,7 @@ hook OnPlayerEnterCheckpoint(playerid)
             gpsY[playerid] = 0;
             gpsZ[playerid] = 0;
             
-            return Y_HOOKS_BREAK_RETURN_1;
+            return Y_HOOKS_CONTINUE_RETURN_1;
         }
     }
 
