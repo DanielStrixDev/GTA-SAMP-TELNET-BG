@@ -57,3 +57,35 @@ stock DefineOfficeCenterTexts()
 
     Create3DTextLabel("{FFFFFF}GTA{00FF00} INTENSE{FF0000} Office", 0xFFFFFFFF, 1786.5000, -1301.0005, 16.2408, 25, 0);
 }
+
+stock SetPlayerToOfficeSpawn(playerid)
+{
+    SetPlayerVirtualWorld(playerid, 0);
+    SetPlayerInterior(playerid, 0);
+
+    switch (GetPlayerOfficeID(playerid))
+    {
+        case 1: SetPlayerPos(playerid, 1786.4745, -1300.6366, 23.2109);
+        case 2: SetPlayerPos(playerid, 1786.4745, -1300.6366, 28.6719);
+        case 3: SetPlayerPos(playerid, 1786.4745, -1300.6366, 34.1250);
+        case 4: SetPlayerPos(playerid, 1786.4745, -1300.6366, 39.5781);
+        case 5: SetPlayerPos(playerid, 1786.4745, -1300.6366, 45.0391);
+        case 6: SetPlayerPos(playerid, 1786.4745, -1300.6366, 50.4453);
+        case 7: SetPlayerPos(playerid, 1786.4745, -1300.6366, 55.9063);
+        case 8: SetPlayerPos(playerid, 1786.4745, -1300.6366, 61.3594);
+        case 9: SetPlayerPos(playerid, 1786.4745, -1300.6366, 66.8125);
+        case 10: SetPlayerPos(playerid, 1786.4745, -1300.6366, 72.2734);
+        case 11: SetPlayerPos(playerid, 1786.4745, -1300.6366, 77.6719);
+        case 12: SetPlayerPos(playerid, 1786.4745, -1300.6366, 83.1328);
+        case 13: SetPlayerPos(playerid, 1786.4745, -1300.6366, 88.5859);
+        case 14: SetPlayerPos(playerid, 1786.4745, -1300.6366, 94.0391);
+        case 15: SetPlayerPos(playerid, 1786.4745, -1300.6366, 99.5145);
+        case 16: SetPlayerPos(playerid, 1786.4745, -1300.6366, 104.9188);
+        case 17: SetPlayerPos(playerid, 1786.4745, -1300.6366, 110.3594);
+        case 18: SetPlayerPos(playerid, 1786.4745, -1300.6366, 115.8227);
+        case 19: SetPlayerPos(playerid, 1786.4745, -1300.6366, 121.2656);
+        case 20: SetPlayerPos(playerid, 1786.4745, -1300.6366, 126.7335);
+    }
+
+    SetCameraBehindPlayer(playerid);
+}

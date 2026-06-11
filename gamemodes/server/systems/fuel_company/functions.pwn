@@ -36,3 +36,13 @@ hook OnPlayerExitVehicle(playerid, vehicleid)
 
     return Y_HOOKS_CONTINUE_RETURN_1;
 }
+
+/*
+* IFC Spawn
+*/
+stock SetPlayerToIfcSpawn(playerid)
+{
+    SetPlayerInterior(playerid, 0);
+    SetPlayerVirtualWorld(playerid, 0);
+    SetPlayerPos(playerid, 280.9982, 1410.2089, 10.4179);
+}

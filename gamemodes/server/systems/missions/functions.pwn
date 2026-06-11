@@ -762,22 +762,26 @@ hook OnPlayerEnterCheckpoint(playerid)
     return Y_HOOKS_CONTINUE_RETURN_1;
 }
 
-hook OnPlayerSpawn(playerid)
+stock IsPlayerInDeathmatchMission(playerid)
 {
     if (playerInDeathmatch[playerid] == true)
     {
-        DisablePlayerCheckpoint(playerid);
-        DisablePlayerRaceCheckpoint(playerid);
-        SetPlayerVirtualWorld(playerid, 1);
-        SetPlayerInterior(playerid, 0);
-        SetPlayerHealth(playerid, 100);
-        SetPlayerArmour(playerid, 0);
-        ResetPlayerWeapons(playerid);
-        GivePlayerWeapon(playerid, deathmatchGun, 10000);
-        SetPlayerPosToDeathmatchSpawn(playerid);
+        return true;
     }
+    return false;
+}
 
-    return Y_HOOKS_CONTINUE_RETURN_1;
+stock SpawnInDeathmatchMission(playerid)
+{
+    DisablePlayerCheckpoint(playerid);
+    DisablePlayerRaceCheckpoint(playerid);
+    SetPlayerVirtualWorld(playerid, 1);
+    SetPlayerInterior(playerid, 0);
+    SetPlayerHealth(playerid, 100);
+    SetPlayerArmour(playerid, 0);
+    ResetPlayerWeapons(playerid);
+    GivePlayerWeapon(playerid, deathmatchGun, 10000);
+    SetPlayerPosToDeathmatchSpawn(playerid);
 }
 
 hook OnPlayerDeath(playerid, killerid, reason)

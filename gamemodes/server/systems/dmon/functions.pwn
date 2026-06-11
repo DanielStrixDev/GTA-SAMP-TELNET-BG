@@ -82,48 +82,49 @@ stock GivePlayerGunInDMON(playerid)
     GivePlayerWeapon(playerid, DmonRandomWeapons[r][0], DmonRandomWeapons[r][1]);
 }
 
-/*
-* Hook
-*/
-hook OnPlayerSpawn(playerid)
+stock IsPlayerInDMON(playerid)
 {
     if (playerInDMON[playerid] == 1)
     {
-        SetPlayerVirtualWorld(playerid, 3233);
-        SetPlayerColor(playerid, 0xFFFF81FF);
-        ResetPlayerWeapons(playerid);
-        SetPlayerArmour(playerid, 0);
-        new r = random(sizeof(DmonRandomWeapons));
-        GivePlayerWeapon(playerid, DmonRandomWeapons[r][0], DmonRandomWeapons[r][1]);
-        if (dmonArena == 1)
-        {
-            new spawnpos = randomex(1, 5);
-            if (spawnpos < 3)
-            {
-                SetPlayerPos(playerid, 1411.2889, 1.3799, 1000.9237);
-            }
-            if (spawnpos > 2)
-            {
-                SetPlayerPos(playerid, 1360.4244, -39.4643, 1007.8828);
-            }
-            SetPlayerInterior(playerid, 1);
-        }
-        if (dmonArena == 2)
-        {
-            new spawnpos = randomex(1, 5);
-            if (spawnpos < 3)
-            {
-                SetPlayerPos(playerid, -1426.4996, 1054.9972, 1038.4913);
-            }
-            if (spawnpos > 2)
-            {
-                SetPlayerPos(playerid, -1473.7843, 948.4413, 1036.7908);
-            }
-            SetPlayerInterior(playerid, 15);
-        }
+        return true;
     }
+    return false;
+}
 
-    return Y_HOOKS_CONTINUE_RETURN_1;
+stock SetPlayerToDmonSpawn(playerid)
+{
+    SetPlayerVirtualWorld(playerid, 3233);
+    SetPlayerColor(playerid, 0xFFFF81FF);
+    ResetPlayerWeapons(playerid);
+    SetPlayerArmour(playerid, 0);
+    new r = random(sizeof(DmonRandomWeapons));
+    GivePlayerWeapon(playerid, DmonRandomWeapons[r][0], DmonRandomWeapons[r][1]);
+    if (dmonArena == 1)
+    {
+        new spawnpos = randomex(1, 5);
+        if (spawnpos < 3)
+        {
+            SetPlayerPos(playerid, 1411.2889, 1.3799, 1000.9237);
+        }
+        if (spawnpos > 2)
+        {
+            SetPlayerPos(playerid, 1360.4244, -39.4643, 1007.8828);
+        }
+        SetPlayerInterior(playerid, 1);
+    }
+    if (dmonArena == 2)
+    {
+        new spawnpos = randomex(1, 5);
+        if (spawnpos < 3)
+        {
+            SetPlayerPos(playerid, -1426.4996, 1054.9972, 1038.4913);
+        }
+        if (spawnpos > 2)
+        {
+            SetPlayerPos(playerid, -1473.7843, 948.4413, 1036.7908);
+        }
+        SetPlayerInterior(playerid, 15);
+    }
 }
 
 stock ShowPlayerNewKillOnDmon(playerid)

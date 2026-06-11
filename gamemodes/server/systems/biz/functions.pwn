@@ -71,6 +71,13 @@ stock CheckPlayerExitBiz(playerid)
     }
 }
 
+stock SetPlayerToBizSpawn(playerid)
+{
+    SetPlayerVirtualWorld(playerid, 0);
+    SetPlayerInterior(playerid, 0);
+    SetPlayerPos(playerid, BizInfo[PlayerInfo[playerid][pBizO]][bX], BizInfo[PlayerInfo[playerid][pBizO]][bY], BizInfo[PlayerInfo[playerid][pBizO]][bZ]);
+}
+
 /*
 * Is valid biz
 */

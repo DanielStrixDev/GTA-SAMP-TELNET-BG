@@ -145,6 +145,13 @@ stock IsPlayerNearHouse(playerid)
     return -1;
 }
 
+stock SetPlayerToHouseSpawn(playerid)
+{
+    SetPlayerVirtualWorld(playerid, 0);
+    SetPlayerInterior(playerid, 0);
+    SetPlayerPos(playerid, HouseInfo[PlayerInfo[playerid][pHouseO]][hX], HouseInfo[PlayerInfo[playerid][pHouseO]][hY], HouseInfo[PlayerInfo[playerid][pHouseO]][hZ]);
+}
+
 /*
 * Enter Pickup
 */

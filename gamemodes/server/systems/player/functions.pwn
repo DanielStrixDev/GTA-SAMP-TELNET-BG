@@ -419,16 +419,10 @@ stock RestartPlayerColor(playerid)
             SetPlayerColor(playerid, 0xFFFFFF00);
         }
     }
-    if (PlayerInfo[playerid][pTeam] == FACTION_INTENSE_POLICE)
+
+    if (IsPlayerInHidenTeam(playerid))
     {
-        if (PlayerInfo[playerid][pIPDDuty])
-        {
-            SetPlayerColor(playerid, 0x0000ffFF);
-        }
-        if (hideIPD == 1)
-        {
-            SetPlayerColor(playerid, 0xFFFFFF00);
-        }
+        SetPlayerColor(playerid, 0xFFFFFF00);
     }
 }
 
@@ -1083,667 +1077,76 @@ hook OnPlayerUpdate(playerid)
 hook OnPlayerSpawn(playerid)
 {
     spawned[playerid] = 1;
+    UpdatePlayerHeadText(playerid);
+    GivePlayerWeaponSkillWeapons(playerid);
 
-    if (PlayerInfo[playerid][pVip] >= 4 || CheckFreeVIP() == 1)
+    if (IsPlayerFirstSpawn(playerid))
     {
-        SetPlayerArmour(playerid, 100);
-    }
-    if (requestspawn[playerid] == 1)
-    {
-        GameTextForPlayer(playerid, "     ", 1000, 3);
-    }
-    if (firstspawn[playerid] == 1)
-    {
-        requestspawn2[playerid] = 1;
-        nospawnselect[playerid] = 1;
-        StopAudioStreamForPlayer(playerid);
-        firstspawn[playerid] = 0;
-        GameTextForPlayer(playerid, "     ", 1000, 3);
-        if (month == 12)
-        {
-            santaHat[playerid] = true;
-            santaHatObject[playerid] = SetPlayerAttachedObject(playerid, 9, 19065, 2, 0.120000, 0.040000, -0.003500, 0, 100, 100, 1.4, 1.4, 1.4);
-            SendClientMessage(playerid, 0xFFFFFFFF, "CHRISTMAS: Ако искаш да премахнеш коледната шапка от главата ти, напиши /removehat");
-            SendClientMessage(playerid, 0xFFFFFFFF, "CHRISTMAS: Ако искаш пак да си я сложиш, напиши /santahat");
-        }
-    }
-    if (PlayerInfo[playerid][pJail] > 0)
-    {
-        ResetPlayerWeapons(playerid);
-        SetPlayerVirtualWorld(playerid, 1);
-        SetPlayerInterior(playerid, 4);
-        SetPlayerPos(playerid, 299.7077, 303.4193, 999.1484);
-        SetPlayerAttachedObject(playerid, 1, 19418, 6, -0.011000, 0.028000, -0.022000, -15.600012, -33.699977, -81.700035, 0.891999, 1.000000, 1.168000);
-        SetPlayerSpecialAction(playerid, SPECIAL_ACTION_CUFFED);
-    }
-    if (PlayerInfo[playerid][pAFK] > 0)
-    {
-        ResetPlayerWeapons(playerid);
-        SetPlayerInterior(playerid, 15);
-        SetPlayerColor(playerid, 0xD6F34AFF);
-        SetPlayerPos(playerid, 2215.454833, -1147.475585, 1025.796875);
-        SetPlayerVirtualWorld(playerid, playerid + 500);
+        SetPlayerFirstSpawn(playerid);
     }
     if (PlayerInfo[playerid][pSpawnO] == 0)
     {
-        if (GetPlayerOfficeID(playerid) == -1)
-        {
-            PlayerInfo[playerid][pSpawnO] = 1;
-        }
-        else
-        {
-            SetPlayerVirtualWorld(playerid, 0);
-            SetPlayerInterior(playerid, 0);
-
-            switch (GetPlayerOfficeID(playerid))
-            {
-                case 1: SetPlayerPos(playerid, 1786.4745, -1300.6366, 23.2109);
-                case 2: SetPlayerPos(playerid, 1786.4745, -1300.6366, 28.6719);
-                case 3: SetPlayerPos(playerid, 1786.4745, -1300.6366, 34.1250);
-                case 4: SetPlayerPos(playerid, 1786.4745, -1300.6366, 39.5781);
-                case 5: SetPlayerPos(playerid, 1786.4745, -1300.6366, 45.0391);
-                case 6: SetPlayerPos(playerid, 1786.4745, -1300.6366, 50.4453);
-                case 7: SetPlayerPos(playerid, 1786.4745, -1300.6366, 55.9063);
-                case 8: SetPlayerPos(playerid, 1786.4745, -1300.6366, 61.3594);
-                case 9: SetPlayerPos(playerid, 1786.4745, -1300.6366, 66.8125);
-                case 10: SetPlayerPos(playerid, 1786.4745, -1300.6366, 72.2734);
-                case 11: SetPlayerPos(playerid, 1786.4745, -1300.6366, 77.6719);
-                case 12: SetPlayerPos(playerid, 1786.4745, -1300.6366, 83.1328);
-                case 13: SetPlayerPos(playerid, 1786.4745, -1300.6366, 88.5859);
-                case 14: SetPlayerPos(playerid, 1786.4745, -1300.6366, 94.0391);
-                case 15: SetPlayerPos(playerid, 1786.4745, -1300.6366, 99.5145);
-                case 16: SetPlayerPos(playerid, 1786.4745, -1300.6366, 104.9188);
-                case 17: SetPlayerPos(playerid, 1786.4745, -1300.6366, 110.3594);
-                case 18: SetPlayerPos(playerid, 1786.4745, -1300.6366, 115.8227);
-                case 19: SetPlayerPos(playerid, 1786.4745, -1300.6366, 121.2656);
-                case 20: SetPlayerPos(playerid, 1786.4745, -1300.6366, 126.7335);
-            }
-
-            SetCameraBehindPlayer(playerid);
-        }
+        SetPlayerToOfficeSpawn(playeridi);
     }
-
     if (PlayerInfo[playerid][pSpawnO] == 1)
     {
-        SetPlayerVirtualWorld(playerid, 0);
-        SetPlayerInterior(playerid, 0);
-        new spawn = random(10);
-        if (spawn == 0)
-        {
-            SetPlayerPos(playerid, 2178.9063, 1285.6537, 10.8203);
-            SetPlayerFacingAngle(playerid, 270.3970);
-        }
-        if (spawn == 1)
-        {
-            SetPlayerPos(playerid, 1027.0188, -1344.9539, 13.7266);
-            SetPlayerFacingAngle(playerid, 1.2900);
-        }
-        if (spawn == 2)
-        {
-            SetPlayerPos(playerid, 2216.9980, -1170.4368, 25.7266);
-            SetPlayerFacingAngle(playerid, 359.7421);
-        }
-        if (spawn == 3)
-        {
-            SetPlayerPos(playerid, 2097.3970, 2490.7754, 14.8390);
-            SetPlayerFacingAngle(playerid, 179.1149);
-        }
-        if (spawn == 4)
-        {
-            SetPlayerPos(playerid, 386.7134, -2028.5282, 7.8359);
-            SetPlayerFacingAngle(playerid, 89.3663);
-        }
-        if (spawn == 5)
-        {
-            SetPlayerPos(playerid, 1676.4705, -1634.6233, 14.2266);
-            SetPlayerFacingAngle(playerid, 269.8728);
-        }
-        if (spawn == 6)
-        {
-            SetPlayerPos(playerid, 2225.3550, 1838.6611, 10.8203);
-            SetPlayerFacingAngle(playerid, 90.2421);
-        }
-        if (spawn == 7)
-        {
-            SetPlayerPos(playerid, 2551.8250, 2244.6887, 10.8203);
-            SetPlayerFacingAngle(playerid, 167.6396);
-        }
-        if (spawn == 8)
-        {
-            SetPlayerPos(playerid, 1742.8735, -1863.2289, 13.5753);
-            SetPlayerFacingAngle(playerid, 359.7475);
-        }
-        if (spawn == 9)
-        {
-            SetPlayerPos(playerid, 1688.3342, 1447.8641, 10.7678);
-            SetPlayerFacingAngle(playerid, 269.8827);
-        }
-        if (spawn == 10)
-        {
-            SetPlayerPos(playerid, 2216.9980, -1170.4368, 25.7266);
-            SetPlayerFacingAngle(playerid, 359.7421);
-        }
-        SetCameraBehindPlayer(playerid);
+        SetPlayerToCivilianSpawn(playerid);
     }
     if (PlayerInfo[playerid][pSpawnO] == 3)
     {
-        SetPlayerInterior(playerid, 0);
-        SetPlayerVirtualWorld(playerid, 0);
-        SetPlayerPos(playerid, 280.9982, 1410.2089, 10.4179);
+        SetPlayerToIfcSpawn(playerid);
     }
     if (PlayerInfo[playerid][pSpawnO] == 2)
     {
-        if (PlayerInfo[playerid][pTeam] == FACTION_VIP)
-        {
-            SetPlayerVirtualWorld(playerid, 0);
-            SetPlayerInterior(playerid, 0);
-            new spawn = random(5);
-            if (spawn == 0)
-            {
-                SetPlayerPos(playerid, 1204.3077, -2066.5664, 84.7134);
-                SetPlayerFacingAngle(playerid, 2.7804);
-            }
-            if (spawn == 1)
-            {
-                SetPlayerPos(playerid, 1183.0295, -2008.9454, 85.1735);
-                SetPlayerFacingAngle(playerid, 182.6776);
-            }
-            if (spawn == 2)
-            {
-                SetPlayerPos(playerid, 1242.3442, -2003.8608, 76.0035);
-                SetPlayerFacingAngle(playerid, 179.7874);
-            }
-            if (spawn == 3)
-            {
-                SetPlayerPos(playerid, 1281.2172, -2002.7297, 74.8102);
-                SetPlayerFacingAngle(playerid, 174.3698);
-            }
-            if (spawn == 4)
-            {
-                SetPlayerPos(playerid, 1281.2172, -2002.7297, 74.8102);
-                SetPlayerFacingAngle(playerid, 174.3698);
-            }
-            if (spawn == 5)
-            {
-                SetPlayerPos(playerid, 1281.2172, -2002.7297, 74.8102);
-                SetPlayerFacingAngle(playerid, 179.7682);
-            }
-            SetCameraBehindPlayer(playerid);
-        }
-        if (PlayerInfo[playerid][pTeam] == FACTION_BALLAS)
-        {
-            new spawn = random(2);
-            if (spawn == 0)
-            {
-                SetPlayerPos(playerid, 2146.5444, -1432.6128, 25.5391);
-                SetPlayerFacingAngle(playerid, 90.9074);
-            }
-            if (spawn == 1)
-            {
-                SetPlayerPos(playerid, 2147.8428, -1489.3254, 26.6198);
-                SetPlayerFacingAngle(playerid, 88.7140);
-            }
-            if (spawn == 2)
-            {
-                SetPlayerPos(playerid, 2146.5444, -1432.6128, 25.5391);
-                SetPlayerFacingAngle(playerid, 90.9074);
-            }
-            SetPlayerVirtualWorld(playerid, 0);
-            SetPlayerInterior(playerid, 0);
-            SetCameraBehindPlayer(playerid);
-        }
-        if (PlayerInfo[playerid][pTeam] == FACTION_TRIADS)
-        {
-            new spawn = random(2);
-            if (spawn == 0)
-            {
-                SetPlayerPos(playerid, 1958.0376, 951.1666, 10.8203);
-                SetPlayerFacingAngle(playerid, 180.1847);
-            }
-            if (spawn == 1)
-            {
-                SetPlayerPos(playerid, 1969.9386, 942.0911, 10.8126);
-                SetPlayerFacingAngle(playerid, 176.1113);
-            }
-            if (spawn == 2)
-            {
-                SetPlayerPos(playerid, 1928.6168, 945.8361, 10.8127);
-                SetPlayerFacingAngle(playerid, 85.2205);
-            }
-            SetPlayerVirtualWorld(playerid, 0);
-            SetPlayerInterior(playerid, 0);
-            SetCameraBehindPlayer(playerid);
-        }
-        if (PlayerInfo[playerid][pTeam] == FACTION_AZTECAS)
-        {
-            new spawn = random(2);
-            if (spawn == 0)
-            {
-                SetPlayerPos(playerid, 743.6805, -498.7406, 18.0129);
-                SetPlayerFacingAngle(playerid, 276.3322);
-            }
-            if (spawn == 1)
-            {
-                SetPlayerPos(playerid, 745.5961, -511.2993, 18.0129);
-                SetPlayerFacingAngle(playerid, 176.9813);
-            }
-            if (spawn == 2)
-            {
-                SetPlayerPos(playerid, 739.9612, -554.7196, 18.0129);
-                SetPlayerFacingAngle(playerid, 5.9559);
-            }
-            SetPlayerVirtualWorld(playerid, 0);
-            SetPlayerInterior(playerid, 0);
-            SetCameraBehindPlayer(playerid);
-        }
-        if (PlayerInfo[playerid][pTeam] == FACTION_CRIPZ)
-        {
-            new spawn = random(2);
-            if (spawn == 0)
-            {
-                SetPlayerPos(playerid, 297.6942, -1155.6418, 80.9099);
-                SetPlayerFacingAngle(playerid, 125.8933);
-            }
-            if (spawn == 1)
-            {
-                SetPlayerPos(playerid, 320.8712, -1170.3861, 80.9141);
-                SetPlayerFacingAngle(playerid, 88.6063);
-            }
-            if (spawn == 2)
-            {
-                SetPlayerPos(playerid, 274.3722, -1167.7781, 80.8616);
-                SetPlayerFacingAngle(playerid, 276.8981);
-            }
-            SetPlayerVirtualWorld(playerid, 0);
-            SetPlayerInterior(playerid, 0);
-            SetCameraBehindPlayer(playerid);
-        }
-        if (PlayerInfo[playerid][pTeam] == FACTION_BGMAFIA)
-        {
-            SetPlayerArmour(playerid, 100);
-            SetPlayerPos(playerid, 1267.1464, -777.3041, 1091.9063);
-            SetPlayerVirtualWorld(playerid, 1);
-            SetPlayerInterior(playerid, 5);
-            SetCameraBehindPlayer(playerid);
-        }
-        if (PlayerInfo[playerid][pTeam] == FACTION_RIFA)
-        {
-            SetPlayerPos(playerid, 2449.8516, -1688.9565, 1013.5078);
-            SetPlayerFacingAngle(playerid, 182.1234);
-            SetPlayerVirtualWorld(playerid, 1);
-            SetPlayerInterior(playerid, 2);
-            SetCameraBehindPlayer(playerid);
-        }
-        if (PlayerInfo[playerid][pTeam] == FACTION_SOLDIER)
-        {
-            SetPlayerArmour(playerid, 100);
-            SetPlayerPos(playerid, 2331.0933, -1137.6527, 1054.3047);
-            SetPlayerVirtualWorld(playerid, 1);
-            SetPlayerInterior(playerid, 12);
-            SetCameraBehindPlayer(playerid);
-        }
-        if (PlayerInfo[playerid][pTeam] == FACTION_SOA)
-        {
-            new spawn = random(2);
-            if (spawn == 0)
-            {
-                SetPlayerPos(playerid, 2615.6545, 2313.8264, 10.8203);
-                SetPlayerFacingAngle(playerid, 253.6507);
-            }
-            if (spawn == 1)
-            {
-                SetPlayerPos(playerid, 2622.7986, 2335.3406, 10.8203);
-                SetPlayerFacingAngle(playerid, 185.9700);
-            }
-            if (spawn == 2)
-            {
-                SetPlayerPos(playerid, 2655.8208, 2347.8174, 10.8203);
-                SetPlayerFacingAngle(playerid, 149.9362);
-            }
-            SetPlayerVirtualWorld(playerid, 0);
-            SetPlayerInterior(playerid, 0);
-            SetCameraBehindPlayer(playerid);
-        }
-        if (PlayerInfo[playerid][pTeam] == FACTION_NANG)
-        {
-            new spawn = random(2);
-            if (spawn == 0)
-            {
-                SetPlayerPos(playerid, 2621.7190, 1825.1489, 11.0234);
-                SetPlayerFacingAngle(playerid, 91.7867);
-            }
-            if (spawn == 1)
-            {
-                SetPlayerPos(playerid, 2635.7065, 1797.4092, 11.0234);
-                SetPlayerFacingAngle(playerid, 87.7133);
-            }
-            if (spawn == 2)
-            {
-                SetPlayerPos(playerid, 2599.0176, 1812.4899, 10.9766);
-                SetPlayerFacingAngle(playerid, 279.7651);
-            }
-            SetPlayerVirtualWorld(playerid, 0);
-            SetPlayerInterior(playerid, 0);
-            SetCameraBehindPlayer(playerid);
-        }
-        if (PlayerInfo[playerid][pTeam] == FACTION_BOUNTY)
-        {
-            SetPlayerArmour(playerid, 100);
-            new spawn = random(2);
-            if (spawn == 0)
-            {
-                SetPlayerPos(playerid, 681.9958, -1276.5922, 13.5755);
-                SetPlayerFacingAngle(playerid, 88.3163);
-            }
-            if (spawn == 1)
-            {
-                SetPlayerPos(playerid, 673.2634, -1292.6874, 13.6328);
-                SetPlayerFacingAngle(playerid, 82.0496);
-            }
-            if (spawn == 2)
-            {
-                SetPlayerPos(playerid, 658.6101, -1251.8407, 13.7522);
-                SetPlayerFacingAngle(playerid, 190.7540);
-            }
-            SetPlayerVirtualWorld(playerid, 0);
-            SetPlayerInterior(playerid, 0);
-            SetCameraBehindPlayer(playerid);
-        }
-        if (PlayerInfo[playerid][pTeam] == FACTION_THUGLIFE)
-        {
-            new spawn = random(2);
-            if (spawn == 0)
-            {
-                SetPlayerPos(playerid, 491.4981, -1514.3501, 20.4358);
-                SetPlayerFacingAngle(playerid, 1.1300);
-            }
-            if (spawn == 1)
-            {
-                SetPlayerPos(playerid, 480.5826, -1495.5084, 20.3957);
-                SetPlayerFacingAngle(playerid, 89.8041);
-            }
-            if (spawn == 2)
-            {
-                SetPlayerPos(playerid, 480.3297, -1482.4331, 19.8992);
-                SetPlayerFacingAngle(playerid, 92.3108);
-            }
-            SetPlayerVirtualWorld(playerid, 0);
-            SetPlayerInterior(playerid, 0);
-            SetCameraBehindPlayer(playerid);
-        }
-        if (PlayerInfo[playerid][pTeam] == FACTION_INTENSE_POLICE)
-        {
-            new spawn = random(2);
-            if (spawn == 0)
-            {
-                SetPlayerPos(playerid, 248.4185, 75.8314, 1003.6406);
-            }
-            if (spawn == 1)
-            {
-                SetPlayerPos(playerid, 253.4204, 65.2763, 1003.6406);
-            }
-            if (spawn == 2)
-            {
-                SetPlayerPos(playerid, 237.9575, 74.1665, 1005.0391);
-            }
-            SetPlayerArmour(playerid, 100);
-            SetPlayerVirtualWorld(playerid, 1);
-            SetPlayerInterior(playerid, 6);
-            SetCameraBehindPlayer(playerid);
-        }
-        if (PlayerInfo[playerid][pTeam] == FACTION_CREW)
-        {
-            new spawn = random(2);
-            if (spawn == 0)
-            {
-                SetPlayerPos(playerid, 309.5213, -1333.9890, 53.4476);
-                SetPlayerFacingAngle(playerid, 91.9914);
-            }
-            if (spawn == 1)
-            {
-                SetPlayerPos(playerid, 317.7553, -1330.7593, 53.1995);
-                SetPlayerFacingAngle(playerid, 91.9914);
-            }
-            if (spawn == 2)
-            {
-                SetPlayerPos(playerid, 298.8723, -1334.7021, 53.4421);
-                SetPlayerFacingAngle(playerid, 88.8813);
-            }
-            SetPlayerVirtualWorld(playerid, 0);
-            SetPlayerInterior(playerid, 0);
-            SetCameraBehindPlayer(playerid);
-        }
-        if (PlayerInfo[playerid][pTeam] == FACTION_ITALIAN)
-        {
-            new spawn = random(2);
-            if (spawn == 0)
-            {
-                SetPlayerPos(playerid, -688.8886, 938.8144, 13.6328);
-            }
-            if (spawn == 1)
-            {
-                SetPlayerPos(playerid, -688.0349, 926.8151, 13.6293);
-            }
-            if (spawn == 2)
-            {
-                SetPlayerPos(playerid, -708.7231, 950.2300, 12.4724);
-            }
-            SetPlayerVirtualWorld(playerid, 0);
-            SetPlayerInterior(playerid, 0);
-            SetCameraBehindPlayer(playerid);
-        }
-        if (PlayerInfo[playerid][pTeam] == FACTION_VAGOS)
-        {
-            SetPlayerArmour(playerid, 100);
-            new spawn = random(2);
-            if (spawn == 0)
-            {
-                SetPlayerPos(playerid, 1881.9993, 2339.8398, 10.9799);
-                SetPlayerFacingAngle(playerid, 264.6255);
-            }
-            if (spawn == 1)
-            {
-                SetPlayerPos(playerid, 1910.1119, 2349.9846, 10.9799);
-                SetPlayerFacingAngle(playerid, 176.9813);
-            }
-            if (spawn == 2)
-            {
-                SetPlayerPos(playerid, 1883.3551, 2295.4844, 10.9799);
-                SetPlayerFacingAngle(playerid, 267.4223);
-            }
-            SetPlayerVirtualWorld(playerid, 0);
-            SetPlayerInterior(playerid, 0);
-            SetCameraBehindPlayer(playerid);
-        }
-        if (PlayerInfo[playerid][pTeam] == FACTION_MS13)
-        {
-            new spawn = random(2);
-            if (spawn == 0)
-            {
-                SetPlayerPos(playerid, -37.7534, 1079.9067, 20.0710);
-            }
-            if (spawn == 1)
-            {
-                SetPlayerPos(playerid, -22.8780, 1063.8611, 19.7422);
-            }
-            if (spawn == 2)
-            {
-                SetPlayerPos(playerid, -7.8116, 1075.0288, 19.7422);
-            }
-            SetPlayerVirtualWorld(playerid, 0);
-            SetPlayerInterior(playerid, 0);
-            SetCameraBehindPlayer(playerid);
-        }
-        if (PlayerInfo[playerid][pTeam] == FACTION_SYNDICATE)
-        {
-            SetPlayerArmour(playerid, 100);
-            new spawn = random(2);
-            if (spawn == 0)
-            {
-                SetPlayerPos(playerid, 1757.1570, 2766.8816, 10.8359);
-            }
-            if (spawn == 1)
-            {
-                SetPlayerPos(playerid, 1749.6184, 2797.0723, 10.8359);
-            }
-            if (spawn == 2)
-            {
-                SetPlayerPos(playerid, 1783.9874, 2787.4541, 10.8359);
-            }
-            SetPlayerVirtualWorld(playerid, 0);
-            SetPlayerInterior(playerid, 0);
-            SetCameraBehindPlayer(playerid);
-        }
-        if (PlayerInfo[playerid][pTeam] == FACTION_BLOODMAFIA)
-        {
-            new spawn = random(2);
-            if (spawn == 0)
-            {
-                SetPlayerPos(playerid, 1100.7185, -1220.8761, 17.8047);
-            }
-            if (spawn == 1)
-            {
-                SetPlayerPos(playerid, 1117.1194, -1237.0652, 15.9510);
-            }
-            if (spawn == 2)
-            {
-                SetPlayerPos(playerid, 1122.6483, -1247.2380, 25.3020);
-            }
-            SetPlayerVirtualWorld(playerid, 0);
-            SetPlayerInterior(playerid, 0);
-            SetCameraBehindPlayer(playerid);
-        }
-        if (PlayerInfo[playerid][pTeam] == FACTION_343)
-        {
-            new spawn = random(2);
-            if (spawn == 0)
-            {
-                SetPlayerPos(playerid, -799.6035, 1569.4238, 27.1172);
-            }
-            if (spawn == 1)
-            {
-                SetPlayerPos(playerid, -814.1357, 1542.5577, 27.1172);
-            }
-            if (spawn == 2)
-            {
-                SetPlayerPos(playerid, -800.3713, 1531.4137, 27.1172);
-            }
-            SetPlayerVirtualWorld(playerid, 0);
-            SetPlayerInterior(playerid, 0);
-            SetCameraBehindPlayer(playerid);
-        }
-        if (PlayerInfo[playerid][pTeam] == FACTION_YAKUZA)
-        {
-            new spawn = random(2);
-            if (spawn == 0)
-            {
-                SetPlayerPos(playerid, 2584.7444, 2787.1177, 10.8203);
-            }
-            if (spawn == 1)
-            {
-                SetPlayerPos(playerid, 2581.6055, 2747.6665, 10.8203);
-            }
-            if (spawn == 2)
-            {
-                SetPlayerPos(playerid, 2531.0698, 2794.3374, 10.8203);
-            }
-            SetPlayerVirtualWorld(playerid, 0);
-            SetPlayerInterior(playerid, 0);
-            SetCameraBehindPlayer(playerid);
-        }
-        if (PlayerInfo[playerid][pTeam] == FACTION_GROVE)
-        {
-            new spawn = random(5);
-            if (spawn == 0)
-            {
-                SetPlayerPos(playerid, 2496.0024, -1709.4805, 1014.7422);
-                SetPlayerFacingAngle(playerid, 2.1533);
-            }
-            if (spawn == 1)
-            {
-                SetPlayerPos(playerid, 2496.0024, -1709.4805, 1014.7422);
-                SetPlayerFacingAngle(playerid, 2.1533);
-            }
-            if (spawn == 2)
-            {
-                SetPlayerPos(playerid, 2496.0024, -1709.4805, 1014.7422);
-                SetPlayerFacingAngle(playerid, 2.1533);
-            }
-            if (spawn == 3)
-            {
-                SetPlayerPos(playerid, 2492.2722, -1703.3955, 1018.3438);
-                SetPlayerFacingAngle(playerid, 179.7682);
-            }
-            if (spawn == 4)
-            {
-                SetPlayerPos(playerid, 2492.2722, -1703.3955, 1018.3438);
-                SetPlayerFacingAngle(playerid, 179.7682);
-            }
-            if (spawn == 5)
-            {
-                SetPlayerPos(playerid, 2496.0024, -1709.4805, 1014.7422);
-                SetPlayerFacingAngle(playerid, 2.1533);
-            }
-            SetPlayerVirtualWorld(playerid, 1);
-            SetPlayerInterior(playerid, 3);
-            SetCameraBehindPlayer(playerid);
-        }
+        SetPlayerToFactionSpawn(playerid);
     }
+
     RestartPlayerColor(playerid);
     RestartVIPLaser(playerid);
+    OnPlayerSpawnAsVIP(playerid);
     RestartPlayerSkin(playerid);
-    if (adutyskinchanged[playerid] == 0)
-    {
-        spawnselectedskin2[playerid] = GetPlayerSkin(playerid);
-        spawnselectedskin[playerid] = GetPlayerSkin(playerid);
-    }
-    else
-    {
-        spawnselectedskin2[playerid] = GetPlayerSkin(playerid);
-        spawnselectedskin[playerid] = PlayerInfo[playerid][pASkin];
-    }
+    CheckAdutySkinChange(playerid);
+
     if (PlayerInfo[playerid][pSpawnO] == 4)
     {
-        SetPlayerVirtualWorld(playerid, 0);
-        SetPlayerInterior(playerid, 0);
-        SetPlayerPos(playerid, HouseInfo[PlayerInfo[playerid][pHouseO]][hX], HouseInfo[PlayerInfo[playerid][pHouseO]][hY], HouseInfo[PlayerInfo[playerid][pHouseO]][hZ]);
+        SetPlayerToHouseSpawn(playerid);
     }
     if (PlayerInfo[playerid][pSpawnO] == 5)
     {
-        SetPlayerVirtualWorld(playerid, 0);
-        SetPlayerInterior(playerid, 0);
-        SetPlayerPos(playerid, BizInfo[PlayerInfo[playerid][pBizO]][bX], BizInfo[PlayerInfo[playerid][pBizO]][bY], BizInfo[PlayerInfo[playerid][pBizO]][bZ]);
+        SetPlayerToBizSpawn(playerid);
     }
     if (PlayerInfo[playerid][pADuty] == 0)
     {
-        if (PlayerInfo[playerid][pVIPLabel] == 1)
-        {
-            UpdateDynamic3DTextLabelText(PlayerLabel[playerid], 0x800000FF, " ");
-            format(VipText3D[playerid], 26, "");
-            PlayerLabel[playerid] = CreateDynamic3DTextLabel(VipText3D[playerid], 0x800000FF, 0.0, 0.0, 0.0, 15.0, playerid, INVALID_VEHICLE_ID, 0, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid), -1, 15.0);
-        }
+        SetPlayerVipLabel(playerid);
     }
     if (PlayerInfo[playerid][pADuty] == 1)
     {
-        SetPlayerColor(playerid, 0x7BFFFFFF);
-        adutyskinchanged[playerid] = 1;
-        SendClientMessage(playerid, 0x40BF00FF, "Ти все-още си On-Duty и трябва да помагаш на играчите");
-        SetPlayerSkin(playerid, PlayerInfo[playerid][pASkin]);
-        if (godmode[playerid] == 1)
-        {
-            SetPlayerHealth(playerid, 99999);
-            SetPlayerArmour(playerid, 99999);
-        }
-        ResetPlayerWeapons(playerid);
+        SetPlayerAdutyOnSpawn(playerid);
+    }
+
+    /*
+    * After normal spawns
+    */
+    if (IsPlayerInDMON(playerid))
+    {
+        SetPlayerToDmonSpawn(playerid);
+    }
+    if (IsPlayerInDeathmatchMission(playyerid))
+    {
+        SpawnInDeathmatchMission(playerid);
+    }
+    if (PlayerInfo[playerid][pAFK] > 0)
+    {
+        SetPlayerToAfkSpawn(playerid);
     }
     if (PlayerInfo[playerid][pPJail] > 0)
     {
-        SetPlayerInterior(playerid, 3);
-        SendClientMessage(playerid, 0x0040FFFF, "Jail: Ти все още си в затвора на полицията!");
-        SetPlayerPos(playerid, 197.9882, 175.4870, 1003.0234);
-        ResetPlayerWeapons(playerid);
+        SetPlayerToPoliceJailSpawn(playyerid);
     }
-    UpdatePlayerHeadText(playerid);
+    if (PlayerInfo[playerid][pJail] > 0)
+    {
+        SetPlayerToJailSpawn(playerid);
+    }
 
     return Y_HOOKS_CONTINUE_RETURN_1;
 }
@@ -2241,4 +1644,53 @@ stock GetPlayerOfficeID(playerid)
         }
     }
     return -1;
+}
+
+
+stock SpawnOutside(playerid, Float:pos[][3], Float:angles[], size)
+{
+    new spawn = random(size);
+    SetPlayerPos(playerid, pos[spawn][0], pos[spawn][1], pos[spawn][2]);
+    SetPlayerFacingAngle(playerid, angles[spawn]);
+    SetPlayerVirtualWorld(playerid, 0);
+    SetPlayerInterior(playerid, 0);
+    SetCameraBehindPlayer(playerid);
+}
+
+stock SpawnInterior(playerid, Float:x, Float:y, Float:z, world, interior, Float:angle = 0.0, armour = 0)
+{
+    if (armour > 0)
+    {
+        SetPlayerArmour(playerid, armour);
+    }
+    SetPlayerPos(playerid, x, y, z);
+    SetPlayerFacingAngle(playerid, angle);
+    SetPlayerVirtualWorld(playerid, world);
+    SetPlayerInterior(playerid, interior);
+    SetCameraBehindPlayer(playerid);
+}
+
+stock SetPlayerChristmasHat(playerid)
+{
+    santaHat[playerid] = true;
+    santaHatObject[playerid] = SetPlayerAttachedObject(playerid, 9, 19065, 2, 0.120000, 0.040000, -0.003500, 0, 100, 100, 1.4, 1.4, 1.4);
+    SendClientMessage(playerid, 0xFFFFFFFF, "CHRISTMAS: Ако искаш да премахнеш коледната шапка от главата ти, напиши /removehat");
+    SendClientMessage(playerid, 0xFFFFFFFF, "CHRISTMAS: Ако искаш пак да си я сложиш, напиши /santahat");
+}
+
+stock IsPlayerFirstSpawn(playerid)
+{
+    firstspawn[playerid] = 1;
+}
+
+stock SetPlayerFirstSpawn(playerid)
+{
+    requestspawn2[playerid] = 1;
+    nospawnselect[playerid] = 1;
+    StopAudioStreamForPlayer(playerid);
+    firstspawn[playerid] = 0;
+    if (month == 12)
+    {
+        SetPlayerChristmasHat(playerid);
+    }
 }

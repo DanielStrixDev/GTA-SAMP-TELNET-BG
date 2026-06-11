@@ -187,6 +187,308 @@ stock DefineGangRankSkins()
 }
 
 /*
+* Faction Spawn
+*/
+stock SetPlayerToFactionSpawn(playerid)
+{
+    if (PlayerInfo[playerid][pSpawnO] == 2)
+    {
+        new team = PlayerInfo[playerid][pTeam];
+        new spawn;
+
+        if (team == FACTION_VIP)
+        {
+            new Float:pos[6][3] =
+            {
+                {1204.3077, -2066.5664, 84.7134},
+                {1183.0295, -2008.9454, 85.1735},
+                {1242.3442, -2003.8608, 76.0035},
+                {1281.2172, -2002.7297, 74.8102},
+                {1281.2172, -2002.7297, 74.8102},
+                {1281.2172, -2002.7297, 74.8102}
+            };
+            new Float:angles[6] = {2.7804, 182.6776, 179.7874, 174.3698, 174.3698, 179.7682};
+            SpawnOutside(playerid, pos, angles, 6);
+        }
+        else if (team == FACTION_BALLAS)
+        {
+            new Float:pos[3][3] =
+            {
+                {2146.5444, -1432.6128, 25.5391},
+                {2147.8428, -1489.3254, 26.6198},
+                {2146.5444, -1432.6128, 25.5391}
+            };
+            new Float:angles[3] = {90.9074, 88.7140, 90.9074};
+            SpawnOutside(playerid, pos, angles, 3);
+        }
+        else if (team == FACTION_TRIADS)
+        {
+            new Float:pos[3][3] =
+            {
+                {1958.0376, 951.1666, 10.8203},
+                {1969.9386, 942.0911, 10.8126},
+                {1928.6168, 945.8361, 10.8127}
+            };
+            new Float:angles[3] = {180.1847, 176.1113, 85.2205};
+            SpawnOutside(playerid, pos, angles, 3);
+        }
+        else if (team == FACTION_AZTECAS)
+        {
+            new Float:pos[3][3] =
+            {
+                {743.6805, -498.7406, 18.0129},
+                {745.5961, -511.2993, 18.0129},
+                {739.9612, -554.7196, 18.0129}
+            };
+            new Float:angles[3] = {276.3322, 176.9813, 5.9559};
+            SpawnOutside(playerid, pos, angles, 3);
+        }
+        else if (team == FACTION_CRIPZ)
+        {
+            new Float:pos[3][3] =
+            {
+                {297.6942, -1155.6418, 80.9099},
+                {320.8712, -1170.3861, 80.9141},
+                {274.3722, -1167.7781, 80.8616}
+            };
+            new Float:angles[3] = {125.8933, 88.6063, 276.8981};
+            SpawnOutside(playerid, pos, angles, 3);
+        }
+        else if (team == FACTION_BGMAFIA)
+        {
+            SpawnInterior(playerid, 1267.1464, -777.3041, 1091.9063, 1, 5, 0.0, 100);
+        }
+        else if (team == FACTION_RIFA)
+        {
+            SpawnInterior(playerid, 2449.8516, -1688.9565, 1013.5078, 1, 2, 182.1234);
+        }
+        else if (team == FACTION_SOLDIER)
+        {
+            SpawnInterior(playerid, 2331.0933, -1137.6527, 1054.3047, 1, 12, 0.0, 100);
+        }
+        else if (team == FACTION_SOA)
+        {
+            new Float:pos[3][3] =
+            {
+                {2615.6545, 2313.8264, 10.8203},
+                {2622.7986, 2335.3406, 10.8203},
+                {2655.8208, 2347.8174, 10.8203}
+            };
+            new Float:angles[3] = {253.6507, 185.9700, 149.9362};
+            SpawnOutside(playerid, pos, angles, 3);
+        }
+        else if (team == FACTION_NANG)
+        {
+            new Float:pos[3][3] =
+            {
+                {2621.7190, 1825.1489, 11.0234},
+                {2635.7065, 1797.4092, 11.0234},
+                {2599.0176, 1812.4899, 10.9766}
+            };
+            new Float:angles[3] = {91.7867, 87.7133, 279.7651};
+            SpawnOutside(playerid, pos, angles, 3);
+        }
+        else if (team == FACTION_BOUNTY)
+        {
+            new Float:pos[3][3] =
+            {
+                {681.9958, -1276.5922, 13.5755},
+                {673.2634, -1292.6874, 13.6328},
+                {658.6101, -1251.8407, 13.7522}
+            };
+            new Float:angles[3] = {88.3163, 82.0496, 190.7540};
+            SpawnOutside(playerid, pos, angles, 3);
+            SetPlayerArmour(playerid, 100);
+        }
+        else if (team == FACTION_THUGLIFE)
+        {
+            new Float:pos[3][3] =
+            {
+                {491.4981, -1514.3501, 20.4358},
+                {480.5826, -1495.5084, 20.3957},
+                {480.3297, -1482.4331, 19.8992}
+            };
+            new Float:angles[3] = {1.1300, 89.8041, 92.3108};
+            SpawnOutside(playerid, pos, angles, 3);
+        }
+        else if (team == FACTION_INTENSE_POLICE)
+        {
+            new Float:pos[3][3] =
+            {
+                {248.4185, 75.8314, 1003.6406},
+                {253.4204, 65.2763, 1003.6406},
+                {237.9575, 74.1665, 1005.0391}
+            };
+            SpawnInterior(playerid, pos[spawn][0], pos[spawn][1], pos[spawn][2], 1, 6, 0.0, 100);
+        }
+        else if (team == FACTION_CREW)
+        {
+            new Float:pos[3][3] =
+            {
+                {309.5213, -1333.9890, 53.4476},
+                {317.7553, -1330.7593, 53.1995},
+                {298.8723, -1334.7021, 53.4421}
+            };
+            new Float:angles[3] = {91.9914, 91.9914, 88.8813};
+            SpawnOutside(playerid, pos, angles, 3);
+        }
+        else if (team == FACTION_ITALIAN)
+        {
+            new Float:pos[3][3] =
+            {
+                {-688.8886, 938.8144, 13.6328},
+                {-688.0349, 926.8151, 13.6293},
+                {-708.7231, 950.2300, 12.4724}
+            };
+            SpawnOutside(playerid, pos, angles, 3);
+        }
+        else if (team == FACTION_VAGOS)
+        {
+            new Float:pos[3][3] =
+            {
+                {1881.9993, 2339.8398, 10.9799},
+                {1910.1119, 2349.9846, 10.9799},
+                {1883.3551, 2295.4844, 10.9799}
+            };
+            new Float:angles[3] = {264.6255, 176.9813, 267.4223};
+            SpawnOutside(playerid, pos, angles, 3);
+            SetPlayerArmour(playerid, 100);
+        }
+        else if (team == FACTION_MS13)
+        {
+            new Float:pos[3][3] =
+            {
+                {-37.7534, 1079.9067, 20.0710},
+                {-22.8780, 1063.8611, 19.7422},
+                {-7.8116, 1075.0288, 19.7422}
+            };
+            SpawnOutside(playerid, pos, angles, 3);
+        }
+        else if (team == FACTION_SYNDICATE)
+        {
+            new Float:pos[3][3] =
+            {
+                {1757.1570, 2766.8816, 10.8359},
+                {1749.6184, 2797.0723, 10.8359},
+                {1783.9874, 2787.4541, 10.8359}
+            };
+            SpawnOutside(playerid, pos, angles, 3);
+            SetPlayerArmour(playerid, 100);
+        }
+        else if (team == FACTION_BLOODMAFIA)
+        {
+            new Float:pos[3][3] =
+            {
+                {1100.7185, -1220.8761, 17.8047},
+                {1117.1194, -1237.0652, 15.9510},
+                {1122.6483, -1247.2380, 25.3020}
+            };
+            SpawnOutside(playerid, pos, angles, 3);
+        }
+        else if (team == FACTION_343)
+        {
+            new Float:pos[3][3] =
+            {
+                {-799.6035, 1569.4238, 27.1172},
+                {-814.1357, 1542.5577, 27.1172},
+                {-800.3713, 1531.4137, 27.1172}
+            };
+            SpawnOutside(playerid, pos, angles, 3);
+        }
+        else if (team == FACTION_YAKUZA)
+        {
+            new Float:pos[3][3] =
+            {
+                {2584.7444, 2787.1177, 10.8203},
+                {2581.6055, 2747.6665, 10.8203},
+                {2531.0698, 2794.3374, 10.8203}
+            };
+            SpawnOutside(playerid, pos, angles, 3);
+        }
+        else if (team == FACTION_GROVE)
+        {
+            new Float:pos[6][3] =
+            {
+                {2496.0024, -1709.4805, 1014.7422},
+                {2496.0024, -1709.4805, 1014.7422},
+                {2496.0024, -1709.4805, 1014.7422},
+                {2492.2722, -1703.3955, 1018.3438},
+                {2492.2722, -1703.3955, 1018.3438},
+                {2496.0024, -1709.4805, 1014.7422}
+            };
+            new Float:angles[6] = {2.1533, 2.1533, 2.1533, 179.7682, 179.7682, 2.1533};
+            SpawnInterior(playerid, pos[spawn][0], pos[spawn][1], pos[spawn][2], 1, 3, angles[spawn]);
+        }
+    }
+}
+
+/*
+* Civil Spawn
+*/
+stock SetPlayerToCivilianSpawn(playerid)
+{
+    SetPlayerVirtualWorld(playerid, 0);
+    SetPlayerInterior(playerid, 0);
+    new spawn = random(10);
+    if (spawn == 0)
+    {
+        SetPlayerPos(playerid, 2178.9063, 1285.6537, 10.8203);
+        SetPlayerFacingAngle(playerid, 270.3970);
+    }
+    if (spawn == 1)
+    {
+        SetPlayerPos(playerid, 1027.0188, -1344.9539, 13.7266);
+        SetPlayerFacingAngle(playerid, 1.2900);
+    }
+    if (spawn == 2)
+    {
+        SetPlayerPos(playerid, 2216.9980, -1170.4368, 25.7266);
+        SetPlayerFacingAngle(playerid, 359.7421);
+    }
+    if (spawn == 3)
+    {
+        SetPlayerPos(playerid, 2097.3970, 2490.7754, 14.8390);
+        SetPlayerFacingAngle(playerid, 179.1149);
+    }
+    if (spawn == 4)
+    {
+        SetPlayerPos(playerid, 386.7134, -2028.5282, 7.8359);
+        SetPlayerFacingAngle(playerid, 89.3663);
+    }
+    if (spawn == 5)
+    {
+        SetPlayerPos(playerid, 1676.4705, -1634.6233, 14.2266);
+        SetPlayerFacingAngle(playerid, 269.8728);
+    }
+    if (spawn == 6)
+    {
+        SetPlayerPos(playerid, 2225.3550, 1838.6611, 10.8203);
+        SetPlayerFacingAngle(playerid, 90.2421);
+    }
+    if (spawn == 7)
+    {
+        SetPlayerPos(playerid, 2551.8250, 2244.6887, 10.8203);
+        SetPlayerFacingAngle(playerid, 167.6396);
+    }
+    if (spawn == 8)
+    {
+        SetPlayerPos(playerid, 1742.8735, -1863.2289, 13.5753);
+        SetPlayerFacingAngle(playerid, 359.7475);
+    }
+    if (spawn == 9)
+    {
+        SetPlayerPos(playerid, 1688.3342, 1447.8641, 10.7678);
+        SetPlayerFacingAngle(playerid, 269.8827);
+    }
+    if (spawn == 10)
+    {
+        SetPlayerPos(playerid, 2216.9980, -1170.4368, 25.7266);
+        SetPlayerFacingAngle(playerid, 359.7421);
+    }
+    SetCameraBehindPlayer(playerid);
+}
+
+/*
 * Leave Gang
 */
 LeaveGangPlayerAffect(playerid)
@@ -610,20 +912,18 @@ hook OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 
     return Y_HOOKS_CONTINUE_RETURN_1;
 }
-//
 
-hook OnPlayerSpawn(playerid)
+
+stock IsPlayerInHidenTeam(playerid)
 {
-    if (hideIPD == 1)
+    if (PlayerInfo[playerid][pTeam] == FACTION_IPD && hideIPD == 1)
     {
-        if (PlayerInfo[playerid][pTeam] == 15)
-        {
-            SetPlayerColor(playerid, 0xFFFFFF00);
-        }
+        return true;
     }
 
-    return Y_HOOKS_CONTINUE_RETURN_1;
+    return false;
 }
+
 
 hook OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY, Float:fZ)
 {
@@ -660,6 +960,6 @@ hook OnPlayerDeath(playerid, killerid, reason)
     {
         CaughtedWanted(playerid, killerid);
     }
-    
+
     return Y_HOOKS_CONTINUE_RETURN_1;
 }

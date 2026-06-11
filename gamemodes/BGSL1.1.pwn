@@ -125,6 +125,9 @@ new string256[256];
 #include "server/systems/vehicles/functions.pwn"
 #include "server/systems/weaponskills/functions.pwn"
 #include "server/systems/dmon/functions.pwn"
+#include "server/systems/afk/functions.pwn"
+#include "server/systems/jail/functions.pwn"
+#include "server/systems/admin/functions.pwn"
 
 // DATABASE
 #include "server/db.pwn"
