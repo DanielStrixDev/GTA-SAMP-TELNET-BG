@@ -22,7 +22,7 @@ CMD:bounties(playerid, params[])
     {
         SendClientMessage(playerid, 0xE60000FF, "Няма онлайн играчи със заложени цени за главите им!");
     }
-    return 1;
+    return CMD_SUCCESS;
 }
 
 CMD:hitman(playerid, params[])
@@ -59,9 +59,7 @@ CMD:hitman(playerid, params[])
     }
 
     // Place the hit
-    hitmanprice[targetid] += amount;
-    hitmanby[targetid] = playerid;
-    hitmaner[playerid] = targetid;
+    GivePlayerHitmanCash(playerid, targetid, amount);
     GivePlayerCash(playerid, -amount);
 
     // Send notifications

@@ -15,3 +15,10 @@ hook OnPlayerDeath(playerid, killerid, reason)
     
     return Y_HOOKS_CONTINUE_RETURN_1;
 }
+
+stock GivePlayerHitmanCash(playerid, targetid, amount)
+{
+    hitmanprice[targetid] += amount;
+    hitmanby[targetid] = playerid;
+    hitmaner[playerid] = targetid;
+}
