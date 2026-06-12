@@ -99,6 +99,7 @@ hook OnGameModeInit()
     Create3DTextLabel("{FF0000}Натисни {FFFFFF}ENTER {FF0000}в стрелката за да се телепортираш във {FFFFFF}VIP базата", -1, 1363.7058, 253.9488, 19.5669, 40.0, 0, 0);
     Create3DTextLabel("{FF0000}Натисни {FFFFFF}ENTER {FF0000}в стрелката за да се телепортираш до {FFFFFF}Deliver Job", -1, 1216.4745, -2069.0505, 65.1019, 40.0, 0, 0);
     Create3DTextLabel("{FF0000}Натисни {FFFFFF}ENTER {FF0000}в стрелката за да се телепортираш във {FFFFFF}VIP базата", -1, -15.7632, -319.8665, 5.4229, 40.0, 0, 0);
+    Create3DTextLabel("{FF0000}Натисни {FFFFFF}ENTER {FF0000}в стрелката за да се телепортираш във {FFFFFF}VIP базата", -1, 2138.3521,-86.4459,2.8588, 40.0, 0, 0);
     //vip teleports - close
 
     //fish - open

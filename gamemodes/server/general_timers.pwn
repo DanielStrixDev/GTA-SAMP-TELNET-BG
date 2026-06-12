@@ -1587,6 +1587,17 @@ public GeneralTimer1s()
                 SendClientMessage(i, 0xB35900FF, "Вече можеш да работиш Deliver отново!");
             }
         }
+        if (PlayerInfo[i][pBoatTimerWorkAgain] > 0)
+        {
+            if (PlayerInfo[i][pBoatTimerWorkAgain] > 0)
+            {
+                PlayerInfo[i][pBoatTimerWorkAgain]--;
+            }
+            if (PlayerInfo[i][pBoatTimerWorkAgain] <= 0)
+            {
+                SendClientMessage(i, 0xB35900FF, "Вече можеш да работиш Boat отново!");
+            }
+        }
         if (PlayerInfo[i][pBusTimerWorkAgain] > 0)
         {
             if (PlayerInfo[i][pBusTimerWorkAgain] > 0)

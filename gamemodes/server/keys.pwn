@@ -592,6 +592,15 @@ new Float:
             SetPlayerPos(playerid, 1221.7103, -2037.3132, 65.2266);
             SetPlayerFacingAngle(playerid, 270.5640);
         }
+        if (IsPlayerInRangeOfPoint(playerid, 1.0, 2138.3521,-86.4459,2.8588))
+        {
+            if (PlayerInfo[playerid][pTeam] != 1)
+            {
+                return SendClientMessage(playerid, 0xB4B5B7FF, "Трябва да си член на VIP!");
+            }
+            SetPlayerPos(playerid, 1221.7103, -2037.3132, 65.2266);
+            SetPlayerFacingAngle(playerid, 270.5640);
+        }
         if (IsPlayerInRangeOfPoint(playerid, 1.0, 279.1491, 1833.1394, 18.0874))
         {
             if (PlayerInfo[playerid][pTeam] != 15)

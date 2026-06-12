@@ -217,6 +217,7 @@ hook OnGameModeInit()
     CreatePickup(1318, 0, 1363.7058, 253.9488, 19.5669, -1); //pizzaboy job vipbase
     CreatePickup(1318, 0, 1216.4745, -2069.0505, 65.1019, -1); //deliver job
     CreatePickup(1318, 0, -15.7632, -319.8665, 5.4229, -1); //deliver job vipbase
+    CreatePickup(1318, 0, 2138.3521,-86.4459,2.8588, -1); //boat job vipbase
 
     return Y_HOOKS_CONTINUE_RETURN_1;
 }

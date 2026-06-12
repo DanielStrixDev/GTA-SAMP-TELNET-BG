@@ -280,6 +280,8 @@ hook OnGameModeInit()
     cartruck[3] = AddStaticVehicle(403, 35.6616, -266.8764, 2.7455, 266.1551, 24, 24); // Job - Truck Car 3
     cartruck[4] = AddStaticVehicle(515, 43.0861, -231.5357, 2.6533, 266.6200, 3, 3); // Job - Truck Car 4
     cartruck[5] = AddStaticVehicle(514, 44.8290, -224.5736, 2.2295, 268.1153, 0, 0); // Job - Truck Car 5
+    carboat[1] = AddStaticVehicle(493,2096.9822,-97.8148,-0.1926,108.7129,23,23); // boat1
+    carboat[2] = AddStaticVehicle(493,2105.5818,-109.0842,-0.1664,125.1686,23,23); // boat2
     cardeliver[1] = AddStaticVehicle(609, -31.8258, -290.1678, 5.4251, 269.3731, 86, 86); // Deliver - Car1
     cardeliver[2] = AddStaticVehicle(609, -23.2258, -273.9886, 5.4273, 179.0741, 86, 86); // Deliver - Car2
     cardeliver[3] = AddStaticVehicle(609, 0.3479, -301.1396, 5.4233, 89.4623, 86, 86); // Deliver - Car3
