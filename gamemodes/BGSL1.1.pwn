@@ -13,6 +13,7 @@
 #include <izcmd>
 //#include <crashdetect>
 #include <YSI_Coding\y_hooks>
+#include <foreach>
 #include <sscanf2>
 
 //#include <colandreas>
@@ -97,6 +98,7 @@ new string[256];
 #include "server/systems/record/vars.pwn"
 #include "server/systems/fuel/vars.pwn"
 #include "server/systems/gps/vars.pwn"
+#include "server/systems/payday/vars.pwn"
 
 // FUNCTIONS
 #include "server/forwards.pwn"
@@ -132,6 +134,7 @@ new string[256];
 #include "server/systems/jail/functions.pwn"
 #include "server/systems/admin/functions.pwn"
 #include "server/systems/fuel/functions.pwn"
+#include "server/systems/payyday/functions.pwn"
 
 // DATABASE
 #include "server/db.pwn"

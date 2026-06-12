@@ -732,3 +732,21 @@ public CorDetector(Float:radi, playerid, targetid)
     }
     return 0;
 }
+
+/*
+* Formatted Message
+*/
+stock SendFormattedMessage(playerid, color, const format_str[], {Float,_}:...)
+{
+    new message[145];
+    new const format_str_index = 2;
+    for (new i = 0; i < numargs() - format_str_index; i++)
+    {
+        format(message, sizeof(message), format_str, getarg(format_str_index, i));
+        SendClientMessage(playerid, color, message);
+        return 1;
+    }
+    format(message, sizeof(message), format_str);
+    SendClientMessage(playerid, color, message);
+    return 1;
+}

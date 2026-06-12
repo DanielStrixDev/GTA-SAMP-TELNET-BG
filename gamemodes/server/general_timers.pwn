@@ -25,264 +25,140 @@ public GeneralTimer1s()
 
 
 
-    if (minutes == 0 && seconds == 0)
+    if (minutes == 0 && seconds == 0 && !paydayInProgress)
     {
+        paydayInProgress = true;
+
         new noerrorstring2[115];
-        if (hours == 0) SetWorldTime(0);
-        if (hours == 6) SetWorldTime(0);
-        if (hours == 12) SetWorldTime(12);
-        if (hours == 18) SetWorldTime(23);
-        if (hours == 1) SetWorldTime(0);
-        if (hours == 7) SetWorldTime(6);
-        if (hours == 13) SetWorldTime(12);
-        if (hours == 19) SetWorldTime(23);
-        if (hours == 2) SetWorldTime(0);
-        if (hours == 8) SetWorldTime(6);
-        if (hours == 14) SetWorldTime(12);
-        if (hours == 20) SetWorldTime(0);
-        if (hours == 3) SetWorldTime(0);
-        if (hours == 9) SetWorldTime(12);
-        if (hours == 15) SetWorldTime(12);
-        if (hours == 21) SetWorldTime(0);
-        if (hours == 4) SetWorldTime(0);
-        if (hours == 10) SetWorldTime(12);
-        if (hours == 16) SetWorldTime(12);
-        if (hours == 22) SetWorldTime(0);
-        if (hours == 5) SetWorldTime(0);
-        if (hours == 11) SetWorldTime(12);
-        if (hours == 17) SetWorldTime(12);
-        if (hours == 23) SetWorldTime(0);
+
+        // World time с масив
+        static const worldTimeHours[24] =
+        {
+            0, 0, 0, 0, 0, 0, 0, 6, 6, 12, 12, 12,
+            12, 12, 12, 12, 12, 12, 23, 23, 0, 0, 0, 0
+        };
+        SetWorldTime(worldTimeHours[hours]);
+
+        // Съобщение за часа
+        format(noerrorstring2, sizeof(noerrorstring2), "SERVER: Часът е %d:00", hours);
+        SendClientMessageToAll(0xFFFF84FF, noerrorstring2);
+
+        // Нулиране на масивите
         for (new i = 0; i < MAX_PLAYERS; i++)
         {
             zaplatakinti[i] = 0;
             lastpaydaykinti[i] = 0;
-            format(noerrorstring2, 115, "SERVER: Часът е %d:00", hours);
-            SendClientMessage(i, 0xFFFF84FF, noerrorstring2);
+        }
+
+        // Заглавие
+        SendClientMessageToAll(0xC6A2DEFF, "|____ LV BANK STATEMENT ____|");
+
+        // Основен цикъл - само онлайн играчи
+        for (new i = 0; i < MAX_PLAYERS; i++)
+        {
+            if (!IsPlayerConnected(i)) continue;
+
             if (PlayerInfo[i][pLastPayday] < 15)
             {
                 SendClientMessage(i, 0xFFFFFFFF, "Ти не си играл достатъчно за да получиш Payday!");
+                continue;
             }
-            else
+
+            // Кеширане на всички нужни стойности
+            new playerLastPayday = PlayerInfo[i][pLastPayday];
+            new playerLevel = PlayerInfo[i][pLevel];
+            new playerAccount = PlayerInfo[i][pAccount];
+            new playerTeam = PlayerInfo[i][pTeam];
+            new playerRank = PlayerInfo[i][pRank];
+            new playerAFK = PlayerInfo[i][pAFK];
+            new playerMS = PlayerInfo[i][pMS];
+            new playerVip = PlayerInfo[i][pVip];
+            new playerEPS = PlayerInfo[i][pEPS];
+            new playerBiz = PlayerInfo[i][pBizO];
+
+            new epTotal = 0;
+            new accountTotal = playerAccount;
+
+            // Обща сума
+            format(noerrorstring2, sizeof(noerrorstring2), "Обща сума: $%d", accountTotal);
+            SendClientMessage(i, 0xF97804FF, noerrorstring2);
+
+            // EP бонуси
+            epTotal += ProcessEPBonuses(i, playerLastPayday, playerAFK);
+
+            // Онлайн бонус
+            accountTotal += playerLastPayday * 3;
+            lastpaydaykinti[i] = playerLastPayday * 3;
+
+            // Заплата
+            new salary = CalculateSalary(playerLevel);
+            accountTotal += salary;
+            zaplatakinti[i] = salary;
+
+            // Съобщения за заплата и онлайн бонус
+            format(noerrorstring2, sizeof(noerrorstring2), "Заплата: $%d", salary);
+            SendClientMessage(i, 0xF97804FF, noerrorstring2);
+            format(noerrorstring2, sizeof(noerrorstring2), "Онлайн бонус: $%d", playerLastPayday * 3);
+            SendClientMessage(i, 0xF97804FF, noerrorstring2);
+
+            // Money Skill бонус
+            if (playerMS > 0)
             {
-                SendClientMessage(i, 0xC6A2DEFF, "|____ LV BANK STATEMENT ____|");
-                format(noerrorstring2, 115, "Обща сума: $%d", PlayerInfo[i][pAccount]);
-                SendClientMessage(i, 0xF97804FF, noerrorstring2);
-                if (PlayerInfo[i][pLastPayday] > 29)
-                {}
-                if (PlayerInfo[i][pLastPayday] > 29 && PlayerInfo[i][pLastPayday] < 100)
-                {
-                    if (PlayerInfo[i][pAFK] == 0)
-                    {
-                        GivePlayerEP(i, 1);
-                    }
-                    else
-                    {
-                        if (PlayerInfo[i][pAFK] < 30)
-                        {
-                            GivePlayerEP(i, 2);
-                        }
-                    }
-                }
-                if (PlayerInfo[i][pLastPayday] > 1799)
-                {
-                    if (PlayerInfo[i][pAFK] == 0)
-                    {
-                        GivePlayerEP(i, 2);
-                    }
-                }
-                if (PlayerInfo[i][pAFK] >= 30)
-                {
-                    GivePlayerEP(i, 4);
-                }
-                PlayerInfo[i][pAccount] += PlayerInfo[i][pLastPayday] * 3;
-                lastpaydaykinti[i] = PlayerInfo[i][pLastPayday];
-                lastpaydaykinti[i] = lastpaydaykinti[i] * 3;
-                if (PlayerInfo[i][pLevel] < 31)
-                {
-                    PlayerInfo[i][pAccount] += PlayerInfo[i][pLevel] * 1000;
-                    zaplatakinti[i] = PlayerInfo[i][pLevel] * 1000;
-                }
-                else
-                {
-                    PlayerInfo[i][pAccount] += 30000;
-                    zaplatakinti[i] = 30000;
-                }
-                format(noerrorstring2, 115, "Заплата: $%d", zaplatakinti[i]);
-                SendClientMessage(i, 0xF97804FF, noerrorstring2);
-                format(noerrorstring2, 115, "Онлайн бонус: $%d", PlayerInfo[i][pLastPayday] * 3);
-                SendClientMessage(i, 0xF97804FF, noerrorstring2);
-                if (PlayerInfo[i][pMS] > 0)
-                {
-                    format(noerrorstring2, 115, "Money Skill: + $%d", PlayerInfo[i][pMS] * 10000);
-                    SendClientMessage(i, 0x80D5FF80, noerrorstring2);
-                    PlayerInfo[i][pAccount] += PlayerInfo[i][pMS] * 10000;
-                }
-                if (PlayerInfo[i][pTeam] == FACTION_INTENSE_POLICE)
-                {
-                    if (PlayerInfo[i][pRank] == 1)
-                    {
-                        format(noerrorstring2, 115, "Intense Police Department: + 2 EP и 10000$");
-                        SendClientMessage(i, COLOR_IPD_CHAT, noerrorstring2);
-                        GivePlayerEP(i, 2);
-                        PlayerInfo[i][pAccount] += 10000;
-                    }
-                    if (PlayerInfo[i][pRank] == 2)
-                    {
-                        format(noerrorstring2, 115, "Intense Police Department: + 4 EP и 20000$");
-                        SendClientMessage(i, COLOR_IPD_CHAT, noerrorstring2);
-                        GivePlayerEP(i, 4);
-                        PlayerInfo[i][pAccount] += 20000;
-                    }
-                    if (PlayerInfo[i][pRank] == 3)
-                    {
-                        format(noerrorstring2, 115, "Intense Police Department: + 6 EP и 30000$");
-                        SendClientMessage(i, COLOR_IPD_CHAT, noerrorstring2);
-                        GivePlayerEP(i, 6);
-                        PlayerInfo[i][pAccount] += 30000;
-                    }
-                    if (PlayerInfo[i][pRank] == 4)
-                    {
-                        format(noerrorstring2, 115, "Intense Police Department: + 8 EP и 40000$");
-                        SendClientMessage(i, COLOR_IPD_CHAT, noerrorstring2);
-                        GivePlayerEP(i, 8);
-                        PlayerInfo[i][pAccount] += 40000;
-                    }
-                    if (PlayerInfo[i][pRank] == 5)
-                    {
-                        format(noerrorstring2, 115, "Intense Police Department: + 10 EP и 50000$");
-                        SendClientMessage(i, COLOR_IPD_CHAT, noerrorstring2);
-                        GivePlayerEP(i, 10);
-                        PlayerInfo[i][pAccount] += 50000;
-                    }
-                    if (PlayerInfo[i][pRank] == 6)
-                    {
-                        format(noerrorstring2, 115, "Intense Police Department: + 50 EP и 1000000$");
-                        SendClientMessage(i, COLOR_IPD_CHAT, noerrorstring2);
-                        GivePlayerEP(i, 50);
-                        PlayerInfo[i][pAccount] += 1000000;
-                    }
-                }
-                if (PlayerInfo[i][pTeam] == FACTION_VIP)
-                {
-                    if (PlayerInfo[i][pRank] == 2)
-                    {
-                        format(noerrorstring2, 115, "VIP Gang: + 2 EP и 2000$");
-                        SendClientMessage(i, 0xFF3737FF, noerrorstring2);
-                        GivePlayerEP(i, 2);
-                        PlayerInfo[i][pAccount] += 2000;
-                    }
-                    if (PlayerInfo[i][pRank] == 3)
-                    {
-                        format(noerrorstring2, 115, "VIP Gang: + 3 EP и 3000$");
-                        SendClientMessage(i, 0xFF3737FF, noerrorstring2);
-                        GivePlayerEP(i, 3);
-                        PlayerInfo[i][pAccount] += 3000;
-                    }
-                    if (PlayerInfo[i][pRank] == 4)
-                    {
-                        format(noerrorstring2, 115, "VIP Gang: + 4 EP и 4000$");
-                        SendClientMessage(i, 0xFF3737FF, noerrorstring2);
-                        GivePlayerEP(i, 4);
-                        PlayerInfo[i][pAccount] += 4000;
-                    }
-                    if (PlayerInfo[i][pRank] == 5)
-                    {
-                        format(noerrorstring2, 115, "VIP Gang: + 5 EP и 5000$");
-                        SendClientMessage(i, 0xFF3737FF, noerrorstring2);
-                        GivePlayerEP(i, 5);
-                        PlayerInfo[i][pAccount] += 5000;
-                    }
-                    if (PlayerInfo[i][pRank] == 6)
-                    {
-                        format(noerrorstring2, 115, "VIP Gang: + 6 EP и 6000$");
-                        SendClientMessage(i, 0xFF3737FF, noerrorstring2);
-                        GivePlayerEP(i, 6);
-                        PlayerInfo[i][pAccount] += 6000;
-                    }
-                }
-                if (PlayerInfo[i][pBizO] > -1)
-                {
-                    format(noerrorstring2, 115, "Bizz: + %d$", BizInfo[PlayerInfo[i][pBizO]][bPayOut]);
-                    SendClientMessage(i, 0x00CCCCFF, noerrorstring2);
-                    PlayerInfo[i][pAccount] += BizInfo[PlayerInfo[i][pBizO]][bPayOut];
-                }
-                if (PlayerInfo[i][pBizO] > -1 && BizInfo[PlayerInfo[i][pBizO]][bEP] > 0)
-                {
-                    format(noerrorstring2, 115, "Bizz: + %d EP", BizInfo[PlayerInfo[i][pBizO]][bEP]);
-                    SendClientMessage(i, 0x00CCCCFF, noerrorstring2);
-                    GivePlayerEP(i, BizInfo[PlayerInfo[i][pBizO]][bEP]);
-                }
-                if (GetPlayerOfficeID(i) > 0)
-                {
-                    new hisOffice = GetPlayerOfficeID(i);
-                    new bonusEP = OfficeInfo[hisOffice][BonusEP];
-                    new bonusCash = OfficeInfo[hisOffice][BonusCash];
-                    format(noerrorstring2, 115, "Office: + %d EP и %d$", bonusEP, bonusCash);
-                    SendClientMessage(i, 0x00FF00FF, noerrorstring2);
-                    GivePlayerEP(i, bonusEP);
-                    PlayerInfo[i][pAccount] += bonusCash;
-                }
-                if (PlayerInfo[i][pVip] == 1)
-                {
-                    format(noerrorstring2, 115, "VIP Level 1: + 1 EP и 1000$");
-                    SendClientMessage(i, 0xE65B00FF, noerrorstring2);
-                    GivePlayerEP(i, 1);
-                    PlayerInfo[i][pAccount] += 1000;
-                }
-                if (PlayerInfo[i][pVip] == 2)
-                {
-                    format(noerrorstring2, 115, "VIP Level 2: + 2 EP и 2000$");
-                    SendClientMessage(i, 0xE65B00FF, noerrorstring2);
-                    GivePlayerEP(i, 2);
-                    PlayerInfo[i][pAccount] += 2000;
-                }
-                if (PlayerInfo[i][pVip] == 3)
-                {
-                    format(noerrorstring2, 115, "VIP Level 3: + 3 EP и 3000$");
-                    SendClientMessage(i, 0xE65B00FF, noerrorstring2);
-                    GivePlayerEP(i, 3);
-                    PlayerInfo[i][pAccount] += 3000;
-                }
-                if (PlayerInfo[i][pVip] == 4)
-                {
-                    format(noerrorstring2, 115, "VIP Level 4: + 4 EP и 4000$");
-                    SendClientMessage(i, 0xE65B00FF, noerrorstring2);
-                    GivePlayerEP(i, 4);
-                    PlayerInfo[i][pAccount] += 4000;
-                }
-                if (PlayerInfo[i][pVip] == 5)
-                {
-                    format(noerrorstring2, 115, "VIP Level 5: + 5 EP и 5000$");
-                    SendClientMessage(i, 0xE65B00FF, noerrorstring2);
-                    GivePlayerEP(i, 5);
-                    PlayerInfo[i][pAccount] += 5000;
-                }
-                if (PlayerInfo[i][pVip] == 6 || CheckFreeVIP() == 1)
-                {
-                    format(noerrorstring2, 115, "VIP Level 6: + 6 EP и 6000$");
-                    SendClientMessage(i, 0xE65B00FF, noerrorstring2);
-                    GivePlayerEP(i, 6);
-                    PlayerInfo[i][pAccount] += 6000;
-                }
-                if (PlayerInfo[i][pEPS] > 0)
-                {
-                    format(noerrorstring2, 115, "EP Skill: + %d EP", PlayerInfo[i][pEPS]);
-                    SendClientMessage(i, 0x80D5FFFF, noerrorstring2);
-                }
-                GivePlayerEP(i, PlayerInfo[i][pEPS]);
-                SendClientMessage(i, 0xC6A2DEFF, "|----------------------------|");
-                format(noerrorstring2, 115, "Нова обща сума: $%d", PlayerInfo[i][pAccount]);
-                SendClientMessage(i, 0x40BF00FF, noerrorstring2);
-                format(noerrorstring2, 115, "~y~PAYDAY~n~~w~PAYCHECK:~n~~g~$%d", zaplatakinti[i]);
-                GameTextForPlayer(i, noerrorstring2, 3000, 1);
-                PlayerInfo[i][pLastPayday] = 0;
-                if (PlayerInfo[i][pAFK] > 1)
-                {
-                    PlayerInfo[i][pAFK] = 1;
-                }
+                format(noerrorstring2, sizeof(noerrorstring2), "Money Skill: + $%d", playerMS * 10000);
+                SendClientMessage(i, 0x80D5FF80, noerrorstring2);
+                accountTotal += playerMS * 10000;
+            }
+
+            // Фракционен бонус
+            ProcessFactionBonus(i, playerTeam, playerRank, accountTotal, epTotal);
+
+            // Бизнес бонус
+            ProcessBizBonus(i, playerBiz, accountTotal, epTotal);
+
+            // Офис бонус
+            ProcessOfficeBonus(i, accountTotal, epTotal);
+
+            // VIP бонус
+            ProcessVIPBonus(i, playerVip, accountTotal, epTotal);
+
+            // EP Skill бонус
+            if (playerEPS > 0)
+            {
+                format(noerrorstring2, sizeof(noerrorstring2), "EP Skill: + %d EP", playerEPS);
+                SendClientMessage(i, 0x80D5FFFF, noerrorstring2);
+                epTotal += playerEPS;
+            }
+
+            // Прилагане на EP бонусите
+            if (epTotal > 0) GivePlayerEP(i, epTotal);
+
+            // Запазване на новата сума
+            PlayerInfo[i][pAccount] = accountTotal;
+
+            // Разделителна линия
+            SendClientMessage(i, 0xC6A2DEFF, "|----------------------------|");
+
+            // Нова обща сума
+            format(noerrorstring2, sizeof(noerrorstring2), "Нова обща сума: $%d", accountTotal);
+            SendClientMessage(i, 0x40BF00FF, noerrorstring2);
+
+            // GameText за Payday
+            format(noerrorstring2, sizeof(noerrorstring2), "~y~PAYDAY~n~~w~PAYCHECK:~n~~g~$%d", salary);
+            GameTextForPlayer(i, noerrorstring2, 3000, 1);
+
+            // Нулиране на pLastPayday
+            PlayerInfo[i][pLastPayday] = 0;
+
+            // Корекция на AFK
+            if (playerAFK > 1)
+            {
+                PlayerInfo[i][pAFK] = 1;
             }
         }
+
+        paydayInProgress = false;
     }
+
 
     if (minutes == 59 && seconds == 0)
     {
