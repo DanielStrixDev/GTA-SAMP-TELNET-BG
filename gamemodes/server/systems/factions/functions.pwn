@@ -561,6 +561,7 @@ hook OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
     if (ispassenger) return Y_HOOKS_CONTINUE_RETURN_1;
     
     // Проверка за всички банди (само за шофьори)
+    if (!CheckGangVehicle(playerid, vehicleid, isVipGangVeh, FACTION_VIP, TeamInfo[FACTION_VIP][tName])) return Y_HOOKS_CONTINUE_RETURN_1;
     if (!CheckGangVehicle(playerid, vehicleid, isGroveGangVeh, FACTION_GROVE, TeamInfo[FACTION_GROVE][tName])) return Y_HOOKS_CONTINUE_RETURN_1;
     if (!CheckGangVehicle(playerid, vehicleid, isBallasGangVeh, FACTION_BALLAS, TeamInfo[FACTION_BALLAS][tName])) return Y_HOOKS_CONTINUE_RETURN_1;
     if (!CheckGangVehicle(playerid, vehicleid, isVagosGangVeh, FACTION_VAGOS, TeamInfo[FACTION_VAGOS][tName])) return Y_HOOKS_CONTINUE_RETURN_1;
@@ -581,14 +582,9 @@ hook OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
     if (!CheckGangVehicle(playerid, vehicleid, isMS13GangVeh, FACTION_MS13, TeamInfo[FACTION_MS13][tName])) return Y_HOOKS_CONTINUE_RETURN_1;
     if (!CheckGangVehicle(playerid, vehicleid, isBGMafiaGangVeh, FACTION_BGMAFIA, TeamInfo[FACTION_BGMAFIA][tName])) return Y_HOOKS_CONTINUE_RETURN_1;
     if (!CheckGangVehicle(playerid, vehicleid, is343GangVeh, FACTION_343, TeamInfo[FACTION_343][tName])) return Y_HOOKS_CONTINUE_RETURN_1;
-    
+    if (!CheckGangVehicle(playerid, vehicleid, is343GangVeh, FACTION_INTENSE_POLICE, TeamInfo[FACTION_INTENSE_POLICE][tName])) return Y_HOOKS_CONTINUE_RETURN_1;
+
     // Полицейски проверки
-    if (isIntensePDGangVeh[vehicleid] && PlayerInfo[playerid][pTeam] != FACTION_INTENSE_POLICE)
-    {
-        DenyVehicleEntry(playerid, TeamInfo[FACTION_INTENSE_POLICE][tName]);
-        return Y_HOOKS_CONTINUE_RETURN_1;
-    }
-    
     if (isIntensePDGangVehDUTY[vehicleid] && !PlayerInfo[playerid][pIPDDuty])
     {
         DenyVehicleEntry(playerid, "Трябва да си на смяна за да караш това превозно средство!");

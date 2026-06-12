@@ -134,7 +134,7 @@ new string[256];
 #include "server/systems/jail/functions.pwn"
 #include "server/systems/admin/functions.pwn"
 #include "server/systems/fuel/functions.pwn"
-#include "server/systems/payyday/functions.pwn"
+#include "server/systems/payday/functions.pwn"
 
 // DATABASE
 #include "server/db.pwn"

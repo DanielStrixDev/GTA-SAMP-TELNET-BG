@@ -1,14 +1,12 @@
 stock ProcessFactionBonus(playerid, team, rank, &account, &ep)
 {
     new bonusEP = 0, bonusCash = 0;
-    new color = 0;
-    new const message[64];
+    new message[256];
 
     switch (team)
     {
         case FACTION_INTENSE_POLICE:
         {
-            color = COLOR_IPD_CHAT;
             switch (rank)
             {
                 case 1:
@@ -45,20 +43,19 @@ stock ProcessFactionBonus(playerid, team, rank, &account, &ep)
             if (bonusEP > 0)
             {
                 format(message, sizeof(message), "Intense Police Department: + %d EP è %d$", bonusEP, bonusCash);
-                SendClientMessage(playerid, color, message);
+                SendClientMessage(playerid, COLOR_IPD_CHAT, message);
                 ep += bonusEP;
                 account += bonusCash;
             }
         }
         case FACTION_VIP:
         {
-            color = 0xFF3737FF;
             if (rank >= 2 && rank <= 6)
             {
                 bonusEP = rank;
                 bonusCash = rank * 1000;
                 format(message, sizeof(message), "VIP Gang: + %d EP è %d$", bonusEP, bonusCash);
-                SendClientMessage(playerid, color, message);
+                SendClientMessage(playerid, 0xFF3737FF, message);
                 ep += bonusEP;
                 account += bonusCash;
             }
